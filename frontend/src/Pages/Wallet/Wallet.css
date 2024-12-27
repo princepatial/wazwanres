@@ -1,0 +1,89 @@
+.metamask-connect-container {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .metamask-not-installed {
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  .metamask-connected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .connected-account {
+    font-size: 16px;
+    color: #28a745;
+    margin-bottom: 10px;
+  }
+  
+  .metamask-connect-btn,
+  .metamask-disconnect-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .metamask-connect-btn {
+    background-color: #f6851b;
+    color: white;
+  }
+  
+  .metamask-disconnect-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .metamask-connect-btn:hover,
+  .metamask-disconnect-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
+  .metamask-connect-btn svg,
+  .metamask-disconnect-btn svg {
+    margin-right: 8px;
+  }
+  
+  .payment-btn.pay-wallet {
+    background-color: #f6851b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .payment-btn.pay-wallet:hover {
+    background-color: #e2761b;
+    transform: translateY(-2px);
+  }
+  
+  .payment-btn.pay-wallet:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .payment-btn.pay-wallet svg {
+    margin-right: 8px;
+  }
+  

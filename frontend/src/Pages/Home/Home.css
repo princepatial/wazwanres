@@ -1,0 +1,521 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+  --primary-color: #800000;
+  --secondary-color: #FF4500;
+  --text-color: #FFFFFF;
+  --accent-color: #FFD700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.luxury-food-home {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #4A0000 100%);
+  min-height: 100vh;
+  padding: 2rem 5%;
+  position: relative;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 4rem;
+  padding: 4rem 0;
+}
+
+.left-content {
+  flex: 1;
+  max-width: 600px;
+  z-index: 2;
+}
+
+.main-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  color: var(--text-color);
+  font-family: 'Playfair Display', serif;
+}
+
+.highlight {
+  color: var(--accent-color);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+}
+
+.explore-menu-container {
+  display: flex;
+  justify-content: flex-start; /* Align to the left */
+  align-items: center;
+  margin: 20px 0;
+}
+
+.explore-menu-button {
+  background: var(--secondary-color); /* Use the secondary color */
+  border: none;
+  border-radius: 30px; /* More rounded corners */
+  padding: 15px 30px;
+  font-size: 18px;
+  color: var(--text-color); /* Use the text color variable */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif; /* Match the font */
+  font-weight: 600; /* Make it bold */
+  text-transform: uppercase; /* Uppercase text */
+  letter-spacing: 1px; /* Add letter spacing */
+}
+
+.explore-menu-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3); /* Use secondary color for glow */
+}
+
+.button-hover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2); /* Lighter hover effect */
+  transition: width 0.3s ease;
+  transform: translate(-50%, -50%);
+  border-radius: 30px; /* Match the button's border radius */
+  z-index: 0;
+}
+
+.explore-menu-button:hover .button-hover {
+  width: 110%; /* Slightly larger than the button for a glow effect */
+}
+
+.explore-menu-button span {
+  position: relative;
+  z-index: 1;
+}
+
+
+.right-content {
+  flex: 1;
+  position: relative;
+  height: 600px;
+  perspective: 1000px;
+}
+
+.chef-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 30px;
+  transform: rotateY(-5deg);
+  transition: transform 0.5s ease;
+}
+
+.floating-cards {
+  position: absolute;
+  top: 0;
+  right: -50px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.food-card {
+  position: absolute;
+  width: 150px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.card-content img {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-content h3 {
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.card1 { top: 70%; right: 90%; }
+.card2 { top: 70%; right: 80%; }
+.card3 { top: 70%; right: 15%; }
+.card4 { top: 70%; right: 5%; }
+
+.reservation-section {
+  background-color: #FFFFFF;
+  padding: 5rem 0;
+  color: #333;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+
+.how-it-works {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #FFFFFF;
+  font-family: Arial, sans-serif;
+}
+
+.how-it-works #title {
+  color: #d35400 ;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+  position: relative;
+}
+
+.step {
+  background-color: #FFF3E0;
+  border-radius: 15px;
+  padding: 20px;
+  width: 28%;
+  position: relative;
+  z-index: 2;
+}
+
+.step:hover {
+  transform: translateY(-10px) rotateZ(2deg);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  color: #FF9800;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 22px;
+  color: #FF5722;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+p {
+  color: #4e342e;
+  font-size: 14px;
+}
+
+/* Updated styles for curved lines */
+.connector {
+  position: absolute;
+  top: 40%;
+  left: 14%;
+  right: 14%;
+  height: 50px;
+  z-index: 1;
+}
+
+.connector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: none;
+  border: 3px dashed #FF9800;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0 0 100% 100%;
+}
+
+.connector::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #FF9800;
+  border-radius: 50%;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.connector:nth-child(3) {
+  left: 57%;
+  right: 0;
+}
+
+.connector:nth-child(3)::before {
+  border-radius: 0 0 100% 100%;
+  transform: scaleX(-1);
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+.reservation-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin: 0 auto;
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-group input,
+.form-group select {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+}
+
+.submit-button {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  align-self: flex-end;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 69, 0, 0.3);
+}
+
+
+
+.media-button,
+.feedback-button {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+/* Positioning */
+.media-button {
+  right: 1rem; /* Align with feedback button */
+  bottom: 8rem; /* Place above feedback button */
+  background: var(--secondary-color);
+  border-radius: 50%; /* Keep border-radius for media button */
+}
+
+.feedback-button {
+  right: 1rem; /* Same horizontal alignment as media button */
+  bottom: 2rem; /* Lower position */
+  background: #ccffcc; /* Light green background */
+  color: #006400; /* Dark green for the icon */
+}
+
+/* Improve hover effect */
+.media-button:hover,
+.feedback-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon visibility enhancements */
+.feedback-button svg {
+  color: #006400; /* Slightly darker green for the icon */
+  z-index: 1; /* Keep the icon above the button background */
+}
+
+.feedback-button:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ccffcc; /* Light green background for consistency */
+  z-index: 0; /* Place background below the icon */
+  border-radius: 50%;
+}
+
+
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .left-content {
+    max-width: 100%;
+  }
+
+  .main-title {
+    font-size: 3.5rem;
+  }
+
+  .right-content {
+    height: 400px;
+  }
+
+  .floating-cards {
+    right: 0;
+  }
+
+  .food-card {
+    width: 120px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem;
+  }
+
+  .main-title {
+    font-size: 3rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .location-dropdown {
+    border-right: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1rem;
+  }
+
+  .form-group {
+    flex-direction: column;
+  }
+
+  .submit-button {
+    align-self: stretch;
+  }
+
+  .media-button,
+  .feedback-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .media-button {
+    right: 5rem;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+.food-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+.card1 { animation-delay: 0s; }
+.card2 { animation-delay: -1.5s; }
+.card3 { animation-delay: -3s; }
+.card4 { animation-delay: -4.5s; }
+
+

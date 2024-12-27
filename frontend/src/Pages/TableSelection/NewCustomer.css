@@ -1,0 +1,306 @@
+.new-customer-page {
+  background: url('https://images.unsplash.com/photo-1497644083578-611b798c60f3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  color: #333;
+  padding: 10px;
+}
+
+.content-wrapper1 {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 90%;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  color: #8B4513;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  color: #6B4226;
+}
+
+.reservation-container {
+  display: flex;
+  gap: 40px;
+}
+
+.table-selection, .mobile-input-section {
+  flex: 1;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #8B4513;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 15px;
+}
+
+.table-button {
+  background: #D2B48C;
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+}
+
+.table-button:hover, .table-button.selected {
+  background: #8B4513;
+}
+
+.table-button.unavailable {
+  background: #D3D3D3;
+  cursor: not-allowed;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+input[type="tel"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #D2B48C;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#submit-button {
+  width: 100%;
+  padding: 12px;
+  background: #8B4513;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#submit-button:hover {
+  background: #6B4226;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #8B4513;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+.mandatory {
+  color: red;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+/* OTP Modal */
+.otp-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  z-index: 9999;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Header */
+.otp-modal h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* OTP Input Field */
+.otp-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  margin-bottom: 30px;
+  color: #333;
+  background: #f9f9f9;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.otp-input:focus {
+  border-color: #6c7f97;
+  box-shadow: 0 0 10px rgba(108, 127, 151, 0.3);
+  outline: none;
+}
+
+/* Placeholder Text */
+.otp-input::placeholder {
+  color: #aaa;
+}
+
+/* Verify Button */
+.verify-button {
+  background-color: #6c7f97;
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(108, 127, 151, 0.2);
+}
+
+.verify-button:hover {
+  background-color: #576e87;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 127, 151, 0.3);
+}
+
+.verify-button:disabled {
+  background-color: #c7c7c7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Loading State */
+.verify-button.loading {
+  background-color: #a1b5c1;
+  cursor: progress;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Modal Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+
+.ReactModal__Overlay {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Media Query for screen size between 768px and 1024px */
+@media (max-width: 1024px) and (min-width: 768px) {
+
+  .content-wrapper {
+    padding: 20px; /* Adjusted padding */
+    max-width: 90%; /* Ensure content fits well on smaller screens */
+    width: 100%;
+  }
+
+  .page-header h1 {
+    font-size: 2rem; /* Smaller header size */
+    margin-bottom: 10px;
+  }
+
+  .page-header p {
+    font-size: 1rem; /* Smaller subtitle */
+  }
+
+  .reservation-container {
+    display: flex;
+    flex-direction: column; /* Stack the content vertically */
+    gap: 20px;
+  }
+
+  .table-selection, .mobile-input-section {
+    flex: none; /* Allow sections to stack */
+    width: 100%; /* Ensure sections take full width */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Smaller font size for headings */
+    margin-bottom: 15px;
+  }
+
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust the grid to fit smaller screens */
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .table-button {
+    padding: 10px; /* Reduced padding */
+    font-size: 0.9rem; /* Smaller font size for table buttons */
+  }
+
+  .input-group {
+    margin-bottom: 15px; /* Reduced margin */
+  }
+
+  input[type="tel"] {
+    padding: 10px; /* Adjusted padding */
+    font-size: 0.9rem; /* Smaller font size for input */
+  }
+
+  #submit-button {
+    padding: 10px; /* Adjusted padding */
+    font-size: 0.9rem; /* Smaller font size for submit button */
+  }
+
+  .loading-spinner {
+    width: 30px; /* Smaller loading spinner */
+    height: 30px;
+    margin: 15px auto;
+  }
+}
