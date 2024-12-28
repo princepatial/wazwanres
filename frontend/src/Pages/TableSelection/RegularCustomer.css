@@ -101,35 +101,137 @@
   100% { transform: rotate(360deg); }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+
+@media (min-width: 767px) and (max-width: 1204px) {
   .rc-content-wrapper {
     padding: 30px;
-    max-width: 700px;
+    max-width: 90%;
+    margin-top: 20px; /* Move the container downward */
+  }
+
+  .rc-regular-customer-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Adjust vertical alignment */
+    padding-top: 40px; /* Add space at the top */
   }
 
   .rc-page-header h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .rc-page-header p {
-    font-size: 1.1rem;
-  }
-
-  .rc-reservation-container {
-    gap: 30px;
+    font-size: 1rem;
   }
 
   .rc-table-selection h2 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .rc-tables-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+  }
+
+  .rc-table-button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .rc-loading-spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 3px;
+  }
+}
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .rc-content-wrapper {
+    padding: 20px;
+    max-width: 95%;
+    margin-top: 30px;
+  }
+
+  .rc-regular-customer-page {
+    padding-top: 30px;
+    align-items: flex-start;
+  }
+
+  .rc-page-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .rc-page-header p {
+    font-size: 0.9rem;
+  }
+
+  .rc-table-selection h2 {
+    font-size: 1.2rem;
+  }
+
+  .rc-tables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 tables per row */
+    gap: 10px;
   }
 
   .rc-table-button {
     padding: 12px;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .rc-loading-spinner {
+    width: 25px;
+    height: 25px;
+    border-width: 3px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .rc-content-wrapper {
+    padding: 15px;
+    max-width: 100%;
+    margin-top: 60px;
+  }
+
+  .rc-regular-customer-page {
+    padding-top: 20px;
+    align-items: flex-start;
+  }
+
+  .rc-page-header h1 {
+    font-size: 1.4rem; /* Smaller header size */
+  }
+
+  .rc-page-header p {
+    font-size: 0.8rem; /* Smaller paragraph text */
+  }
+
+  .rc-table-selection h2 {
+    font-size: 1rem; /* Smaller subheading */
+  }
+
+  .rc-tables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 tables per row on mobile */
+    gap: 8px;
+  }
+
+  .rc-table-button {
+    padding: 10px;
+    font-size: 0.9rem; /* Smaller button text */
+    text-align: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Truncate text if it's too long */
+  }
+
+  .rc-loading-spinner {
+    width: 20px;
+    height: 20px;
+    border-width: 3px;
   }
 }

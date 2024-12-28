@@ -107,19 +107,384 @@
     animation: fadeIn 1.2s ease;
   }
   
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .media-gallery {
-      grid-template-columns: 1fr; /* Stack one item per row on smaller screens */
-      gap: 20px;
-    }
-  
-    .media-item {
-      height: 250px;
-    }
-  
-    .media-title {
-      font-size: 2.5rem;
-    }
+/* Tablet-specific styles (768px - 1024px) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .gallery-container {
+      padding: 3rem 1.5rem;
+      margin-top: 20px;
   }
-  
+
+
+  .gallery-header {
+      margin-bottom: 2rem;
+  }
+
+  .gallery-title {
+      font-size: 2.8rem;
+      margin-bottom: 0.8rem;
+  }
+
+  .gallery-subtitle {
+      font-size: 1.2rem;
+  }
+
+  .category-filters {
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      padding: 0 1rem;
+  }
+
+  .category-button {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+  }
+
+  .media-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for tablet */
+      gap: 1.5rem;
+      padding: 0 1rem;
+  }
+
+  .media-card {
+      border-radius: 12px;
+  }
+
+  .media-image-container {
+      padding-bottom: 70%; /* Slightly shorter aspect ratio for tablets */
+  }
+
+  .media-overlay {
+      padding: 1.5rem;
+      transform: translateY(80px);
+  }
+
+  .media-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+  }
+
+  .media-description {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+  }
+
+  .media-category {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+  }
+
+  /* Optimize hover effects for touch devices */
+  .media-card:hover .media-image,
+  .media-card:hover .media-video {
+      transform: scale(1.05); /* Reduced scale effect for better performance */
+  }
+
+  .media-card:hover .media-overlay {
+      transform: translateY(0);
+      transition: transform 0.3s ease; /* Faster transition for touch devices */
+  }
+}
+
+
+/* Mobile Landscape styles (481px - 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .gallery-container {
+      padding: 2rem 1rem;
+  }
+
+  .gallery-header {
+      margin-bottom: 1.5rem;
+  }
+
+  .gallery-title {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+  }
+
+  .gallery-subtitle {
+      font-size: 1rem;
+      padding: 0 1rem;
+  }
+
+  .category-filters {
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+  }
+
+  .category-filters::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
+  }
+
+  .category-button {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      min-width: auto;
+  }
+
+  .media-grid {
+      grid-template-columns: 1fr; /* Single column layout */
+      gap: 1rem;
+      padding: 0 0.5rem;
+  }
+
+  .media-card {
+      border-radius: 10px;
+      margin-bottom: 1rem;
+  }
+
+  .media-image-container {
+      padding-bottom: 65%; /* Adjusted aspect ratio for landscape view */
+  }
+
+  .media-overlay {
+      padding: 1rem;
+      transform: translateY(0); /* Always show overlay on mobile */
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.85) 50%);
+  }
+
+  .media-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+  }
+
+  .media-description {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      display: -webkit-box;
+  }
+
+  .media-category {
+      padding: 0.25rem 0.7rem;
+      font-size: 0.75rem;
+      border-radius: 15px;
+  }
+
+  /* Optimize for touch interactions */
+  .media-card:hover .media-image,
+  .media-card:hover .media-video {
+      transform: scale(1.02); /* Minimal scale effect */
+  }
+
+  .media-card:active .media-image,
+  .media-card:active .media-video {
+      transform: scale(0.98); /* Subtle press effect */
+  }
+
+  /* Animation adjustments */
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: translateY(15px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  /* Performance optimizations */
+  .media-image, 
+  .media-video {
+      will-change: transform;
+      backface-visibility: hidden;
+  }
+
+  /* Loading state adjustments */
+  .media-image-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #f0f0f0;
+      z-index: -1;
+      border-radius: 10px;
+  }
+}
+
+/* Mobile styles (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .gallery-container {
+      padding: 1.5rem 0.75rem;
+      min-height: auto;
+  }
+
+  .gallery-header {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+
+
+  .gallery-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 1px;
+      padding: 0 0.5rem;
+      background: linear-gradient(to right, #f5d742, #f5a742);
+      -webkit-background-clip: text;
+      line-height: 1.2;
+      margin-top: 1.5rem;
+  }
+
+  .gallery-subtitle {
+      font-size: 0.9rem;
+      padding: 0 1rem;
+      line-height: 1.4;
+  }
+
+  /* Category Filter Optimization */
+  .category-filters {
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding: 0.5rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding-bottom: 0.5rem;
+      margin: 0 -0.75rem 1.25rem;
+      padding: 0 0.75rem;
+  }
+
+  .category-filters::-webkit-scrollbar {
+      display: none;
+  }
+
+  .category-button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      border-radius: 15px;
+      min-width: auto;
+      flex-shrink: 0;
+  }
+
+  .category-button.active {
+      box-shadow: 0 2px 10px rgba(245, 215, 66, 0.2);
+  }
+
+  /* Media Grid Adjustments */
+  .media-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 0;
+  }
+
+  .media-card {
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .media-image-container {
+      padding-bottom: 75%;
+  }
+
+  /* Media Content Adjustments */
+  .media-image, 
+  .media-video {
+      border-radius: 8px;
+      transform: none;
+      transition: transform 0.2s ease;
+  }
+
+  .media-overlay {
+      padding: 0.75rem;
+      transform: translateY(0);
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9) 70%);
+      border-radius: 0 0 8px 8px;
+  }
+
+  .media-title {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+  }
+
+  .media-description {
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+  }
+
+  .media-category {
+      padding: 0.2rem 0.6rem;
+      font-size: 0.7rem;
+      border-radius: 12px;
+      opacity: 0.9;
+  }
+
+  /* Touch Interactions */
+  .media-card:active {
+      transform: scale(0.98);
+  }
+
+  .media-card:hover .media-image,
+  .media-card:hover .media-video {
+      transform: none;
+  }
+
+  /* Loading States */
+  .media-image-container::before {
+      border-radius: 8px;
+  }
+
+  /* Performance Optimizations */
+  .media-card,
+  .media-image,
+  .media-video,
+  .media-overlay {
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+  }
+
+  /* Animation Adjustments */
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: translateY(10px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+
+  /* Loading Skeleton */
+  .media-card.loading {
+      background: linear-gradient(90deg, 
+          rgba(255,255,255,0.1), 
+          rgba(255,255,255,0.2), 
+          rgba(255,255,255,0.1)
+      );
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+  }
+}
+

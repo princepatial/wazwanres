@@ -437,73 +437,6 @@ p {
 
 
 
-@media (max-width: 1024px) {
-  .content-wrapper {
-    flex-direction: column;
-    gap: 3rem;
-  }
-
-  .left-content {
-    max-width: 100%;
-  }
-
-  .main-title {
-    font-size: 3.5rem;
-  }
-
-  .right-content {
-    height: 400px;
-  }
-
-  .floating-cards {
-    right: 0;
-  }
-
-  .food-card {
-    width: 120px;
-    height: 150px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-section {
-    padding: 2rem;
-  }
-
-  .main-title {
-    font-size: 3rem;
-  }
-
-  .search-bar {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .location-dropdown {
-    border-right: none;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 1rem;
-  }
-
-  .form-group {
-    flex-direction: column;
-  }
-
-  .submit-button {
-    align-self: stretch;
-  }
-
-  .media-button,
-  .feedback-button {
-    width: 50px;
-    height: 50px;
-  }
-
-  .media-button {
-    right: 5rem;
-  }
-}
-
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-10px) rotate(5deg); }
@@ -519,3 +452,556 @@ p {
 .card4 { animation-delay: -4.5s; }
 
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0;
+    margin-top: 30px;
+  }
+
+  .left-content {
+    text-align: center;
+    padding: 0 2rem;
+  }
+
+  .main-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .explore-menu-container {
+    justify-content: center;
+  }
+
+  .right-content {
+    height: 400px;
+    width: 100%;
+  }
+
+  .chef-image {
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .floating-cards {
+    right: 0;
+    width: 100%;
+  }
+
+  .food-card {
+    width: 120px;
+    height: 150px;
+  }
+
+  /* Adjust card positions for tablet view */
+  .card1 { top: 60%; right: 75%; }
+  .card2 { top: 60%; right: 55%; }
+  .card3 { top: 60%; right: 35%; }
+  .card4 { top: 60%; right: 15%; }
+
+  /* How it works section */
+  .steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .step {
+    width: 80%;
+    max-width: 400px;
+  }
+
+  .connector {
+    display: none; /* Hide connectors in tablet view */
+  }
+
+  /* Reservation section */
+  .reservation-section {
+    padding: 3rem 2rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  .reservation-form {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .form-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+
+  .submit-button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  /* Floating buttons */
+  .media-button,
+  .feedback-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .media-button {
+    bottom: 6rem;
+    right: 1rem;
+  }
+
+  .feedback-button {
+    bottom: 1.5rem;
+    right: 1rem;
+  }
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .luxury-food-home {
+    overflow-x: hidden;
+  }
+
+  .hero-section {
+    padding: 1rem 1.5rem;
+    min-height: auto;
+    margin-top: 35px;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem 0;
+  }
+
+  .left-content {
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .main-title {
+    font-size: 2.8rem;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .explore-menu-container {
+    justify-content: center;
+    margin: 15px 0;
+  }
+
+  .explore-menu-button {
+    padding: 12px 25px;
+    font-size: 16px;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .right-content {
+    height: 300px;
+    width: 100%;
+    perspective: 800px;
+  }
+
+  .chef-image {
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    transform: rotateY(0deg);
+  }
+
+  /* Adjust floating cards */
+  .floating-cards {
+    position: relative;
+    right: 0;
+    height: 200px;
+    margin-top: 2rem;
+  }
+
+  .food-card {
+    width: 100px;
+    height: 120px;
+    transform: none !important;
+  }
+
+  .card-content img {
+    height: 60%;
+  }
+
+  .card-content h3 {
+    font-size: 0.8rem;
+  }
+
+  /* Adjust card positions */
+  .card1 { top: 0; right: 70%; }
+  .card2 { top: 0; right: 50%; }
+  .card3 { top: 0; right: 30%; }
+  .card4 { top: 0; right: 10%; }
+
+  /* How it works section */
+  .how-it-works {
+    padding: 30px 15px;
+  }
+
+  .how-it-works #title {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 30px;
+  }
+
+  .step {
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+  }
+
+  .icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+
+  .step h2 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .step p {
+    font-size: 0.9rem;
+  }
+
+  .connector {
+    display: none;
+  }
+
+  /* Reservation section */
+  .reservation-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .reservation-container {
+    padding: 0 1rem;
+  }
+
+  .reservation-form {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .form-group {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Fixed buttons */
+  .media-button,
+  .feedback-button {
+    width: 45px;
+    height: 45px;
+  }
+
+  .media-button {
+    bottom: 5rem;
+    right: 0.8rem;
+  }
+
+  .feedback-button {
+    bottom: 1.2rem;
+    right: 0.8rem;
+  }
+
+  /* Animations */
+  .food-card {
+    animation: none;
+  }
+
+  /* Reduce shadow intensity */
+  .food-card:hover,
+  .step:hover,
+  .submit-button:hover,
+  .media-button:hover,
+  .feedback-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .luxury-food-home {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .hero-section {
+    padding: 1rem;
+    min-height: auto;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    margin-top: 70px;
+  }
+
+  .left-content {
+    text-align: center;
+    padding: 0;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+    padding: 0 0.5rem;
+  }
+
+  .explore-menu-container {
+    justify-content: center;
+    margin: 12px 0;
+  }
+
+  .explore-menu-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 90%;
+    max-width: 250px;
+  }
+
+  .button-hover {
+    display: none; /* Remove hover effect for better mobile performance */
+  }
+
+  .right-content {
+    height: 250px;
+    width: 100%;
+    perspective: none;
+    margin-top: 1rem;
+  }
+
+  .chef-image {
+    max-width: 95%;
+    height: auto;
+    transform: none;
+    border-radius: 15px;
+  }
+
+  /* Simplify floating cards for mobile */
+  .floating-cards {
+    position: relative;
+    right: 0;
+    height: 160px;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .food-card {
+    position: relative;
+    width: 80px;
+    height: 100px;
+    transform: none !important;
+    animation: none;
+  }
+
+  .card-content img {
+    height: 60%;
+  }
+
+  .card-content h3 {
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+  }
+
+  /* Reset all card positions for horizontal layout */
+  .card1, .card2, .card3, .card4 {
+    position: static;
+    margin: 0 5px;
+  }
+
+  /* How it works section */
+  .how-it-works {
+    padding: 25px 10px;
+  }
+
+  .how-it-works #title {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 20px;
+  }
+
+  .step {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 1rem;
+    transform: none !important;
+  }
+
+  .step:hover {
+    transform: none !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 12px;
+  }
+
+  .step h2 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .step p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .connector {
+    display: none;
+  }
+
+  /* Reservation section */
+  .reservation-section {
+    padding: 2rem 0.8rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .reservation-container {
+    padding: 0 0.5rem;
+  }
+
+  .reservation-form {
+    width: 100%;
+    gap: 0.8rem;
+  }
+
+  .form-group {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+  }
+
+  /* Fixed buttons */
+  .media-button,
+  .feedback-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .media-button {
+    bottom: 4.5rem;
+    right: 0.6rem;
+  }
+
+  .feedback-button {
+    bottom: 1rem;
+    right: 0.6rem;
+  }
+
+  /* Reduce all animations and transitions for better performance */
+  * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+
+  /* Optimize touch targets */
+  button,
+  input,
+  select {
+    min-height: 44px; /* Standard minimum touch target size */
+  }
+
+  /* Improve form usability on mobile */
+  input:focus,
+  select:focus {
+    font-size: 16px; /* Prevent iOS zoom on focus */
+  }
+
+  /* Remove hover states on mobile */
+  .food-card:hover,
+  .step:hover,
+  .submit-button:hover,
+  .media-button:hover,
+  .feedback-button:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}

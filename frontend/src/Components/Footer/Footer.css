@@ -137,3 +137,125 @@
     margin-top: 20px; /* Reduce margin for compactness */
   }
 }
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center;
+    gap: 20px; /* Add spacing between sections */
+    text-align: center; /* Center align text */
+  }
+
+  .footer-logo h2 {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
+
+  .footer-logo p {
+    font-size: 12px; /* Adjust text size for better fit */
+    margin: 5px 0; /* Reduce margin */
+  }
+
+  .footer-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 10px; /* Add spacing between links */
+    text-align: center; /* Center align links */
+  }
+
+  .footer-links a {
+    font-size: 14px; /* Maintain readability */
+  }
+
+  .footer-social {
+    flex-direction: row; /* Keep social icons in a row */
+    justify-content: center; /* Center the icons */
+    gap: 15px; /* Add spacing between icons */
+  }
+
+  .footer-info {
+    flex-direction: column; /* Stack info items vertically */
+    gap: 15px; /* Add spacing between info items */
+    text-align: center; /* Center align info */
+    font-size: 12px; /* Reduce font size slightly */
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adjust spacing between icon and text */
+    justify-content: center; /* Center info items */
+  }
+
+  .footer-bottom {
+    font-size: 12px; /* Reduce font size for compactness */
+    text-align: center; /* Center align text */
+    padding-top: 10px;
+    margin-top: 15px;
+  }
+
+  #color {
+    color: #999; /* Adjust color for better readability */
+  }
+}
+
+
+@media (max-width: 480px) {
+  .footer-content {
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center; /* Center align all content */
+    gap: 20px; /* Add spacing between sections */
+    padding: 0 15px; /* Add padding for better spacing on mobile */
+    text-align: center; /* Center align all text */
+  }
+
+  .footer-logo h2 {
+    font-size: 18px; /* Reduce font size for mobile screens */
+  }
+
+  .footer-logo p {
+    font-size: 11px; /* Adjust text size for compactness */
+    margin: 5px 0; /* Reduce margin for a cleaner look */
+  }
+
+  .footer-links {
+    flex-direction: column; /* Stack links vertically */
+    gap: 10px; /* Add spacing between links */
+  }
+
+  .footer-links a {
+    font-size: 12px; /* Reduce font size for better fit */
+  }
+
+  .footer-social {
+    flex-direction: row; /* Keep social icons in a row */
+    justify-content: center; /* Center the icons */
+    gap: 12px; /* Adjust spacing between icons */
+    font-size: 16px; /* Reduce icon size slightly */
+  }
+
+  .footer-info {
+    flex-direction: column; /* Stack info items vertically */
+    gap: 12px; /* Add spacing between info items */
+    text-align: center; /* Center align info text */
+    font-size: 11px; /* Reduce font size for clarity */
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column; /* Stack icon and text vertically */
+    align-items: center; /* Center align content */
+    gap: 5px; /* Add small spacing between icon and text */
+  }
+
+  .footer-bottom {
+    font-size: 10px; /* Reduce font size for compactness */
+    text-align: center; /* Center align text */
+    padding-top: 10px; /* Adjust padding */
+    margin-top: 10px; /* Reduce margin for compactness */
+  }
+
+  #color {
+    color: #bbb; /* Lighten text color for better readability */
+  }
+}
+

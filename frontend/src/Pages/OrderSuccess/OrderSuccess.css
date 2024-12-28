@@ -217,33 +217,468 @@ body {
 }
 
 
-@media (max-width: 768px) {
-  .order-success-content {
-    padding: 2rem;
-  }
-
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .order-actions {
-    flex-direction: column;
-  }
-
-  .action-button {
-    width: 100%;
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
-}
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+
+/* Media Query specifically for 767px to 1024px */
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  /* Container adjustments */
+  .elegant-order-success {
+    padding: 1rem;
+    min-height: 100vh;
+    margin-top: 30px;
+  }
+
+  .order-success-content {
+    padding: 2rem;
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  /* Loading state and spinner adjustments */
+  .order-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 1rem;
+  }
+
+  /* Adjust spinner size for different screen ranges */
+  .order-loading .animate-spin,
+  .success-icon .animate-spin {
+    width: 48px;
+    height: 48px;
+    animation: spin 1.5s linear infinite;
+  }
+
+  /* Optimize spinning animation for better performance */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Loading text */
+  .order-loading p {
+    font-size: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  /* Status icon adjustments */
+  .success-icon {
+    margin: 1.5rem 0;
+  }
+
+  .success-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Order details layout */
+  .detail-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .detail-item {
+    padding: 0.8rem;
+  }
+
+  .detail-label {
+    font-size: 0.9rem;
+  }
+
+  .detail-value {
+    font-size: 0.9rem;
+  }
+
+  /* Order items list */
+  .order-items {
+    margin-top: 1.5rem;
+  }
+
+  .order-items li {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+  }
+
+  /* Action buttons */
+  .order-actions {
+    margin-top: 1.5rem;
+    gap: 1rem;
+  }
+
+  .action-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Loading states for different order statuses */
+  .order-loading[data-status="pending"] .animate-spin,
+  .success-icon[data-status="pending"] .animate-spin {
+    color: #FFA500;
+  }
+
+  .order-loading[data-status="cooking"] .animate-spin,
+  .success-icon[data-status="cooking"] .animate-spin {
+    color: #2196F3;
+  }
+
+  /* Ensure smooth animation with hardware acceleration */
+  .animate-spin {
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Feedback popup adjustments */
+  .feedback-popup {
+    width: 200px;
+    right: -10px;
+    padding: 1rem;
+  }
+
+  /* Error state adjustments */
+  .order-error {
+    padding: 2rem;
+  }
+
+  .order-error svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .order-error h2 {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+
+  .order-error p {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* Tablet Screens (481px - 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .elegant-order-success {
+    padding: 1rem;
+    min-height: auto;
+    margin-top: 50px;
+  }
+
+  .order-success-content {
+    padding: 1.5rem;
+    max-width: 100%;
+    margin: 1rem;
+  }
+
+  /* Header and Icon */
+  .success-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .success-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Order Details Grid */
+  .order-details {
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .order-loading .animate-spin,
+  .success-icon .animate-spin {
+    width: 40px;
+    height: 40px;
+    animation: spin 1.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .detail-item {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .detail-label {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+
+  .detail-value {
+    font-size: 0.9rem;
+  }
+
+  /* Order Items */
+  .order-items h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .order-items li {
+    font-size: 0.85rem;
+    padding: 0.4rem 0;
+  }
+
+  /* Actions */
+  .order-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  /* Loading States */
+  .order-loading {
+    min-height: 50vh;
+  }
+
+  .order-loading .animate-spin,
+  .success-icon .animate-spin {
+    width: 40px;
+    height: 40px;
+  }
+
+  .order-loading p {
+    font-size: 0.9rem;
+  }
+
+  /* Feedback Popup */
+  .feedback-popup {
+    width: 180px;
+    padding: 0.8rem;
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+  }
+
+  .feedback-popup h3 {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+
+  .feedback-popup p {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .feedback-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Screens (480px and below) */
+@media screen and (max-width: 480px) {
+  .elegant-order-success {
+    padding: 0.5rem;
+    min-height: auto;
+    margin-top: 70px;
+  }
+
+  .order-success-content {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 10px;
+  }
+
+  /* Header and Icon */
+  .success-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .success-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .order-loading .animate-spin,
+  .success-icon .animate-spin {
+    width: 32px;
+    height: 32px;
+    animation: spin 1.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg) translateZ(0);
+    }
+    100% {
+      transform: rotate(360deg) translateZ(0);
+    }
+  }
+
+  /* Order Details */
+  .order-details {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .detail-item {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .detail-label {
+    font-size: 0.75rem;
+    margin-bottom: 0;
+  }
+
+  .detail-value {
+    font-size: 0.8rem;
+  }
+
+  /* Order Items */
+  .order-items h3 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .order-items li {
+    font-size: 0.75rem;
+    padding: 0.3rem 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Actions */
+  .order-actions {
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+  }
+
+  /* Loading States */
+  .order-loading {
+    min-height: 40vh;
+  }
+
+  .order-loading .animate-spin,
+  .success-icon .animate-spin {
+    width: 32px;
+    height: 32px;
+  }
+
+  .order-loading p {
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  /* Error States */
+  .order-error {
+    padding: 1rem;
+  }
+
+  .order-error svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .order-error h2 {
+    font-size: 1rem;
+    margin: 0.8rem 0;
+  }
+
+  .order-error p {
+    font-size: 0.8rem;
+  }
+
+  /* Feedback Popup */
+  .feedback-popup {
+    width: 160px;
+    padding: 0.6rem;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    transform: none;
+    border-radius: 8px 0 0 0;
+  }
+
+  .feedback-popup h3 {
+    font-size: 0.8rem;
+    margin: 0.4rem 0;
+  }
+
+  .feedback-popup p {
+    font-size: 0.7rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .feedback-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    border-radius: 4px;
+  }
+
+  /* Optimize animations for mobile */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg) translateZ(0);
+    }
+    100% {
+      transform: rotate(360deg) translateZ(0);
+    }
+  }
+
+  .animate-spin {
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
   }
 }

@@ -237,70 +237,235 @@ input[type="tel"] {
   100% { transform: rotate(360deg); }
 }
 
-/* Media Query for screen size between 768px and 1024px */
-@media (max-width: 1024px) and (min-width: 768px) {
 
-  .content-wrapper {
-    padding: 20px; /* Adjusted padding */
-    max-width: 90%; /* Ensure content fits well on smaller screens */
-    width: 100%;
+/* Media Queries for Responsive Design between 768px and 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .new-customer-page {
+    padding: 20px; /* Add some padding for smaller screens */
+  }
+
+  .content-wrapper1 {
+    padding: 30px; /* Reduce padding for smaller screens */
+    margin-top: 50px;
   }
 
   .page-header h1 {
-    font-size: 2rem; /* Smaller header size */
-    margin-bottom: 10px;
+    font-size: 2rem; /* Smaller font size for the header */
+  }
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Display 6 tables in one row */
+    gap: 15px; /* Maintain gap between tables */
   }
 
   .page-header p {
-    font-size: 1rem; /* Smaller subtitle */
+    font-size: 1rem; /* Smaller font size for the paragraph */
   }
 
   .reservation-container {
-    display: flex;
-    flex-direction: column; /* Stack the content vertically */
-    gap: 20px;
+    flex-direction: column; /* Stack the sections vertically */
+    gap: 20px; /* Reduce gap between sections */
   }
 
   .table-selection, .mobile-input-section {
-    flex: none; /* Allow sections to stack */
-    width: 100%; /* Ensure sections take full width */
+    width: 100%; /* Ensure full width for sections */
   }
 
   h2 {
-    font-size: 1.5rem; /* Smaller font size for headings */
-    margin-bottom: 15px;
+    font-size: 1.5rem; /* Smaller heading size */
+  }
+
+  .table-button {
+    font-size: 0.9rem; /* Smaller button font size */
+    padding: 10px; /* Adjust padding */
+  }
+
+  input[type="tel"] {
+    padding: 10px; /* Adjust input padding */
+    font-size: 0.9rem; /* Smaller input font size */
+  }
+
+  #submit-button {
+    padding: 10px; /* Adjust button padding */
+    font-size: 0.9rem; /* Smaller button font size */
+  }
+
+  .otp-modal {
+    max-width: 90%; /* Allow modal to take more width on smaller screens */
+  }
+
+  .otp-modal h2 {
+    font-size: 1.5rem; /* Smaller font size for modal header */
+  }
+
+  .otp-input {
+    font-size: 1rem; /* Smaller input font size */
+    padding: 10px; /* Adjust padding */
+  }
+
+  .verify-button {
+    padding: 10px 20px; /* Adjust button padding */
+    font-size: 1rem; /* Smaller button font size */
+  }
+
+  .loading-spinner {
+    width: 30px; /* Smaller spinner size */
+    height: 30px; /* Smaller spinner size */
+  }
+}
+
+/* Media Queries for Responsive Design between 481px and 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  .new-customer-page {
+    padding: 10px; /* Add some padding for smaller screens */
+  }
+
+  .content-wrapper1 {
+    padding: 20px; /* Reduce padding for smaller screens */
+    margin-top: 50px;
+  }
+
+  .page-header h1 {
+    font-size: 1.8rem; /* Smaller font size for the header */
+  }
+
+  .page-header p {
+    font-size: 1rem; /* Smaller font size for the paragraph */
+  }
+
+  .reservation-container {
+    flex-direction: column; /* Stack the sections vertically */
+    gap: 15px; /* Reduce gap between sections */
+  }
+
+  .table-selection, .mobile-input-section {
+    width: 100%; /* Ensure full width for sections */
+  }
+
+  h2 {
+    font-size: 1.5rem; /* Smaller heading size */
   }
 
   .tables-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Adjust the grid to fit smaller screens */
-    gap: 10px;
-    text-align: center;
-    align-items: center;
+    grid-template-columns: repeat(3, 1fr); /* Display 3 tables in one row */
+    gap: 10px; /* Maintain gap between tables */
   }
 
   .table-button {
-    padding: 10px; /* Reduced padding */
-    font-size: 0.9rem; /* Smaller font size for table buttons */
-  }
-
-  .input-group {
-    margin-bottom: 15px; /* Reduced margin */
+    padding: 10px; /* Adjust padding for buttons */
+    font-size: 0.9rem; /* Ensure the font size is readable */
   }
 
   input[type="tel"] {
-    padding: 10px; /* Adjusted padding */
-    font-size: 0.9rem; /* Smaller font size for input */
+    padding: 10px; /* Adjust input padding */
+    font-size: 0.9rem; /* Smaller input font size */
   }
 
   #submit-button {
-    padding: 10px; /* Adjusted padding */
-    font-size: 0.9rem; /* Smaller font size for submit button */
+    padding: 10px; /* Adjust button padding */
+    font-size: 0.9rem; /* Smaller button font size */
+  }
+
+  .otp-modal {
+    max-width: 90%; /* Allow modal to take more width on smaller screens */
+  }
+
+  .otp-modal h2 {
+    font-size: 1.5rem; /* Smaller font size for modal header */
+  }
+
+  .otp-input {
+    font-size: 1rem; /* Smaller input font size */
+    padding: 10px; /* Adjust padding */
+  }
+
+  .verify-button {
+    padding: 10px 20px; /* Adjust button padding */
+    font-size: 1rem; /* Smaller button font size */
   }
 
   .loading-spinner {
-    width: 30px; /* Smaller loading spinner */
-    height: 30px;
-    margin: 15px auto;
+    width: 30px; /* Smaller spinner size */
+    height: 30px; /* Smaller spinner size */
   }
 }
+
+/* Media Queries for Responsive Design for 481px and Below */
+@media (max-width: 481px) {
+  .new-customer-page {
+    padding: 5px; /* Add minimal padding for smaller screens */
+  }
+
+  .content-wrapper1 {
+    padding: 15px; /* Reduce padding for smaller screens */
+    margin-top: 70px;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem; /* Smaller font size for the header */
+  }
+
+  .page-header p {
+    font-size: 0.9rem; /* Smaller font size for the paragraph */
+  }
+
+  .reservation-container {
+    flex-direction: column; /* Stack the sections vertically */
+    gap: 10px; /* Reduce gap between sections */
+  }
+
+  .table-selection, .mobile-input-section {
+    width: 100%; /* Ensure full width for sections */
+  }
+
+  h2 {
+    font-size: 1.3rem; /* Smaller heading size */
+  }
+
+  .tables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Display 2 tables in one row */
+    gap: 8px; /* Maintain gap between tables */
+  }
+
+  .table-button {
+    padding: 8px; /* Adjust padding for buttons */
+    font-size: 0.8rem; /* Smaller font size for buttons */
+  }
+
+  input[type="tel"] {
+    padding: 8px; /* Adjust input padding */
+    font-size: 0.8rem; /* Smaller input font size */
+  }
+
+  #submit-button {
+    padding: 8px; /* Adjust button padding */
+    font-size: 0.8rem; /* Smaller button font size */
+  }
+
+  .otp-modal {
+    max-width: 90%; /* Allow modal to take more width on smaller screens */
+  }
+
+  .otp-modal h2 {
+    font-size: 1.3rem; /* Smaller font size for modal header */
+  }
+
+  .otp-input {
+    font-size: 0.9rem; /* Smaller input font size */
+    padding: 8px; /* Adjust padding */
+  }
+
+  .verify-button {
+    padding: 8px 15px; /* Adjust button padding */
+    font-size: 0.9rem; /* Smaller button font size */
+  }
+
+  .loading-spinner {
+    width: 25px; /* Smaller spinner size */
+    height: 25px; /* Smaller spinner size */
+  }
+}
+
+

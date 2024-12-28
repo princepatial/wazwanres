@@ -283,3 +283,325 @@
   background-color: #95a5a6;
   cursor: not-allowed;
 }
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+  .rf-feedback-wrapper {
+    padding: 50px 10px;
+  }
+  .rf-feedback-container {
+    max-width: 90%;
+    margin: 20px auto;
+  }
+
+  .rf-feedback-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .rf-feedback-header p {
+    font-size: 0.8rem;
+  }
+
+ 
+
+  .rf-location-card .rf-location-icon {
+    font-size: 2rem;
+  }
+
+  .rf-feedback-toggle {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .rf-toggle-btn {
+    width: 80%;
+    justify-content: center;
+  }
+
+  .rf-qr-image {
+    max-width: 200px;
+  }
+
+
+  .rf-rating-item {
+    padding: 15px;
+  }
+
+  .rf-star-rating {
+    font-size: 24px;
+  }
+
+  .rf-experience-form textarea {
+    height: 120px;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .rf-submit-feedback-btn {
+    padding: 12px 30px;
+    font-size: 0.9rem;
+  }
+
+  .rf-navigation-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .rf-back-button,
+  .rf-reset-location-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .rf-feedback-wrapper {
+    padding: 70px 10px;
+  }
+
+  .rf-feedback-container {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .rf-feedback-header {
+    padding: 20px 15px;
+  }
+
+  .rf-feedback-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .rf-feedback-header p {
+    font-size: 0.8rem;
+  }
+
+  .rf-navigation-buttons {
+    position: static;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .rf-back-button,
+  .rf-reset-location-button {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+
+  .rf-location-selection h2 {
+    font-size: 1.2rem;
+  }
+
+  .rf-location-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .rf-location-card {
+    padding: 15px;
+  }
+
+  .rf-location-card .rf-location-icon {
+    font-size: 1.8rem;
+  }
+
+  .rf-feedback-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .rf-feedback-toggle {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .rf-toggle-btn {
+    width: 100%;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .rf-qr-section {
+    padding: 20px 15px;
+  }
+
+  .rf-qr-image {
+    max-width: 180px;
+  }
+
+  .rf-download-qr-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .rf-experience-form {
+    padding: 0 15px;
+  }
+
+  .rf-rating-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .rf-rating-item {
+    padding: 15px;
+  }
+
+  .rf-star-rating {
+    font-size: 22px;
+  }
+
+  .rf-experience-form textarea {
+    height: 100px;
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .rf-submit-feedback-btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+
+  .rf-message {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .rf-feedback-wrapper {
+    padding: 90px 5px;
+  }
+
+  .rf-feedback-container {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 8px;
+  }
+
+  .rf-feedback-header {
+    padding: 15px 10px;
+  }
+
+  .rf-feedback-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .rf-feedback-header p {
+    font-size: 0.7rem;
+  }
+
+  .rf-navigation-buttons {
+    position: static;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .rf-back-button,
+  .rf-reset-location-button {
+    font-size: 0.7rem;
+    padding: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rf-location-selection h2 {
+    font-size: 1.1rem;
+  }
+
+  .rf-location-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .rf-location-card {
+    padding: 12px;
+  }
+
+  .rf-location-card .rf-location-icon {
+    font-size: 1.6rem;
+  }
+
+  .rf-feedback-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .rf-feedback-toggle {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .rf-toggle-btn {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  .rf-qr-section {
+    padding: 15px 10px;
+  }
+
+  .rf-qr-image {
+    max-width: 150px;
+  }
+
+  .rf-download-qr-btn {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  .rf-experience-form {
+    padding: 0 10px;
+  }
+
+  .rf-rating-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .rf-rating-item {
+    padding: 10px;
+  }
+
+  .rf-rating-item label {
+    font-size: 0.9rem;
+  }
+
+  .rf-star-rating {
+    font-size: 20px;
+  }
+
+  .rf-experience-form textarea {
+    height: 80px;
+    padding: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+
+  .rf-submit-feedback-btn {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .rf-message {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+}
+
+
+
+
+
