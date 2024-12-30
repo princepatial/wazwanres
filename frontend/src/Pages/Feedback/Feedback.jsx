@@ -138,7 +138,7 @@ const RestaurantFeedback = () => {
           </div>
         )}
 
-        <div className="rf-feedback-header">
+        <div className="rf-feedback-header"  style={{marginTop:"8rem"}}>
           <h1>Restaurant Feedback</h1>
           <p>Your opinion helps us improve</p>
         </div>

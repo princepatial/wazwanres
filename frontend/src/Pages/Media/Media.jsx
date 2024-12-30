@@ -1,57 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { PlayCircle } from 'lucide-react';
+import Food from '../../assets/gallery/food.jpg';
+import Food1 from '../../assets/gallery/food1.jpg';
+import Food2 from '../../assets/gallery/food2.jpg';
+import Food3 from '../../assets/gallery/food3.jpg';
+import Foodvideo from '../../assets/gallery/food.mp4';
+import guest from '../../assets/gallery/guest.jpg';
+import interior from '../../assets/gallery/interior.jpg';
+import interior1 from '../../assets/gallery/interior1.jpg';
+import interior2 from '../../assets/gallery/interior2.jpg';
+import interior3 from '../../assets/gallery/interior3.jpg';
+import interior4 from '../../assets/gallery/interior4.jpg';
+import interior5 from '../../assets/gallery/interior5.jpg';
+import interior6 from '../../assets/gallery/interior6.jpg';
+import interior7 from '../../assets/gallery/interior7.jpg';
+import kitchen from '../../assets/gallery/kitchen.mp4';
+import kitchen1 from '../../assets/gallery/kitchen1.mp4';
+import kitchen3 from '../../assets/gallery/kitchen3.mp4';
 
 const media = [
-    {
-      type: "image",
-      id: 1,
-      title: "Grilled Salmon",
-      category: "Fine Dining",
-      description: "Fresh Atlantic salmon with herbs",
-      src: "https://plus.unsplash.com/premium_photo-1673590981774-d9f534e0c617?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
-      type: "video",
-      id: 2,
-      title: "Chef's Special",
-      category: "Kitchen",
-      description: "Watch our chef in action",
-      src: "https://videos.pexels.com/video-files/2882090/2882090-uhd_2560_1440_24fps.mp4",
-      thumbnail: "/api/placeholder/400/300"
-    },
-    {
-        type: "image",
-        id: 3,
-        title: "Our Interior Design",
-        category: "Interior",
-        description: "Watch our chef in action",
-        src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        thumbnail: "/api/placeholder/400/300"
-      },
-    {
-        type: "video",
-        id: 4,
-        title: "Drink Amazing Tea",
-        category: "Beverages",
-        description: "Fresh Atlantic salmon with herbs",
-        src: "https://videos.pexels.com/video-files/9046240/9046240-uhd_1440_2560_24fps.mp4"
-      },
-    {
-        type: "video",
-        id: 5,
-        title: "Event's You won't miss",
-        category: "Events",
-        description: "Watch our chef in action",
-        src: "https://videos.pexels.com/video-files/3195971/3195971-uhd_2560_1440_25fps.mp4",
-        thumbnail: "/api/placeholder/400/300"
-      },
+  { type: "image", id: 1, title: "Seasonal Symphony", category: "Multi Course", description: "Fresh Atlantic salmon with herbs", src: Food },
+  { type: "video", id: 2, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: "https://videos.pexels.com/video-files/2882090/2882090-uhd_2560_1440_24fps.mp4" },
+  { type: "image", id: 3, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food1 },
+  { type: "image", id: 4, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior },
+  { type: "video", id: 5, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen3 },
+  { type: "image", id: 6, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior2 },
+  { type: "image", id: 7, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior1 },
+  { type: "image", id: 8, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior3 },
+  { type: "video", id: 18, title: "Chef's Special", category: "Kitchen", description: "Where style meets comfort in every corner.", src: kitchen },
+  { type: "image", id: 9, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior4 },
+  { type: "image", id: 10, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food3 },
+  { type: "image", id: 11, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior5 },
+  { type: "image", id: 12, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior6 },
+  { type: "image", id: 13, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior7 },
+  { type: "video", id: 14, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen1 },
+  { type: "image", id: 15, title: "Moments of Joy", category: "Events", description: "A symphony of flavors in every bite.", src: guest },
+  { type: "video", id: 16, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: Foodvideo },
+  { type: "image", id: 17, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food2 },
 ];
 
 const RestaurantGallery = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [displayedMedia, setDisplayedMedia] = useState(media);
     
-    const categories = ['All', 'Fine Dining', 'Kitchen', 'Interior', 'Beverages', 'Events'];
+    const categories = ['All', 'Multi Course', 'Kitchen', 'Interior', 'Events'];
 
     useEffect(() => {
         const filtered = activeCategory === 'All'
@@ -63,7 +54,7 @@ const RestaurantGallery = () => {
     return (
         <div className="gallery-container">
             <div className="gallery-header">
-                <h1 className="gallery-title">Culinary Excellence</h1>
+                <h1 className="gallery-title" style={{marginTop:"5rem"}}>Culinary Excellence</h1>
                 <p className="gallery-subtitle">Experience the artistry of fine dining</p>
             </div>
 

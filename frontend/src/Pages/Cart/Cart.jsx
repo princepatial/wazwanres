@@ -383,7 +383,7 @@ const Cart = () => {
 
     if (cartItems.length === 0) {
         return (
-            <div className="cart-container-empty">
+            <div className="cart-container-empty" style={{marginTop:"5rem"}}>
                 <ShoppingCart size={64} className="empty-cart-icon" />
                 <h2>Your Cart is Empty</h2>
                 <p>Looks like you haven't added anything to your cart yet.</p>

@@ -1,15 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { MessageSquare, Camera} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Modal from './Modal';
 import './Home.css';
 
+
+const testimonials = [
+  {
+    quote: "The food here is awesome especially kashmiri cuisine. I had visited this place twice was able to explore chicken Lara, chicken katni both dishes had kashmiri flavour. Strongly recommend you to try here",
+    author: "K Pavan",
+    title: "Dine in",
+    image: "https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    quote: "Amazing food n taste especially kashmiri wazwan was authentic n was served in  typical kashmiri style....",
+    author: "tawseef war",
+    title: "Dine in",
+    image: "https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    quote: "I had a very awesome experience at wazwan",
+    author: "Dani Guandeh",
+    title: "Regular Customer",
+    image: "https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    quote: "I liked the flavours  they have added not just common flavours in chicken dishes its different ,service was fast  didnt have to wait much,a bit pricey for a single person , they should introduce some menu for a single person as that much of quantity  a single person cannot eat and it goes on waste, anyhow 5 stars for taste",
+    author: "Nirmal Singh",
+    title: "Food Blogger",
+    image: "https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    quote: "Amazing taste that u never ever get anywhere in the tricity. Must try the mouth watering taste of Kashmiri and Mughlai foods.",
+    author: "Director Outreach",
+    title: "Dine in",
+    image: "https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=600"
+  }
+];
+
+
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -43,7 +91,8 @@ const Home = () => {
   const closeModal = () => {
     setShowModal(false);
   };
-  
+
+
 
   const foodCards = [
     { id: 1, title: '', img: '/tiles.jpg' },
@@ -54,86 +103,103 @@ const Home = () => {
 
   return (
     <div className="luxury-food-home">
-      <div className="hero-section">
-        <motion.div
-          className="content-wrapper"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <div className="left-content">
-            <motion.h1
-              className="main-title"
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-            >
-              Savor the <span className="highlight">Extraordinary</span>
-            </motion.h1>
-            <motion.p
-              className="subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-            >
-              Embark on a culinary journey that transcends the ordinary.
-              Discover flavors that ignite your senses and create memories.
-            </motion.p>
-            <motion.div
-              className="explore-menu-container"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.8 }}
-            >
-              <button className="explore-menu-button" onClick={openModal}>
-              Our Menu
-                <motion.span
-                  className="button-hover"
-                  whileHover={{ width: "100%" }}
-                />
-              </button>
-            </motion.div>
+    <div className="hero-section">
+      <div className="gradient-overlay" />
+      <div className="pattern-overlay" />
+      <motion.div
+        className="content-wrapper"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="left-content">
+          <motion.div 
+            className="title-container"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <div className="decorator-line" />
+            <h1 className="main-title">
+              Discover the Art of <br />
+              <span className="highlight">Kashmiri Cuisine</span>
+            </h1>
+          </motion.div>
+          
+          <motion.p
+            className="subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+          >
+            Indulge in the opulent flavors of Kashmiri Wazwan. A centuries-old 
+            culinary tradition, now at your fingertips.
+          </motion.p>
+          
+          <motion.div
+            className="explore-menu-container"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.8 }}
+          >
+            <button className="explore-menu-button" onClick={openModal}>
+              <span className="button-text">Order Now</span>
+              <span className="button-icon">→</span>
+              <motion.div 
+                className="button-background"
+                initial={{ scale: 0 }}
+                whileHover={{ scale: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+            </button>
+          </motion.div>
+        </div>
 
-          </div>
-
-          <div className="right-content">
-            <motion.img
-              src="/picc.png"
-              alt="Chef"
-              className="chef-image"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 1 }}
-            />
-
-            <div className="floating-cards">
+        <div className="right-content">
+          <div className="tiles-container">
+            <div className="tiles-grid">
               {foodCards.map((card, index) => (
                 <motion.div
                   key={card.id}
-                  className={`food-card card${card.id}`}
+                  className="tile"
                   custom={index}
                   initial="hidden"
                   animate="visible"
                   variants={cardVariants}
                   whileHover={{
                     scale: 1.05,
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.2)"
+                    zIndex: 2,
                   }}
                 >
-                  <div className="card-content">
-                    <img src={card.img} alt={card.title} />
-                    <h3>{card.title}</h3>
+                  <div className="tile-content">
+                    <div className="tile-image-wrapper">
+                      <img src={card.img} alt={card.title} className="tile-image" />
+                      <div className="tile-gradient" />
+                    </div>
+                    <motion.div 
+                      className="tile-overlay"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                    >
+                      <div className="overlay-content">
+                        <span className="view-details">Explore Dish</span>
+                        <span className="arrow">↗</span>
+                      </div>
+                    </motion.div>
                   </div>
                 </motion.div>
               ))}
             </div>
+            <div className="decorative-circle" />
+            <div className="decorative-dots" />
           </div>
-        </motion.div>
-      </div>
-
+        </div>
+      </motion.div>
+    </div>
 
       <div className="how-it-works">
         <h1 id='title'>How it Works</h1>
+        <div className="title-accent" />
         <div className="steps">
           <div className="step">
             <div className="icon">
@@ -185,56 +251,106 @@ const Home = () => {
         </div>
       </div>
 
-      <motion.section
-        className="reservation-section"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="section-title">Reserve Your Experience</h2>
-        <div className="reservation-container">
-          <motion.form
-            className="reservation-form"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div className="form-group">
-              <input type="text" placeholder="Your Name" required />
-              <input type="email" placeholder="Your Email" required />
-            </div>
-            <div className="form-group">
-              <input
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                required
-              />
-              <input
-                type="time"
-                value={selectedTime}
-                onChange={(e) => setSelectedTime(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <select required>
-                <option value="">Number of Guests</option>
-                <option value="2">2 Guests</option>
-                <option value="4">4 Guests</option>
-                <option value="6">6 Guests</option>
-                <option value="8+">8+ Guests</option>
-              </select> 
-               <button type="submit" className="submit-button">
-                 Book Now
-              </button>
-            </div>
-          </motion.form>
-        </div>
-      </motion.section>
 
+
+      <section className="testimonial-section">
+      <div className="testimonial-background" />
+      <div className="testimonial-container">
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          
+          <h2 className="section-title">What Our Guests Say</h2>
+          <div className="title-accent" />
+          <p className="section-subtitle">Experiences that delight</p>
+        </motion.div>
+
+        <div className="testimonial-slider">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              className="testimonial-slide"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="testimonial-content">
+                <div className="quote-container">
+                  <FaQuoteLeft className="quote-icon" />
+                  <motion.p 
+                    className="quote"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    {testimonials[currentIndex].quote}
+                  </motion.p>
+                </div>
+                
+                <motion.div 
+                  className="author-info"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="author-image-container">
+                    <img 
+                      src={testimonials[currentIndex].image} 
+                      alt={testimonials[currentIndex].author} 
+                      className="author-image" 
+                    />
+                    <div className="image-accent" />
+                  </div>
+                  <div className="author-details">
+                    <h3 className="author-name">{testimonials[currentIndex].author}</h3>
+                    <p className="author-title">{testimonials[currentIndex].title}</p>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="navigation-dots">
+            {testimonials.map((_, index) => (
+              <motion.button
+                key={index}
+                className={`dot ${index === currentIndex ? 'active' : ''}`}
+                onClick={() => setCurrentIndex(index)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              />
+            ))}
+          </div>
+
+          <div className="slider-controls">
+            <motion.button 
+              className="control-btn prev-btn"
+              onClick={prevSlide}
+              whileHover={{ scale: 1.1, backgroundColor: 'var(--primary-color)' }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <FaChevronLeft />
+            </motion.button>
+            <motion.button 
+              className="control-btn next-btn"
+              onClick={nextSlide}
+              whileHover={{ scale: 1.1, backgroundColor: 'var(--primary-color)' }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <FaChevronRight />
+            </motion.button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+      
       <motion.button
         className="media-button"
         whileHover={{ scale: 1.05 }}
@@ -245,17 +361,19 @@ const Home = () => {
       </motion.button>
 
       <motion.div
-        className="feedback-button-container"
-        initial={{ x: 100 }}
-        animate={{ x: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        onClick={() => navigate('/feedback')}
-      >
-        <button className="feedback-button">
-          <MessageSquare size={24} color="#4CAF50" />
-        </button>
-      </motion.div>
-
+  className="feedback-button-container"
+  initial={{ x: 100 }}
+  animate={{ x: 0 }}
+  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+  onClick={() => navigate('/feedback')}
+>
+  <button 
+    className="feedback-button"
+    aria-label="Provide feedback"
+  >
+    <MessageSquare size={24} color="white" />
+  </button>
+</motion.div>
       {showModal && <Modal onClose={closeModal} />}
     </div>
   );
