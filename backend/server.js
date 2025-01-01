@@ -5,12 +5,9 @@ const { Server } = require('socket.io');
 const connectDB = require('./Config/db');
 const orderRoutes = require('./routes/orderRoutes');
 const errorHandler = require('./middleware/errorhandling');
-const feedbackRoutes = require('./routes/feedbackRoutes');
 const otpRoutes = require('./routes/otpRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
-
 const Order = require('./models/order');
 
 dotenv.config();
@@ -27,7 +24,7 @@ const io = new Server(server, {
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -39,8 +36,6 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api', otpRoutes);
 app.use('/orders', orderRoutes);
-app.use('/feedback', feedbackRoutes);
-app.use('/api/tables', require('./routes/tableRoute'));
 app.use(errorHandler);
 
 // Socket.io Namespace
@@ -119,7 +114,7 @@ process.on('uncaughtException', (error) => {
   // Optional: Implement graceful shutdown
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

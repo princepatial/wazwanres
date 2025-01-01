@@ -717,242 +717,285 @@ p {
 
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  /* Content Layout */
   .content-wrapper {
     flex-direction: column;
-    gap: 2rem;
-    padding: 2rem 0;
-    margin-top: 30px;
+    gap: 3rem;
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 90%;
   }
 
   .left-content {
+    max-width: 100%;
     text-align: center;
-    padding: 0 2rem;
+    margin-top: 2rem;
   }
 
+  /* Typography */
   .main-title {
     font-size: 3.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-
-  .explore-menu-container {
-    justify-content: center;
-  }
-
-  .right-content {
-    height: 400px;
-    width: 100%;
-  }
-
-  .chef-image {
-    max-width: 80%;
-    margin: 0 auto;
-    display: block;
-  }
-
-  .floating-cards {
-    right: 0;
-    width: 100%;
-  }
-
-  .food-card {
-    width: 120px;
-    height: 150px;
-  }
-
-  /* Adjust card positions for tablet view */
-  .card1 { top: 60%; right: 75%; }
-  .card2 { top: 60%; right: 55%; }
-  .card3 { top: 60%; right: 35%; }
-  .card4 { top: 60%; right: 15%; }
-
-  /* How it works section */
-  .steps {
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-  }
-
-  .step {
-    width: 80%;
-    max-width: 400px;
-  }
-
-  .connector {
-    display: none; /* Hide connectors in tablet view */
-  }
-
-  /* Reservation section */
-  .reservation-section {
-    padding: 3rem 2rem;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-  }
-
-  .reservation-form {
-    width: 100%;
-    max-width: 600px;
-  }
-
-  .form-group {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-  }
-
-  .submit-button {
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  /* Floating buttons */
-  .media-button,
-  .feedback-button {
-    width: 50px;
-    height: 50px;
-  }
-
-  .media-button {
-    bottom: 6rem;
-    right: 1rem;
-  }
-
-  .feedback-button {
-    bottom: 1.5rem;
-    right: 1rem;
-  }
-}
-
-
-@media screen and (min-width: 481px) and (max-width: 767px) {
-  .luxury-food-home {
-    overflow-x: hidden;
-  }
-
-  .hero-section {
-    padding: 1rem 1.5rem;
-    min-height: auto;
-    margin-top: 35px;
-  }
-
-  .content-wrapper {
-    flex-direction: column;
-    gap: 2rem;
-    padding: 1.5rem 0;
-  }
-
-  .left-content {
-    text-align: center;
-    padding: 0 1rem;
-  }
-
-  .main-title {
-    font-size: 2.8rem;
-    letter-spacing: -1px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .subtitle {
     font-size: 1rem;
-    margin-bottom: 1.5rem;
+    max-width: 80%;
+    margin: 0 auto 2.5rem;
     line-height: 1.6;
   }
 
-  .explore-menu-container {
-    justify-content: center;
-    margin: 15px 0;
+  /* Hero Section Adjustments */
+  .hero-section {
+    min-height: auto;
+    padding: 3rem 2rem;
+    display: flex;
+    align-items: center;
   }
 
-  .explore-menu-button {
-    padding: 12px 25px;
-    font-size: 16px;
-    width: 80%;
-    max-width: 300px;
-  }
-
+  /* Food Tiles */
   .right-content {
-    height: 300px;
     width: 100%;
-    perspective: 800px;
+    padding: 0 2rem;
   }
 
-  .chef-image {
-    max-width: 90%;
-    height: auto;
+  .tiles-container {
+    max-width: 700px;
     margin: 0 auto;
-    display: block;
-    transform: rotateY(0deg);
   }
 
-  /* Adjust floating cards */
-  .floating-cards {
-    position: relative;
-    right: 0;
-    height: 200px;
+  .tiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .tile {
+    aspect-ratio: 1;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .tile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .tile:hover .tile-image {
+    transform: scale(1.1);
+  }
+
+  .tile-overlay {
+    background: rgba(128, 0, 0, 0.75);
+  }
+
+  .tile:hover .tile-overlay {
+    opacity: 1;
+  }
+
+  /* How It Works */
+  .steps {
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 600px;
+    margin: 3rem auto;
+  }
+
+  .step {
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .step:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Testimonials */
+  .testimonial-section {
+    padding: 4rem 2rem;
+  }
+
+  .testimonial-content {
+    padding: 2.5rem;
+    margin: 0 auto;
+    max-width: 700px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .quote {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    padding-left: 2rem;
+  }
+
+  .author-info {
     margin-top: 2rem;
+    align-items: center;
+    gap: 1.5rem;
   }
 
-  .food-card {
-    width: 100px;
-    height: 120px;
-    transform: none !important;
+  .navigation-dots {
+    margin-top: 2.5rem;
+    gap: 12px;
   }
 
-  .card-content img {
-    height: 60%;
+  .dot {
+    width: 10px;
+    height: 10px;
   }
 
-  .card-content h3 {
-    font-size: 0.8rem;
+  /* Fixed Buttons Positioning */
+  .media-button,
+  .feedback-button {
+    width: 50px;
+    height: 50px;
+    right: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Adjust card positions */
-  .card1 { top: 0; right: 70%; }
-  .card2 { top: 0; right: 50%; }
-  .card3 { top: 0; right: 30%; }
-  .card4 { top: 0; right: 10%; }
+  .media-button {
+    bottom: 8rem;
+  }
 
-  /* How it works section */
+  .feedback-button {
+    bottom: 3rem;
+  }
+
+  .media-button:hover,
+  .feedback-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Button Icons */
+  .media-button svg,
+  .feedback-button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Explore Menu Button */
+  .explore-menu-button {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    margin: 1rem auto;
+    max-width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .explore-menu-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  /* Hero Section */
+  .hero-section {
+    min-height: auto;
+    padding: 2rem 1rem;
+    margin-top: 3rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .left-content {
+    max-width: 100%;
+    text-align: center;
+    padding: 0;
+  }
+
+  /* Typography */
+  .main-title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin: 1rem auto;
+    max-width: 90%;
+  }
+
+  .decorator-line {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+  }
+
+  /* Explore Menu Button */
+  .explore-menu-button {
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+
+  /* Food Tiles */
+  .right-content {
+    width: 100%;
+  }
+
+  .tiles-container {
+    padding: 0 1rem;
+  }
+
+  .tiles-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .tile {
+    aspect-ratio: 1;
+  }
+
+  .tile-overlay .view-details {
+    font-size: 0.9rem;
+  }
+
+  /* How It Works Section */
   .how-it-works {
-    padding: 30px 15px;
+    padding: 2rem 1rem;
   }
 
   .how-it-works #title {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
   }
 
   .steps {
     flex-direction: column;
     gap: 2rem;
-    margin-top: 30px;
+    margin-top: 2rem;
   }
 
   .step {
-    width: 90%;
-    margin: 0 auto;
-    padding: 15px;
+    width: 100%;
+    padding: 1.5rem;
   }
 
   .icon {
     width: 60px;
     height: 60px;
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
   }
 
   .step h2 {
     font-size: 1.2rem;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
   }
 
   .step p {
@@ -963,309 +1006,331 @@ p {
     display: none;
   }
 
-  /* Reservation section */
-  .reservation-section {
-    padding: 2.5rem 1rem;
+  /* Testimonial Section */
+  .testimonial-section {
+    padding: 3rem 1rem;
   }
 
   .section-title {
     font-size: 2rem;
-    margin-bottom: 2rem;
   }
 
-  .reservation-container {
-    padding: 0 1rem;
-  }
-
-  .reservation-form {
-    width: 100%;
-    gap: 1rem;
-  }
-
-  .form-group {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  .submit-button {
-    width: 100%;
-    padding: 0.8rem;
+  .section-subtitle {
     font-size: 1rem;
-    margin-top: 0.5rem;
   }
 
-  /* Fixed buttons */
+  .testimonial-content {
+    padding: 1.5rem;
+  }
+
+  .quote {
+    font-size: 1rem;
+    line-height: 1.6;
+    padding-left: 1rem;
+  }
+
+  .quote-icon {
+    font-size: 2rem;
+    top: -1rem;
+    left: -0.5rem;
+  }
+
+  .author-info {
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .author-image-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .author-name {
+    font-size: 1rem;
+  }
+
+  .author-title {
+    font-size: 0.8rem;
+  }
+
+  .navigation-dots {
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .slider-controls {
+    display: none;
+  }
+
+  /* Floating Buttons */
   .media-button,
   .feedback-button {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
+    right: 0.8rem;
   }
 
   .media-button {
-    bottom: 5rem;
-    right: 0.8rem;
+    bottom: 5.5rem;
   }
 
   .feedback-button {
-    bottom: 1.2rem;
-    right: 0.8rem;
+    bottom: 1rem;
   }
 
-  /* Animations */
-  .food-card {
-    animation: none;
+  .media-button svg,
+  .feedback-button svg {
+    width: 20px;
+    height: 20px;
   }
 
-  /* Reduce shadow intensity */
-  .food-card:hover,
-  .step:hover,
-  .submit-button:hover,
-  .media-button:hover,
-  .feedback-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  /* Hide hover tooltips on mobile */
+  .media-button::before,
+  .feedback-button::before {
+    display: none;
   }
 }
 
-
 @media screen and (max-width: 480px) {
-  .luxury-food-home {
-    overflow-x: hidden;
-    width: 100%;
-  }
-
+  /* Hero Section */
   .hero-section {
-    padding: 1rem;
     min-height: auto;
+    padding: 1rem;
+    margin-top: 5rem;
   }
 
   .content-wrapper {
     flex-direction: column;
     gap: 1.5rem;
     padding: 1rem 0;
-    margin-top: 70px;
   }
 
   .left-content {
+    max-width: 100%;
     text-align: center;
-    padding: 0;
+    padding: 0 1rem;
   }
 
+  /* Typography */
   .main-title {
-    font-size: 2.2rem;
-    letter-spacing: -0.5px;
-    margin-bottom: 0.8rem;
+    font-size: 2rem;
     line-height: 1.2;
+    letter-spacing: -1px;
+  }
+
+  .highlight {
+    display: block;
+    margin-top: 0.5rem;
   }
 
   .subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 1.2rem;
-    line-height: 1.5;
-    padding: 0 0.5rem;
+    font-size: 0.875rem;
+    margin: 1rem auto;
+    line-height: 1.6;
+    padding: 0;
   }
 
-  .explore-menu-container {
-    justify-content: center;
-    margin: 12px 0;
+  .decorator-line {
+    display: none;
   }
 
+  /* Button */
   .explore-menu-button {
-    padding: 10px 20px;
-    font-size: 14px;
-    width: 90%;
-    max-width: 250px;
-  }
-
-  .button-hover {
-    display: none; /* Remove hover effect for better mobile performance */
-  }
-
-  .right-content {
-    height: 250px;
+    display: block; /* Ensures it behaves like a block element */
     width: 100%;
-    perspective: none;
-    margin-top: 1rem;
+    max-width: 280px;
+    margin: 0 auto; /* Centers the button horizontally */
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    text-align: center; /* Ensures the text is also centered */
   }
 
-  .chef-image {
-    max-width: 95%;
-    height: auto;
-    transform: none;
-    border-radius: 15px;
+  /* Tiles Section */
+  .right-content {
+    width: 100%;
+    padding: 0 1rem;
   }
 
-  /* Simplify floating cards for mobile */
-  .floating-cards {
-    position: relative;
-    right: 0;
-    height: 160px;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
+  .tiles-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  .food-card {
-    position: relative;
-    width: 80px;
-    height: 100px;
-    transform: none !important;
-    animation: none;
+  .tile {
+    aspect-ratio: 16/9;
   }
 
-  .card-content img {
-    height: 60%;
+  .tile-overlay .view-details {
+    font-size: 0.875rem;
   }
 
-  .card-content h3 {
-    font-size: 0.7rem;
-    margin-top: 0.3rem;
+  .decorative-circle,
+  .decorative-dots {
+    display: none;
   }
 
-  /* Reset all card positions for horizontal layout */
-  .card1, .card2, .card3, .card4 {
-    position: static;
-    margin: 0 5px;
-  }
-
-  /* How it works section */
+  /* How It Works */
   .how-it-works {
-    padding: 25px 10px;
+    padding: 2rem 1rem;
   }
 
   .how-it-works #title {
-    font-size: 1.8rem;
-    margin-bottom: 1.2rem;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
   }
 
   .steps {
     flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 20px;
+    gap: 2rem;
+    margin-top: 1.5rem;
   }
 
   .step {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 1rem;
-    transform: none !important;
-  }
-
-  .step:hover {
-    transform: none !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    margin: 0;
   }
 
   .icon {
     width: 50px;
     height: 50px;
-    margin-bottom: 12px;
+    margin-bottom: 1rem;
   }
 
   .step h2 {
     font-size: 1.1rem;
-    margin-bottom: 6px;
+    margin-bottom: 0.5rem;
   }
 
   .step p {
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: 0.875rem;
+    line-height: 1.5;
   }
 
   .connector {
     display: none;
   }
 
-  /* Reservation section */
-  .reservation-section {
-    padding: 2rem 0.8rem;
+  /* Testimonials */
+  .testimonial-section {
+    padding: 2rem 1rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
   }
 
   .section-title {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .title-accent {
+    width: 40px;
+    margin: 0.5rem auto;
+  }
+
+  .testimonial-content {
+    padding: 1.25rem;
+    border-radius: 15px;
+  }
+
+  .quote-container {
     margin-bottom: 1.5rem;
   }
 
-  .reservation-container {
-    padding: 0 0.5rem;
+  .quote {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    padding-left: 0;
   }
 
-  .reservation-form {
-    width: 100%;
-    gap: 0.8rem;
+  .quote-icon {
+    display: none;
   }
 
-  .form-group {
+  .author-info {
     flex-direction: column;
-    gap: 0.6rem;
+    text-align: center;
+    gap: 0.75rem;
   }
 
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 0.7rem;
+  .author-image-container {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+  }
+
+  .author-name {
     font-size: 0.9rem;
-    border-radius: 6px;
+    margin-bottom: 0.25rem;
   }
 
-  .submit-button {
-    width: 100%;
-    padding: 0.7rem;
-    font-size: 0.95rem;
-    border-radius: 6px;
+  .author-title {
+    font-size: 0.8rem;
   }
 
-  /* Fixed buttons */
+  .navigation-dots {
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .slider-controls {
+    display: none;
+  }
+
+  /* Floating Buttons */
   .media-button,
   .feedback-button {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
+    right: 0.5rem;
   }
 
   .media-button {
     bottom: 4.5rem;
-    right: 0.6rem;
   }
 
   .feedback-button {
-    bottom: 1rem;
-    right: 0.6rem;
+    bottom: 0.75rem;
   }
 
-  /* Reduce all animations and transitions for better performance */
-  * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.3s !important;
+  .media-button svg,
+  .feedback-button svg {
+    width: 18px;
+    height: 18px;
   }
 
-  /* Optimize touch targets */
-  button,
-  input,
-  select {
-    min-height: 44px; /* Standard minimum touch target size */
+  /* Pattern Overlay */
+  .pattern-overlay {
+    opacity: 0.05;
   }
 
-  /* Improve form usability on mobile */
-  input:focus,
-  select:focus {
-    font-size: 16px; /* Prevent iOS zoom on focus */
+  /* Gradient Overlay */
+  .gradient-overlay {
+    background: linear-gradient(
+      135deg,
+      rgba(128, 0, 0, 0.98) 0%,
+      rgba(128, 0, 0, 0.9) 100%
+    );
   }
 
-  /* Remove hover states on mobile */
-  .food-card:hover,
-  .step:hover,
-  .submit-button:hover,
-  .media-button:hover,
-  .feedback-button:hover {
-    transform: none;
-    box-shadow: none;
+  /* Animation Adjustments */
+  .food-card {
+    animation: none;
   }
 }

@@ -57,24 +57,23 @@ const Modal = ({ onClose }) => {
           </div>
 
           <div className="choice-card returning-guest">
-            <div className="card-content">
-              <div className="card-header">
-                <span className="accent-icon">♦</span>
-                <h2>Welcome Back</h2>
-                <p className="card-subtitle">Continue Your Gastronomic Journey</p>
-              </div>
-              <div className="card-description">
-                <p>"Return to your favorite flavors and discover new culinary masterpieces crafted just for you."</p>
-              </div>
-              <button className="action-button login" onClick={() => navigate('/regular-customer')}>
-                Sign In
-                <span className="button-accent">→</span>
-              </button>
-              <div className="special-banner">
-                <span className="banner-text">Member Exclusive: Earn 3x Points Today</span>
-              </div>
-            </div>
-          </div>
+  <div className="card-content">
+  <span className="accent-icon" style={{textAlign:"center"}}>♦</span>
+    <div className="card-header">
+      <h3 style={{ color: '#c9a959', fontFamily: "'Cinzel', serif", marginBottom: '10px' }}>Regular Customer?</h3>
+      <h2>Welcome Back</h2>
+      <p className="card-subtitle">Continue Your Gastronomic Journey</p>
+    </div>
+    <div className="card-description">
+      <p>"Return to your favorite flavors and discover new culinary masterpieces crafted just for you."</p>
+    </div>
+    <button className="action-button login" onClick={() => navigate('/regular-customer')}>
+      Sign In
+      <span className="button-accent">→</span>
+    </button>
+  </div>
+</div>
+
         </div>
       </div>
     </div>

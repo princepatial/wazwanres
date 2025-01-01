@@ -30,7 +30,7 @@ const Menu = () => {
 
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get('http://51.20.97.10/api/products');
+        const response = await axios.get('http://13.239.200.245:5000/api/products');
         setMenuItems(response.data);
         setFilteredItems(response.data);
       } catch (error) {
@@ -120,7 +120,7 @@ const Menu = () => {
     return (
       <div className="auth-container">
         <div className="auth-content">
-          <h1 className="auth-title">Welcome to Wazwan Legacy</h1>
+          <h1 className="auth-title">Welcome to Wazwan Restaurants</h1>
           <p className="auth-subtitle">Your Culinary Journey Awaits</p>
           <div className="auth-message">
             <p>Please sign in by clicking OUR MENU in Home Page with your mobile number or select a table to view our menu</p>
@@ -139,10 +139,10 @@ const Menu = () => {
 
   return (
     <div className="menu-modern">
-      <div className={`menu-header ${isHeaderVisible ? 'visible' : 'hidden'}`}>
+      <div className={`menu-header ${isHeaderVisible ? 'visible' : 'hidden'}`} style={{marginTop:"7rem"}}>
         <div className="brand-section">
           <h1 className="brand-name">
-            Wazwan <span>Legacy</span>
+            Wazwan <span>Restaurants</span>
           </h1>
           <p className="brand-tagline">Discover Culinary Excellence</p>
         </div>

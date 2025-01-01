@@ -30,7 +30,7 @@ const SuggestedItems = ({ onAddToCart }) => {
     useEffect(() => {
         const fetchSuggestedItems = async () => {
             try {
-                const response = await axios.get('http://51.20.97.10/api/products');
+                const response = await axios.get('http://13.239.200.245:5000/api/products');
                 const randomItems = response.data
                     .sort(() => 0.5 - Math.random())
                     .slice(0, 4);
@@ -348,7 +348,7 @@ const Cart = () => {
         }
 
         try {
-            const response = await axios.post('http://51.20.97.10/orders/checkout', {
+            const response = await axios.post('http://13.239.200.245:5001/orders/checkout', {
                 items: orderItems,
                 selectedTable,
                 mobileNumber: mobileNumber || '',

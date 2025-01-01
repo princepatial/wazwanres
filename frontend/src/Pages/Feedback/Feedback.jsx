@@ -80,7 +80,7 @@ const RestaurantFeedback = () => {
     e.preventDefault();
     
 
-    axios.defaults.baseURL = 'http://localhost:5000';
+    axios.defaults.baseURL = 'http://13.239.200.245:5000';
     
     try {
       const response = await axios.post('/feedback', {
@@ -119,7 +119,7 @@ const RestaurantFeedback = () => {
   };
 
   return (
-    <div className="rf-feedback-wrapper">
+    <div className="rf-feedback-wrapper" style={{marginTop:"7rem"}}>
       <div className="rf-feedback-container">
         {selectedLocation && (
           <div className="rf-navigation-buttons">
@@ -138,7 +138,7 @@ const RestaurantFeedback = () => {
           </div>
         )}
 
-        <div className="rf-feedback-header"  style={{marginTop:"8rem"}}>
+        <div className="rf-feedback-header" >
           <h1>Restaurant Feedback</h1>
           <p>Your opinion helps us improve</p>
         </div>
