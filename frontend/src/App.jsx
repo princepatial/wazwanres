@@ -11,26 +11,33 @@ import OrderSuccess from './Pages/OrderSuccess/OrderSuccess';
 import OrderPopup from './Pages/OrderPopup/OrderPopup';
 import Feedback from './Pages/Feedback/Feedback';
 import Media from './Pages/Media/Media';
+import About from './Pages/About/About';
+import Profile from './Components/Profile/Profile';
+import { UserProvider } from './Components/Profile/UserContext';
 
 
-function App() { 
+function App() {
   return (
-      <div className="app">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/new-customer" element={<NewCustomer />} />
-          <Route path="/regular-customer" element={<RegularCustomer />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/checkout" element={<Cart />} />
-          <Route path="/order-success" element={<OrderSuccess />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/media" element={<Media />} />
-          <Route path="/order-success/:orderId" element={<OrderSuccess />} />
-        </Routes>
-        <OrderPopup />
-        <Footer />
-      </div>
+    <UserProvider>
+    <div className="app">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new-customer" element={<NewCustomer />} />
+        <Route path="/regular-customer" element={<RegularCustomer />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/checkout" element={<Cart />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/media" element={<Media />} />
+        <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+      </Routes>
+      <OrderPopup />
+      <Footer />
+    </div>
+    </UserProvider>
   );
 }
 

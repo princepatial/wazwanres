@@ -27,7 +27,7 @@ const OrderSuccess = () => {
 
   const fetchOrderDetails = async () => {
     try {
-      const response = await fetch(`http://13.239.200.245:5001/orders/status/${orderId}`, {
+      const response = await fetch(`http://localhost:5001/orders/status/${orderId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const OrderSuccess = () => {
 
     let newSocket;
     if (!socket) {
-      newSocket = io('http://13.239.200.245:5001/orders', {
+      newSocket = io('http://localhost:5001/orders', {
         transports: ['websocket'],
         upgrade: false,
       });

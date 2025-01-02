@@ -80,7 +80,7 @@ const RestaurantFeedback = () => {
     e.preventDefault();
     
 
-    axios.defaults.baseURL = 'http://13.239.200.245:5000';
+    axios.defaults.baseURL = 'http://localhost:5001';
     
     try {
       const response = await axios.post('/feedback', {

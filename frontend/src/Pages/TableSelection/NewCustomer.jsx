@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
+import { useUser } from '../../Components/Profile/UserContext';
 import './NewCustomer.css';
 
 Modal.setAppElement('#root');
@@ -17,40 +17,55 @@ const NewCustomer = () => {
     const [otpSent, setOtpSent] = useState(false);
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+    const [customerName, setCustomerName] = useState('');
+    const [selectedRestaurant, setSelectedRestaurant] = useState('');
+    const [likeRestaurant, setLikeRestaurant] = useState(false);
     const navigate = useNavigate();
+    const { setUserDetails } = useUser();
 
     useEffect(() => {
-        const fetchTables = async () => {
-            try {
-                const response = await axios.get('http://13.239.200.245:5000/api/tables');
-
-
-                if (response.status === 200) {
-                    const tablesData = response.data;
-
-                    // Sort by tableNumber
-                    const sortedTables = tablesData.sort((a, b) => {
-                        return (a.tableNumber || 0) - (b.tableNumber || 0);
-                    });
-
-                    setTables(sortedTables);
-                } else {
-                    throw new Error('Failed to fetch tables');
-                }
-                setLoading(false);
-            } catch (error) {
-                console.error('Error details:', error);
-                toast.error('Unable to fetch tables. Please try again later.');
-                setTables([]);
-                setLoading(false);
-            }
-        };
-
         fetchTables();
     }, []);
 
+
+    const handleNameChange = (e) => {
+        setCustomerName(e.target.value);
+    };
+
+    const handleRestaurantChange = (e) => {
+        setSelectedRestaurant(e.target.value);
+    };
+
+    const handleLikeChange = (e) => {
+        setLikeRestaurant(e.target.checked);
+    };
+
+
+    const fetchTables = async () => {
+        try {
+            const response = await axios.get('http://13.239.200.245:5000/api/tables');
+            if (response.status === 200) {
+                const sortedTables = response.data.sort((a, b) => {
+                    return (a.tableNumber || 0) - (b.tableNumber || 0);
+                });
+                setTables(sortedTables);
+            } else {
+                throw new Error('Failed to fetch tables');
+            }
+            setLoading(false);
+        } catch (error) {
+            console.error('Error details:', error);
+            toast.error('Unable to fetch tables. Please try again later.');
+            setTables([]);
+            setLoading(false);
+        }
+    };
+
     const handleOtpChange = (e) => {
-        setOtp(e.target.value);
+        const value = e.target.value.replace(/\D/g, '');
+        if (value.length <= 6) {
+            setOtp(value);
+        }
     };
 
     const handleTableClick = (tableNumber) => {
@@ -59,25 +74,36 @@ const NewCustomer = () => {
     };
 
     const handleMobileChange = (e) => {
-        setMobileNumber(e.target.value);
+        const value = e.target.value.replace(/\D/g, '');
+        if (value.length <= 10) {
+            setMobileNumber(value);
+        }
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!selectedTable) {
             toast.error('Please select a table!');
             return;
         }
-
-        if (!mobileNumber || mobileNumber.length !== 10 || isNaN(mobileNumber)) {
+        if (!customerName.trim()) {
+            toast.error('Please enter your name!');
+            return;
+        }
+        if (!mobileNumber || mobileNumber.length !== 10) {
             toast.error('Please enter a valid 10-digit mobile number!');
             return;
         }
-
+        if (!selectedRestaurant) {
+            toast.error('Please select a restaurant!');
+            return;
+        }
         await sendOtp();
     };
 
+
+    
     const sendOtp = async () => {
         try {
             const response = await axios.post('http://localhost:5001/api/sent-otp', { mobileNumber });
@@ -85,149 +111,194 @@ const NewCustomer = () => {
                 toast.success('OTP sent successfully!');
                 setOtpSent(true);
                 setShowOtpModal(true);
-            } else {
-                toast.error('Failed to send OTP. Please try again.');
             }
         } catch (error) {
             console.error('Error sending OTP:', error);
-            if (error.response && error.response.data) {
-                if (error.response.data.message === 'User already exists') {
-                    toast.info('User already exists. Redirecting to regular customer page...');
-                    setTimeout(() => {
-                        navigate('/regular-customer');
-                    }, 2000); 
-                } else {
-                    toast.error('Unable to send OTP. Please try again later.');
-                }
+            if (error.response?.data?.message === 'User already exists') {
+                toast.info('User already exists. Redirecting to regular customer page...');
+                setTimeout(() => navigate('/regular-customer'), 2000);
             } else {
                 toast.error('Unable to send OTP. Please try again later.');
             }
         }
     };
 
+   
+
     const handleVerifyOtp = async () => {
         if (!otp || otp.length !== 6) {
-            toast.error('Please enter a valid 6-digit OTP!');
-            return;
+          toast.error('Please enter a valid 6-digit OTP!');
+          return;
         }
-
         try {
-            setIsVerifyingOtp(true);
-            const response = await axios.post('http://localhost:5001/api/verify-otp', { mobileNumber, otp });
-            if (response.status === 200) {
-                localStorage.setItem('selectedTable', selectedTable.toString());
-                localStorage.setItem('mobileNumber', mobileNumber);
-                toast.success('OTP verified successfully!');
-                setShowOtpModal(false);
-                setTimeout(() => navigate('/menu'), 1000);
-            } else {
-                toast.error('Invalid OTP!');
+          setIsVerifyingOtp(true);
+          const otpResponse = await axios.post('http://localhost:5001/api/verify-otp', { mobileNumber, otp });
+          if (otpResponse.status === 200) {
+            const userDetails = {
+              selectedTable,
+              mobileNumber,
+              userName: customerName,
+              selectedRestaurant,
+              likeRestaurant,
+              orderStatus: 'pending',
+            };
+            const saveResponse = await axios.post('http://localhost:5001/orders/checkout', userDetails);
+            if (saveResponse.status === 201) {
+              const orderId = saveResponse.data.orderId;
+              setUserDetails(userDetails);
+              toast.success('Details saved successfully!');
+              navigate(`/menu?orderId=${orderId}`);
             }
+          }
         } catch (error) {
-            console.error('Error verifying OTP:', error);
-            if (error.response && error.response.data) {
-                if (error.response.data.message === 'User already exists') {
-                    toast.info('User already exists. Redirecting to regular customer page...');
-                    setTimeout(() => {
-                        navigate('/regular-customer');
-                    }, 2000); 
-                } else {
-                    toast.error('OTP verification failed. Please try again.');
-                }
-            } else {
-                toast.error('OTP verification failed. Please try again.');
-            }
+          console.error('Error:', error);
+          if (error.response?.data?.message === 'User already exists') {
+            toast.error('User already exists, Please Login as Regular Customer..');
+          } else {
+            toast.error('Failed to process request. Please try again.');
+          }
         } finally {
-            setIsVerifyingOtp(false);
+          setIsVerifyingOtp(false);
+          setShowOtpModal(false);
         }
-    };
+      };
+      
+      
+
+
 
     return (
-        <div className="new-customer-page">
-            <div className="content-wrapper1">
-                <header className="page-header">
-                    <h1>Welcome to Wazwan Restaurants</h1>
+        <div className="booking-page">
+            <div className="booking-container">
+                <header className="booking-header">
+                    <div className="restaurant-logo" style={{marginTop:"2rem"}}>
+                        <span className="logo-text">W</span>
+                    </div>
+                    <h1>Welcome to Wazwan</h1>
+                    <p className="header-subtitle">Select your table & begin your culinary journey</p>
                 </header>
 
-                <div className="reservation-container">
-                    <div className="table-selection">
-                        <h2>
-                            Select Your Table <span className="mandatory">*</span>
-                        </h2>
+                <div className="booking-content">
+                    <section className="tables-section">
+                        <h2>Select Your Table</h2>
                         {loading ? (
-                            <div className="loading-spinner"></div>
+                            <div className="modern-loader">
+                                <div className="loader-spinner"></div>
+                                <p>Loading tables...</p>
+                            </div>
                         ) : (
-                            <div className="rc-tables-grid">
-                                {tables.length > 0 ? (
-                                    tables.map((table) => (
-                                        <button
-                                            key={table._id}
-                                            className={`table-button ${selectedTable === table.tableNumber ? 'selected' : ''
-                                                } ${table.status.toLowerCase()}`}
-                                            onClick={() => handleTableClick(table.tableNumber)}
-                                            disabled={table.status !== 'Available'}
-                                            style={{
-                                                backgroundColor: table.status !== 'Available' ? '#d3d3d3' : '',
-                                                cursor: table.status !== 'Available' ? 'not-allowed' : 'pointer',
-                                                border: table.status !== 'Available' ? '2px solid red' : '',
-                                                opacity: table.status !== 'Available' ? 0.5 : 1,
-                                            }}
-                                        >
-                                            Table {table.tableNumber}
-                                        </button>
-                                    ))
-                                ) : (
-                                    <div className="no-tables-message">
-                                        No tables available at the moment. Please try again later.
-                                    </div>
-                                )}
+                            <div className="modern-tables-grid">
+                                {tables.map((table) => (
+                                    <button
+                                        key={table._id}
+                                        className={`modern-table-card ${
+                                            selectedTable === table.tableNumber ? 'selected' : ''
+                                        } ${table.status.toLowerCase()}`}
+                                        onClick={() => handleTableClick(table.tableNumber)}
+                                        disabled={table.status !== 'Available'}
+                                    >
+                                        <div className="table-content">
+                                            <span className="table-number">Table {table.tableNumber}</span>
+                                            <span className="table-status">{table.status}</span>
+                                        </div>
+                                        <div className="selection-indicator"></div>
+                                    </button>
+                                ))}
                             </div>
                         )}
-                    </div>
+                    </section>
 
-                    <div className="mobile-input-section">
-                        <h2>
-                         Enter Your Contact <span className="mandatory">*</span>
-                        </h2>
-                        <form onSubmit={handleSubmit}>
-                            <div className="input-group">
-                                <input
-                                    type="tel"
-                                    placeholder="Enter your mobile number"
-                                    required
-                                    value={mobileNumber}
-                                    onChange={handleMobileChange}
-                                />
-                            </div>
-                            <button id="submit-button" type="submit">
-                                Confirm Number
-                            </button>
-                        </form>
+                    <section className="contact-section">
+                <h2>Enter Your Details</h2>
+                <form onSubmit={handleSubmit} className="modern-form">
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            value={customerName}
+                            onChange={handleNameChange}
+                            placeholder="Enter your name"
+                            className="modern-input"
+                        />
                     </div>
+                    <div className="input-container">
+                        <input
+                            type="tel"
+                            value={mobileNumber}
+                            onChange={handleMobileChange}
+                            placeholder="Enter mobile number"
+                            className="modern-input"
+                        />
+                    </div>
+                    <div className="input-container">
+                        <select
+                            value={selectedRestaurant}
+                            onChange={handleRestaurantChange}
+                            className="modern-select"
+                        >
+                            <option value="">Select a restaurant</option>
+                            <option value="restaurant1">Wazwan Delights</option>
+                            <option value="restaurant2">Kashmiri Flavors</option>
+                            <option value="restaurant3">Himalayan Spice</option>
+                        </select>
+                    </div>
+                    <div className="checkbox-container">
+                        <input
+                            type="checkbox"
+                            id="likeRestaurant"
+                            checked={likeRestaurant}
+                            onChange={handleLikeChange}
+                            className="modern-checkbox"
+                        />
+                        <label htmlFor="likeRestaurant" className="checkbox-label">
+                            Do you like our restaurant service?
+                        </label>
+                    </div>
+                    <button type="submit" className="modern-submit-btn">
+                        Confirm Details
+                    </button>
+                </form>
+            </section>
                 </div>
             </div>
 
-            {/* OTP Modal */}
-            <Modal isOpen={showOtpModal} onRequestClose={() => setShowOtpModal(false)} contentLabel="OTP Modal" className="otp-modal">
-                <h2>Enter OTP</h2>
-                <input
-                    type="text"
-                    maxLength="6"
-                    value={otp}
-                    onChange={handleOtpChange}
-                    placeholder="Enter OTP"
-                    className="otp-input"
-                />
-                <button
-                    onClick={handleVerifyOtp}
-                    disabled={isVerifyingOtp}
-                    className={`verify-button ${isVerifyingOtp ? 'loading' : ''}`}
-                >
-                    {isVerifyingOtp ? 'Verifying...' : 'Verify OTP'}
-                </button>
+            <Modal
+                isOpen={showOtpModal}
+                onRequestClose={() => setShowOtpModal(false)}
+                className="modern-modal"
+                overlayClassName="modern-modal-overlay"
+            >
+                <div className="modal-header">
+                    <h2>Verify OTP</h2>
+                    <p>Enter the 6-digit code sent to {mobileNumber}</p>
+                </div>
+                <div className="modal-body">
+                    <input
+                        type="text"
+                        maxLength="6"
+                        value={otp}
+                        onChange={handleOtpChange}
+                        placeholder="Enter OTP"
+                        className="modern-otp-input"
+                    />
+                    <div className="modal-actions">
+                        <button
+                            onClick={() => setShowOtpModal(false)}
+                            className="modal-cancel-btn"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleVerifyOtp}
+                            disabled={isVerifyingOtp}
+                            className="modal-verify-btn"
+                        >
+                            {isVerifyingOtp ? 'Verifying...' : 'Verify OTP'}
+                        </button>
+                    </div>
+                </div>
             </Modal>
 
-            <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} />
+            <ToastContainer position="bottom-right" autoClose={3000} />
         </div>
     );
 };

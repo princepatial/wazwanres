@@ -6,6 +6,7 @@ const connectDB = require('./Config/db');
 const orderRoutes = require('./routes/orderRoutes');
 const errorHandler = require('./middleware/errorhandling');
 const otpRoutes = require('./routes/otpRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const Order = require('./models/order');
@@ -34,6 +35,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
+app.use('/feedback', feedbackRoutes);
 app.use('/api', otpRoutes);
 app.use('/orders', orderRoutes);
 app.use(errorHandler);

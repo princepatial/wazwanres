@@ -1,45 +1,134 @@
 const Order = require('../models/order');
 
 exports.checkout = async (req, res) => {
-    const { items, selectedTable, mobileNumber, userName, userAddress } = req.body;
+  const { selectedTable, mobileNumber, userName, selectedRestaurant, likeRestaurant } = req.body;
 
-    if (!items || items.length === 0) {
-        return res.status(400).json({ success: false, message: 'Cart is empty' });
+  if (!selectedTable) {
+    return res.status(400).json({ success: false, message: 'Table number is missing' });
+  }
+  if (!mobileNumber || !userName) {
+    return res.status(400).json({ success: false, message: 'Mobile number and user name are required' });
+  }
+
+  try {
+    // Check if the user already exists
+    const existingOrder = await Order.findOne({ mobileNumber });
+    if (existingOrder) {
+      return res.status(409).json({ success: false, message: 'User already exists' });
     }
-    if (!selectedTable) {
-        return res.status(400).json({ success: false, message: 'Table number is missing' });
-    }
 
+    const order = await Order.create({
+      selectedTable,
+      mobileNumber,
+      userName,
+      selectedRestaurant: selectedRestaurant || null,
+      likeRestaurant: likeRestaurant || false,
+      orderStatus: 'pending',
+      items: [], 
+    });
 
-    if (mobileNumber && !userName) {
-        return res.status(400).json({ success: false, message: 'User name is required when mobile number is provided' });
-    }
-
-    try {
-        const order = await Order.create({
-            items,
-            selectedTable,
-            mobileNumber: mobileNumber || null, 
-            userName: mobileNumber ? userName : null, 
-            userAddress: userAddress || null, 
-            orderStatus: 'pending',
-        });
-
-        return res.status(201).json({
-            success: true,
-            message: 'Order placed successfully',
-            orderId: order.orderId,
-            order,
-        });
-    } catch (error) {
-        console.error('Checkout error:', error);
-        return res.status(500).json({
-            success: false,
-            message: 'Failed to place the order',
-            error: error.message,
-        });
-    }
+    return res.status(201).json({
+      success: true,
+      message: 'Order initialized successfully',
+      orderId: order.orderId,
+      order,
+    });
+  } catch (error) {
+    console.error('Checkout error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to initialize the order',
+      error: error.message,
+    });
+  }
 };
+
+
+
+
+exports.getUserOrders = async (req, res) => {
+  const { mobileNumber } = req.params;
+
+  try {
+    // Find orders by mobile number
+    const orders = await Order.find({ mobileNumber }).sort({ createdAt: -1 });
+
+    // Check if no orders or user found for the given mobile number
+    if (orders.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Mobile number not found. Please register as a new customer.',
+      });
+    }
+
+    // If user exists, return success and the orders
+    return res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    // Handle any other errors
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to fetch user orders',
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+exports.updateOrderItems = async (req, res) => {
+  const { orderId } = req.params;
+  const { items } = req.body;
+
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ success: false, message: 'Invalid items data' });
+  }
+
+  try {
+    const updatedOrder = await Order.findOneAndUpdate(
+      { orderId: orderId },
+      { $set: { items: items } },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ success: false, message: 'Order not found' });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Order updated successfully',
+      order: updatedOrder,
+    });
+  } catch (error) {
+    console.error('Update order error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to update the order',
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 exports.getAllOrders = async (req, res) => {

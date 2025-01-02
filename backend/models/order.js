@@ -4,19 +4,21 @@ const orderSchema = new mongoose.Schema({
   orderId: { type: String, unique: true },
   items: [
     {
-      id: { type: String, required: true },
-      name: { type: String, required: true },
-      price: { type: Number, required: true },
-      quantity: { type: Number, required: true },
+      id: { type: String },
+      name: { type: String },
+      price: { type: Number },
+      quantity: { type: Number },
     },
   ],
   selectedTable: { type: String, required: true },
-  mobileNumber: { type: String, required: false },
-  userName: { type: String, required: false },
+  mobileNumber: { type: String, required: true },
+  userName: { type: String, required: true },
   userAddress: { type: String },
+  selectedRestaurant: { type: String },
+  likeRestaurant: { type: Boolean, default: false },
   orderStatus: {
     type: String,
-    enum: ['pending', 'accepted', 'rejected'],
+    enum: ['pending', 'accepted', 'rejected','cooking','ready'],
     default: 'pending'
   },
   createdAt: { type: Date, default: Date.now },

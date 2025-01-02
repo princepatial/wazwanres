@@ -348,7 +348,7 @@ const Cart = () => {
         }
 
         try {
-            const response = await axios.post('http://13.239.200.245:5001/orders/checkout', {
+            const response = await axios.post('http://localhost:5001/orders/checkout', {
                 items: orderItems,
                 selectedTable,
                 mobileNumber: mobileNumber || '',

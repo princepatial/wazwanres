@@ -1,10 +1,9 @@
 const twilio = require('twilio');
-const User = require('../models/users');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Twilio credentials (use dotenv in production)
+// Twilio credentials
 const TWILIO_SID = process.env.TWILIO_SID;
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
@@ -16,10 +15,10 @@ if (!TWILIO_SID || !TWILIO_AUTH_TOKEN || !TWILIO_PHONE_NUMBER) {
 
 const client = twilio(TWILIO_SID, TWILIO_AUTH_TOKEN);
 
-// Temporary in-memory OTP store (use a database in production)
+// Temporary in-memory OTP store (use a database or secure storage in production)
 const otpStorage = {};
 
-// Check user and send OTP
+// Send OTP
 exports.checkUser = async (req, res) => {
   const { mobileNumber } = req.body;
 
@@ -28,13 +27,6 @@ exports.checkUser = async (req, res) => {
   }
 
   try {
-    // Check if the user already exists
-    const existingUser = await User.findOne({ mobileNumber });
-
-    if (existingUser) {
-      return res.status(409).json({ message: 'User already exists' });
-    }
-
     // Generate and send OTP
     const otp = Math.floor(100000 + Math.random() * 900000); // Generate a 6-digit OTP
     otpStorage[mobileNumber] = otp; // Store OTP temporarily with mobile number as key
@@ -42,7 +34,7 @@ exports.checkUser = async (req, res) => {
     // Send OTP via Twilio
     await client.messages.create({
       body: `Your OTP is: ${otp}`,
-      from: +16414359099,
+      from: TWILIO_PHONE_NUMBER,
       to: `+91${mobileNumber}`, 
     });
 
@@ -66,10 +58,6 @@ exports.verifyOTP = async (req, res) => {
     const storedOtp = otpStorage[mobileNumber];
 
     if (storedOtp && storedOtp.toString() === otp.toString()) {
-      // Save the user in the database
-      const newUser = new User({ mobileNumber });
-      await newUser.save();
-
       delete otpStorage[mobileNumber]; // Remove OTP after successful verification
       return res.status(200).json({ message: 'OTP verified successfully' });
     }

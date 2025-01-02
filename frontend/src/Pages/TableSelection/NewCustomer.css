@@ -1,470 +1,464 @@
-.new-customer-page {
-  background: url('https://images.unsplash.com/photo-1497644083578-611b798c60f3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
-  background-size: cover;
+/* RestaurantBooking.css */
+.booking-page {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #333;
-  padding: 10px;
-}
-
-.content-wrapper1 {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  max-width: 1000px;
-  width: 90%;
-}
-
-.page-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.page-header h1 {
-  font-size: 2.5rem;
-  color: #8B4513;
-  margin-bottom: 10px;
-}
-
-.page-header p {
-  font-size: 1.2rem;
-  color: #6B4226;
-}
-
-.reservation-container {
-  display: flex;
-  gap: 40px;
-}
-
-.table-selection, .mobile-input-section {
-  flex: 1;
-}
-
-h2 {
-  font-size: 1.8rem;
-  color: #8B4513;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.tables-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 15px;
-}
-
-.table-button {
-  background: #D2B48C;
-  border: none;
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 1rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 2rem;
   color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+.booking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.booking-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+}
+
+.restaurant-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+}
+
+.logo-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.booking-header h1 {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+  background: linear-gradient(to right, #f59e0b, #fbbf24);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.header-subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+/* Content Layout */
+.booking-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+}
+
+/* Tables Section */
+.tables-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tables-section h2 {
+  color: #f59e0b;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.modern-tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.modern-table-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  text-align: center;
-}
-
-.table-button:hover, .table-button.selected {
-  background: #8B4513;
-}
-
-.table-button.unavailable {
-  background: #D3D3D3;
-  cursor: not-allowed;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-input[type="tel"] {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #D2B48C;
-  border-radius: 8px;
-  font-size: 1rem;
-  text-align: center;
-}
-
-#submit-button {
-  width: 100%;
-  padding: 12px;
-  background: #8B4513;
+  overflow: hidden;
+  text-align: left;
   color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
 }
 
-#submit-button:hover {
-  background: #6B4226;
+.modern-table-card:not(:disabled):hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.loading-spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #8B4513;
-  border-radius: 50%;
+.modern-table-card.selected {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+}
+
+.modern-table-card.selected .table-number {
+  color: #fff;
+}
+
+.table-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.table-number {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.table-status {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.modern-table-card.occupied {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Loading Spinner */
+.modern-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.loader-spinner {
   width: 40px;
   height: 40px;
+  border: 3px solid rgba(245, 158, 11, 0.3);
+  border-radius: 50%;
+  border-top-color: #f59e0b;
   animation: spin 1s linear infinite;
-  margin: 20px auto;
+  margin-bottom: 1rem;
 }
 
-.mandatory {
-  color: red;
-  margin-left: 5px;
-  font-weight: bold;
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
 }
 
-/* OTP Modal */
-.otp-modal {
-  position: fixed;
+/* Contact Section */
+.contact-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-section h2 {
+  color: #f59e0b;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;  
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 1rem; 
+}
+
+.modern-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modern-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+.modern-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+.modern-select:focus {
+  outline: none;
+  border-color: #f59e0b;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modern-select option {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.modern-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.modern-checkbox:checked {
+  background-color: #f59e0b;
+  border-color: #f59e0b;
+}
+
+.modern-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #fff;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
-  z-index: 9999;
-  text-align: center;
-  animation: fadeIn 0.3s ease-in-out;
+  color: #fff;
+  font-size: 14px;
 }
 
-/* Header */
-.otp-modal h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 10px;
+.checkbox-label {
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
-/* OTP Input Field */
-.otp-input {
-  width: 100%;
-  padding: 15px 20px;
-  font-size: 1.2rem;
-  text-align: center;
-  border-radius: 12px;
-  border: 2px solid #ddd;
-  margin-bottom: 30px;
-  color: #333;
-  background: #f9f9f9;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.otp-input:focus {
-  border-color: #6c7f97;
-  box-shadow: 0 0 10px rgba(108, 127, 151, 0.3);
-  outline: none;
-}
-
-/* Placeholder Text */
-.otp-input::placeholder {
-  color: #aaa;
-}
-
-/* Verify Button */
-.verify-button {
-  background-color: #6c7f97;
-  color: white;
-  font-size: 1.2rem;
-  padding: 12px 25px;
+.modern-submit-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  padding: 1rem;
   border: none;
-  border-radius: 30px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(108, 127, 151, 0.2);
 }
 
-.verify-button:hover {
-  background-color: #576e87;
+.modern-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(108, 127, 151, 0.3);
+  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
 }
 
-.verify-button:disabled {
-  background-color: #c7c7c7;
+/* Modal Styles */
+.modern-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.modern-modal {
+  background: #1e293b;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+  color: #f59e0b;
+  margin-bottom: 0.5rem;
+}
+
+.modal-header p {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.modern-otp-input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  letter-spacing: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.modern-otp-input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.modal-cancel-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-verify-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-verify-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.modal-verify-btn:disabled {
+  opacity: 0.7;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-/* Loading State */
-.verify-button.loading {
-  background-color: #a1b5c1;
-  cursor: progress;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Modal Animation */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.95);
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .booking-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
   }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+
+  .modern-tables-grid {
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   }
 }
 
-
-.ReactModal__Overlay {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-/* Media Queries for Responsive Design between 768px and 1024px */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .new-customer-page {
-    padding: 20px; /* Add some padding for smaller screens */
+@media (max-width: 768px) {
+  .booking-page {
+      padding: 1rem;
   }
 
-  .content-wrapper1 {
-    padding: 30px; /* Reduce padding for smaller screens */
-    margin-top: 50px;
+  .booking-header h1 {
+      font-size: 2rem;
   }
 
-  .page-header h1 {
-    font-size: 2rem; /* Smaller font size for the header */
-  }
-  .tables-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); /* Display 6 tables in one row */
-    gap: 15px; /* Maintain gap between tables */
+  .restaurant-logo {
+      width: 60px;
+      height: 60px;
   }
 
-  .page-header p {
-    font-size: 1rem; /* Smaller font size for the paragraph */
+  .logo-text {
+      font-size: 2rem;
   }
 
-  .reservation-container {
-    flex-direction: column; /* Stack the sections vertically */
-    gap: 20px; /* Reduce gap between sections */
-  }
-
-  .table-selection, .mobile-input-section {
-    width: 100%; /* Ensure full width for sections */
-  }
-
-  h2 {
-    font-size: 1.5rem; /* Smaller heading size */
-  }
-
-  .table-button {
-    font-size: 0.9rem; /* Smaller button font size */
-    padding: 10px; /* Adjust padding */
-  }
-
-  input[type="tel"] {
-    padding: 10px; /* Adjust input padding */
-    font-size: 0.9rem; /* Smaller input font size */
-  }
-
-  #submit-button {
-    padding: 10px; /* Adjust button padding */
-    font-size: 0.9rem; /* Smaller button font size */
-  }
-
-  .otp-modal {
-    max-width: 90%; /* Allow modal to take more width on smaller screens */
-  }
-
-  .otp-modal h2 {
-    font-size: 1.5rem; /* Smaller font size for modal header */
-  }
-
-  .otp-input {
-    font-size: 1rem; /* Smaller input font size */
-    padding: 10px; /* Adjust padding */
-  }
-
-  .verify-button {
-    padding: 10px 20px; /* Adjust button padding */
-    font-size: 1rem; /* Smaller button font size */
-  }
-
-  .loading-spinner {
-    width: 30px; /* Smaller spinner size */
-    height: 30px; /* Smaller spinner size */
+  .modern-tables-grid {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
 }
 
-/* Media Queries for Responsive Design between 481px and 767px */
-@media (min-width: 481px) and (max-width: 767px) {
-  .new-customer-page {
-    padding: 10px; /* Add some padding for smaller screens */
+@media (max-width: 480px) {
+  .booking-header {
+      margin-bottom: 2rem;
   }
 
-  .content-wrapper1 {
-    padding: 20px; /* Reduce padding for smaller screens */
-    margin-top: 50px;
+  .booking-header h1 {
+      font-size: 1.8rem;
   }
 
-  .page-header h1 {
-    font-size: 1.8rem; /* Smaller font size for the header */
+  .modern-tables-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
   }
 
-  .page-header p {
-    font-size: 1rem; /* Smaller font size for the paragraph */
+  .modern-table-card {
+      padding: 1rem;
   }
 
-  .reservation-container {
-    flex-direction: column; /* Stack the sections vertically */
-    gap: 15px; /* Reduce gap between sections */
+  .modern-modal {
+      padding: 1.5rem;
   }
 
-  .table-selection, .mobile-input-section {
-    width: 100%; /* Ensure full width for sections */
+  .modal-actions {
+      flex-direction: column;
   }
 
-  h2 {
-    font-size: 1.5rem; /* Smaller heading size */
-  }
-
-  .tables-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Display 3 tables in one row */
-    gap: 10px; /* Maintain gap between tables */
-  }
-
-  .table-button {
-    padding: 10px; /* Adjust padding for buttons */
-    font-size: 0.9rem; /* Ensure the font size is readable */
-  }
-
-  input[type="tel"] {
-    padding: 10px; /* Adjust input padding */
-    font-size: 0.9rem; /* Smaller input font size */
-  }
-
-  #submit-button {
-    padding: 10px; /* Adjust button padding */
-    font-size: 0.9rem; /* Smaller button font size */
-  }
-
-  .otp-modal {
-    max-width: 90%; /* Allow modal to take more width on smaller screens */
-  }
-
-  .otp-modal h2 {
-    font-size: 1.5rem; /* Smaller font size for modal header */
-  }
-
-  .otp-input {
-    font-size: 1rem; /* Smaller input font size */
-    padding: 10px; /* Adjust padding */
-  }
-
-  .verify-button {
-    padding: 10px 20px; /* Adjust button padding */
-    font-size: 1rem; /* Smaller button font size */
-  }
-
-  .loading-spinner {
-    width: 30px; /* Smaller spinner size */
-    height: 30px; /* Smaller spinner size */
+  .modal-cancel-btn,
+  .modal-verify-btn {
+      width: 100%;
   }
 }
-
-/* Media Queries for Responsive Design for 481px and Below */
-@media (max-width: 481px) {
-  .new-customer-page {
-    padding: 5px; /* Add minimal padding for smaller screens */
-  }
-
-  .content-wrapper1 {
-    padding: 15px; /* Reduce padding for smaller screens */
-    margin-top: 70px;
-  }
-
-  .page-header h1 {
-    font-size: 1.5rem; /* Smaller font size for the header */
-  }
-
-  .page-header p {
-    font-size: 0.9rem; /* Smaller font size for the paragraph */
-  }
-
-  .reservation-container {
-    flex-direction: column; /* Stack the sections vertically */
-    gap: 10px; /* Reduce gap between sections */
-  }
-
-  .table-selection, .mobile-input-section {
-    width: 100%; /* Ensure full width for sections */
-  }
-
-  h2 {
-    font-size: 1.3rem; /* Smaller heading size */
-  }
-
-  .tables-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Display 2 tables in one row */
-    gap: 8px; /* Maintain gap between tables */
-  }
-
-  .table-button {
-    padding: 8px; /* Adjust padding for buttons */
-    font-size: 0.8rem; /* Smaller font size for buttons */
-  }
-
-  input[type="tel"] {
-    padding: 8px; /* Adjust input padding */
-    font-size: 0.8rem; /* Smaller input font size */
-  }
-
-  #submit-button {
-    padding: 8px; /* Adjust button padding */
-    font-size: 0.8rem; /* Smaller button font size */
-  }
-
-  .otp-modal {
-    max-width: 90%; /* Allow modal to take more width on smaller screens */
-  }
-
-  .otp-modal h2 {
-    font-size: 1.3rem; /* Smaller font size for modal header */
-  }
-
-  .otp-input {
-    font-size: 0.9rem; /* Smaller input font size */
-    padding: 8px; /* Adjust padding */
-  }
-
-  .verify-button {
-    padding: 8px 15px; /* Adjust button padding */
-    font-size: 0.9rem; /* Smaller button font size */
-  }
-
-  .loading-spinner {
-    width: 25px; /* Smaller spinner size */
-    height: 25px; /* Smaller spinner size */
-  }
-}
-
-
