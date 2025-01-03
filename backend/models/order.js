@@ -50,11 +50,5 @@ async function generateOrderId() {
 }
 
 
-orderSchema.pre('save', async function (next) {
-  if (!this.orderId) {
-    this.orderId = await generateOrderId();
-  }
-  next();
-});
 
 module.exports = mongoose.model('Order', orderSchema, 'order');

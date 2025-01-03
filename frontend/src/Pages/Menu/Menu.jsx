@@ -6,8 +6,10 @@ import { ShoppingBag, Plus, Minus, Search, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import './Menu.css';
+import { useUser } from '../../Components/Profile/UserContext'; // Import the useUser hook
 
 const Menu = () => {
+  const { userDetails } = useUser(); // Access userDetails from context
   const [menuItems, setMenuItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -20,14 +22,6 @@ const Menu = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
   useEffect(() => {
-    const mobileNumber = localStorage.getItem('mobileNumber');
-    const selectedTable = localStorage.getItem('selectedTable');
-
-    if (!mobileNumber && !selectedTable) {
-      setIsLoading(false);
-      return;
-    }
-
     const fetchMenuItems = async () => {
       try {
         const response = await axios.get('http://13.239.200.245:5000/api/products');
@@ -113,19 +107,16 @@ const Menu = () => {
     }
   };
 
-  const mobileNumber = localStorage.getItem('mobileNumber');
-  const selectedTable = localStorage.getItem('selectedTable');   
-
-  if (!mobileNumber && !selectedTable) {
+  if (!userDetails) {
     return (
       <div className="auth-container">
         <div className="auth-content">
           <h1 className="auth-title">Welcome to Wazwan Restaurants</h1>
           <p className="auth-subtitle">Your Culinary Journey Awaits</p>
           <div className="auth-message">
-            <p>Please sign in by clicking OUR MENU in Home Page with your mobile number or select a table to view our menu</p>
+            <p>Please log in to view the menu</p>
             <button className="auth-button" onClick={() => navigate('/')}>
-              <span>Sign In</span>
+              <span>Log In</span>
               <ArrowRight className="arrow-icon" />
             </button>
           </div>
@@ -133,13 +124,14 @@ const Menu = () => {
       </div>
     );
   }
+
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
 
   return (
     <div className="menu-modern">
-      <div className={`menu-header ${isHeaderVisible ? 'visible' : 'hidden'}`} style={{marginTop:"7rem"}}>
+      <div className={`menu-header ${isHeaderVisible ? 'visible' : 'hidden'}`} style={{ marginTop: "7rem" }}>
         <div className="brand-section">
           <h1 className="brand-name">
             Wazwan <span>Restaurants</span>
@@ -157,34 +149,33 @@ const Menu = () => {
           />
         </div>
       </div>
-
+      
       <nav className="category-nav">
-  {['all', 'veg', 'non-veg', 'beverage', 'starters', 'bread'].map((filter) => (
-    <button
-      key={filter}
-      onClick={() => handleFilter(filter)}
-      className={`category-btn ${activeFilter === filter ? 'active' : ''}`}
-      style={{
-        backgroundColor: 
-          activeFilter === filter 
-            ? filter === 'veg' ? '#008000' 
-            : filter === 'non-veg' ? 'red' 
-            : filter === 'beverage' ? 'blue' 
-            : filter === 'starters' ? 'orange' 
-            : filter === 'bread' ? 'brown' 
-            : '#273746 ' 
-            : '', // Default background color for non-selected buttons
-        color: activeFilter === filter ? '#fff' : '', // Text color for active button
-      }}
-    >
-      {filter
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')}
-    </button>
-  ))}
-</nav>
-
+        {['all', 'veg', 'non-veg', 'beverage', 'starters', 'bread'].map((filter) => (
+          <button
+            key={filter}
+            onClick={() => handleFilter(filter)}
+            className={`category-btn ${activeFilter === filter ? 'active' : ''}`}
+            style={{
+              backgroundColor: 
+                activeFilter === filter 
+                  ? filter === 'veg' ? '#008000' 
+                  : filter === 'non-veg' ? 'red' 
+                  : filter === 'beverage' ? 'blue' 
+                  : filter === 'starters' ? 'orange' 
+                  : filter === 'bread' ? 'brown' 
+                  : '#273746 ' 
+                  : '', // Default background color for non-selected buttons
+              color: activeFilter === filter ? '#fff' : '', // Text color for active button
+            }}
+          >
+            {filter
+              .split('-')
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ')}
+          </button>
+        ))}
+      </nav>
 
       <div className="menu-grid">
         {filteredItems.map((item) => {

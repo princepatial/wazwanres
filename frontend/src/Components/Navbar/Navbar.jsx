@@ -39,11 +39,60 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
-  const { userDetails } = useUser();
-  const { cartItemCount } = useCart();
+  const [userProfile, setUserProfile] = useState(null);
+  const { userDetails, setUserDetails } = useUser();
+  const [loadingProfile, setLoadingProfile] = useState(false);
+  const { cartItemCount, clearCart } = useCart();
   const navigate = useNavigate();
 
-  // Handle scroll effect
+  useEffect(() => {
+    if (userDetails) {
+      sessionStorage.setItem('userDetails', JSON.stringify(userDetails));
+    }
+  }, [userDetails]);
+
+  useEffect(() => {
+    const savedUserDetails = sessionStorage.getItem('userDetails');
+    if (savedUserDetails) {
+      setUserDetails(JSON.parse(savedUserDetails));
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (userDetails?.mobileNumber) {
+        setLoadingProfile(true);
+        try {
+          const response = await fetch(`http://localhost:5001/orders/user/${userDetails.mobileNumber}`);
+          const data = await response.json();
+          if (data.success && data.orders && data.orders.length > 0) {
+            const { userName, mobileNumber } = data.orders[0];
+            setUserProfile({ name: userName, mobileNumber });
+          } else {
+            setUserProfile(null);
+          }
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+          setUserProfile(null);
+        } finally {
+          setLoadingProfile(false);
+        }
+      } else {
+        setUserProfile(null);
+      }
+    };
+    fetchUserDetails();
+  }, [userDetails]);
+
+  const handleLogout = () => {
+    setUserDetails(null);
+    setUserProfile(null);
+    clearCart();
+    sessionStorage.removeItem('userDetails');
+    setIsProfilePopupOpen(false);
+    navigate('/');
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -52,25 +101,21 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Toggle mobile menu
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
     document.body.classList.toggle('menu-open');
   };
 
-  // Close mobile menu when clicking on a link
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
     document.body.classList.remove('menu-open');
   };
 
-  // Toggle profile popup
   const toggleProfilePopup = (e) => {
-    e.stopPropagation(); // Prevent click propagation
+    e.stopPropagation();
     setIsProfilePopupOpen(!isProfilePopupOpen);
   };
 
-  // Close profile popup when clicking outside
   useEffect(() => {
     const handleClickOutside = () => setIsProfilePopupOpen(false);
     if (isProfilePopupOpen) {
@@ -89,7 +134,6 @@ const Navbar = () => {
             <img src={logoImage} alt="WazwaN" className="logo-image" />
           </NavLink>
         </div>
-
         <button
           className="mobile-menu-button"
           onClick={toggleMobileMenu}
@@ -97,7 +141,6 @@ const Navbar = () => {
         >
           {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </button>
-
         <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <NavLink to="/" className="nav-link" onClick={handleLinkClick}>
             Home
@@ -109,10 +152,7 @@ const Navbar = () => {
             About
           </NavLink>
           <div className="nav-actions">
-            <div
-              className="nav-link user-link"
-              onClick={toggleProfilePopup}
-            >
+            <div className="nav-link user-link" onClick={toggleProfilePopup}>
               {userDetails && userDetails.userName ? (
                 <div className="logged-in-user">
                   <span className="user-initial">
@@ -122,86 +162,83 @@ const Navbar = () => {
               ) : (
                 <UserIcon />
               )}
-
               {isProfilePopupOpen && (
-                <div
-                  className="profile-popup"
-                  onClick={(e) => e.stopPropagation()}
-                  style={{ zIndex: 1000 }}
-                >
-                  <div className="profile-popup-content">
-                    <button
-                      className="close-popup-button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsProfilePopupOpen(false);
-                      }}
-                    >
-                      <CloseIcon />
-                    </button>
-                    {userDetails && userDetails.userName ? (
-                      <>
-                        <h2>Profile</h2>
-                        <div className="profile-info">
-                          <p>
-                            <span className="label">Name:</span> {userDetails.userName}
-                          </p>
-                          <p>
-                            <span className="label">Number:</span> {userDetails.mobileNumber}
-                          </p>
-                          <p>
-                            <span className="label">Restaurant:</span>{' '}
-                            {userDetails.selectedRestaurant}
-                          </p>
-                        </div>
-                        <div className="profile-actions">
-                          <button
-                            className="edit-profile-button"
-                            onClick={() => {
-                              navigate('/profile');
-                              setIsProfilePopupOpen(false);
-                            }}
-                          >
-                            Edit Profile
-                          </button>
-                          <button
-                            className="logout-button"
-                            onClick={() => {
-                              
-                              setIsProfilePopupOpen(false);
-                            }}
-                          >
-                            Logout
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <h2>Please login first</h2>
-                        <div className="profile-actions">
-                          <button
-                            className="login-button"
-                            onClick={() => {
-                              navigate('/'); 
-                              setIsProfilePopupOpen(false);
-                            }}
-                          >
-                            Login
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
+                <div className="profile-popup" onClick={(e) => e.stopPropagation()}>
+                  {loadingProfile ? (
+                    <div className="profile-popup-content">
+                      <p>Loading profile...</p>
+                    </div>
+                  ) : (
+                    <div className="profile-popup-content">
+                      <button
+                        className="close-popup-button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsProfilePopupOpen(false);
+                        }}
+                      >
+                        <CloseIcon />
+                      </button>
+                      {userProfile ? (
+                        <>
+                          <div className="profile-header">
+                            <div className="profile-avatar">
+                              {userProfile.name ? userProfile.name.charAt(0).toUpperCase() : '?'}
+                            </div>
+                            <h2>Profile</h2>
+                          </div>
+                          <div className="profile-info">
+                            <div className="info-item1">
+                              <span className="label">Name:</span>
+                              <span className="value">{userProfile.name}</span>
+                            </div>
+                            <div className="info-item1">
+                              <span className="label">Number:</span>
+                              <span className="value">{userProfile.mobileNumber}</span>
+                            </div>
+                          </div>
+                          <div className="profile-actions">
+                            <button
+                              className="edit-profile-button"
+                              onClick={() => {
+                                navigate('/profile');
+                                setIsProfilePopupOpen(false);
+                              }}
+                            >
+                              Edit Profile
+                            </button>
+                            <button className="logout-button" onClick={handleLogout}>
+                              Logout
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <h2>Please login first</h2>
+                          <div className="profile-actions">
+                            <button
+                              className="login-button"
+                              onClick={() => {
+                                navigate('/');
+                                setIsProfilePopupOpen(false);
+                              }}
+                            >
+                              Login
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
-
             </div>
-            <NavLink to="/checkout" className="nav-link cart-link" onClick={handleLinkClick}>
-              <CartIcon />
-              {cartItemCount > 0 && (
-                <span className="cart-badge">{cartItemCount}</span>
-              )}
-            </NavLink>
+            {userDetails && (
+              <NavLink to="/checkout" className="nav-link cart-link" onClick={handleLinkClick}>
+                <CartIcon />
+                {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+              </NavLink>
+            )}
           </div>
         </div>
       </div>

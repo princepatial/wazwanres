@@ -147,7 +147,7 @@ const NewCustomer = () => {
               const orderId = saveResponse.data.orderId;
               setUserDetails(userDetails);
               toast.success('Details saved successfully!');
-              navigate(`/menu?orderId=${orderId}`);
+              navigate(`/menu`);
             }
           }
         } catch (error) {

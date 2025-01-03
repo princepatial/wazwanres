@@ -78,6 +78,41 @@ exports.getUserOrders = async (req, res) => {
 
 
 
+exports.updateUserDetails = async (req, res) => {
+  const { mobileNumber } = req.params; // Get mobile number from URL params
+  const updatedData = req.body; // Get updated data from the request body
+
+  try {
+    // Find the user by mobile number and update their details
+    const updatedUser = await Order.findOneAndUpdate(
+      { mobileNumber }, // Filter by mobile number
+      updatedData, // Update fields with the new data
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: 'User with this mobile number not found.',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'User details updated successfully.',
+      updatedUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to update user details.',
+      error: error.message,
+    });
+  }
+};
+
+
+
 
 
 

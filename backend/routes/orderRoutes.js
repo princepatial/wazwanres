@@ -7,7 +7,8 @@ const {
   updateOrderStatus,
   getOrderStatus,
   getUserOrders,
-  updateOrderItems
+  updateOrderItems,
+  updateUserDetails
 } = require('../Controller/ordercontoller');
 const router = express.Router();
 
@@ -15,6 +16,8 @@ const router = express.Router();
 router.post('/checkout', checkout);
 
 router.get('/user/:mobileNumber', getUserOrders);
+
+router.put('/user/:mobileNumber', updateUserDetails);
 
 router.put('/orders/:orderId', updateOrderItems);
 

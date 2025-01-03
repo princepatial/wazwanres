@@ -335,8 +335,8 @@ body {
     padding: 20px;
     height: fit-content;
     position: sticky;
-    top: 20px;
-    margin-top: auto;
+    margin-top: 3rem;
+    
 }
 
 .suggested-items-section {
