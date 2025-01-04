@@ -302,11 +302,10 @@ body {
   background: #22c55e;
 }
 
-/* Floating Cart Button */
 .floating-cart {
   position: fixed;
-  bottom: var(--spacing-lg);
-  right: var(--spacing-lg);
+  bottom: 12rem;
+  right: 5rem; 
   background: var(--text-dark);
   color: white;
   border: none;
@@ -325,6 +324,7 @@ body {
   background: var(--primary);
   transform: translateY(-2px);
 }
+
 
 .cart-items {
   background: white;

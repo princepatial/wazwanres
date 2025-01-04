@@ -6,44 +6,62 @@ import './Profile.css';
 const Profile = () => {
   const { userDetails, setUserDetails } = useUser();
   const [userData, setUserData] = useState(null);
+  const [orders, setOrders] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [isOrdersLoading, setIsOrdersLoading] = useState(false);
 
-  // Clear session storage and fetch fresh data when userDetails change
   useEffect(() => {
     if (userDetails) {
       sessionStorage.removeItem('userData');
       sessionStorage.removeItem('formData');
 
       const fetchUserData = async () => {
-        setIsLoading(true);
+        setIsProfileLoading(true);
         try {
           const response = await axios.get(
-            `http://localhost:5001/orders/user/${userDetails.mobileNumber}`
+            `http://localhost:5001/customers/get-customer?mobileNumber=${userDetails.mobileNumber}`
           );
 
-          if (response.data && response.data.success && response.data.orders.length > 0) {
-            const userOrder = response.data.orders[0];
-            setUserData(userOrder);
-            setFormData(userOrder);
-
-            // Store in session storage
-            sessionStorage.setItem('userData', JSON.stringify(userOrder));
-            sessionStorage.setItem('formData', JSON.stringify(userOrder));
+          if (response.data && response.data.customer) {
+            const userCustomer = response.data.customer;
+            setUserData(userCustomer);
+            setFormData(userCustomer);
+            sessionStorage.setItem('userData', JSON.stringify(userCustomer));
+            sessionStorage.setItem('formData', JSON.stringify(userCustomer));
           } else {
-            setUserData(null);
-            console.error('No orders found or unexpected API response:', response.data);
+            console.error('No customer found or unexpected API response:', response.data);
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
-          setUserData(null);
         } finally {
-          setIsLoading(false);
+          setIsProfileLoading(false);
+        }
+      };
+
+      const fetchOrders = async () => {
+        setIsOrdersLoading(true);
+        try {
+          const orderResponse = await axios.get(
+            `http://localhost:5001/orders/${userDetails.mobileNumber}`
+          );
+
+          if (orderResponse.data && orderResponse.data.orders) {
+            setOrders(orderResponse.data.orders);
+          } else {
+            setOrders([]);
+          }
+        } catch (error) {
+          console.error('Error fetching orders:', error);
+          setOrders([]);
+        } finally {
+          setIsOrdersLoading(false);
         }
       };
 
       fetchUserData();
+      fetchOrders();
     }
   }, [userDetails]);
 
@@ -53,8 +71,6 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     };
     setFormData(updatedFormData);
-
-    // Update session storage
     sessionStorage.setItem('formData', JSON.stringify(updatedFormData));
   };
 
@@ -62,14 +78,12 @@ const Profile = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5001/orders/user/${userDetails.mobileNumber}`,
+        `http://localhost:5001/customers/update-customer?mobileNumber=${userDetails.mobileNumber}`,
         formData
       );
       setUserData(formData);
       setIsEditing(false);
       alert('Profile updated successfully!');
-
-      // Update session storage with the updated user data
       sessionStorage.setItem('userData', JSON.stringify(formData));
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -86,11 +100,20 @@ const Profile = () => {
     );
   }
 
-  if (isLoading || !userData) {
+  if (isProfileLoading) {
     return (
       <div className="profile-container">
         <h1 className="profile-header">Profile</h1>
         <p>Loading user data...</p>
+      </div>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <div className="profile-container">
+        <h1 className="profile-header">Profile</h1>
+        <p>Unable to load profile data. Please try again later.</p>
       </div>
     );
   }
@@ -105,8 +128,8 @@ const Profile = () => {
               <label className="profile-form-label">Name:</label>
               <input
                 type="text"
-                name="userName"
-                value={formData.userName}
+                name="customerName"
+                value={formData.customerName}
                 onChange={handleInputChange}
                 className="profile-input"
               />
@@ -125,8 +148,8 @@ const Profile = () => {
               <label className="profile-form-label">Address:</label>
               <input
                 type="text"
-                name="userAddress"
-                value={formData.userAddress || ''}
+                name="address"
+                value={formData.address || ''}
                 onChange={handleInputChange}
                 className="profile-input"
               />
@@ -135,8 +158,8 @@ const Profile = () => {
               <label className="profile-form-label">Restaurant:</label>
               <input
                 type="text"
-                name="selectedRestaurant"
-                value={formData.selectedRestaurant || ''}
+                name="likeRestaurant"
+                value={formData.likeRestaurant || ''}
                 onChange={handleInputChange}
                 className="profile-input"
               />
@@ -157,16 +180,16 @@ const Profile = () => {
         ) : (
           <>
             <p className="profile-text">
-              <span className="profile-label">Name:</span> {userData.userName}
+              <span className="profile-label">Name:</span> {userData.customerName}
             </p>
             <p className="profile-text">
               <span className="profile-label">Mobile Number:</span> {userData.mobileNumber}
             </p>
             <p className="profile-text">
-              <span className="profile-label">Address:</span> {userData.userAddress}
+              <span className="profile-label">Address:</span> {userData.address}
             </p>
             <p className="profile-text">
-              <span className="profile-label">Restaurant:</span> {userData.selectedRestaurant}
+              <span className="profile-label">Restaurant:</span> {userData.likeRestaurant}
             </p>
             <button
               onClick={() => setIsEditing(true)}
@@ -175,6 +198,38 @@ const Profile = () => {
               Edit Profile
             </button>
           </>
+        )}
+      </div>
+
+      <div className="orders-section">
+        <h2>Order History</h2>
+        {isOrdersLoading ? (
+          <p>Loading orders...</p>
+        ) : orders.length > 0 ? (
+          <ul>
+            {orders.map((order) => (
+              <li key={order.orderId}>
+                <p>Order ID: {order.orderId}</p>
+                <p>Table: {order.selectedTable}</p>
+                <p>Status: {order.orderStatus}</p>
+                <p>Total Amount: ₹{order.totalAmount}</p>
+                <p>Payment Method: {order.paymentDetails ? order.paymentDetails.paymentMethod : 'N/A'}</p>
+                <p>Payment Status: {order.paymentDetails ? order.paymentDetails.status : 'N/A'}</p>
+                <p>Items:</p>
+                <ul>
+                  {order.items && order.items.length > 0 ? (
+                    order.items.map((item, index) => (
+                      <li key={index}>{item.name} - {item.quantity} x ₹{item.price}</li>
+                    ))
+                  ) : (
+                    <li>No items found</li>
+                  )}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No orders found.</p>
         )}
       </div>
     </div>

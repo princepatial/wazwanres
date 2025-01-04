@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ArrowLeft } from 'lucide-react';
 import Food from '../../assets/gallery/food.jpg';
 import Food1 from '../../assets/gallery/food1.jpg';
 import Food2 from '../../assets/gallery/food2.jpg';
@@ -18,30 +19,30 @@ import kitchen1 from '../../assets/gallery/kitchen1.mp4';
 import kitchen3 from '../../assets/gallery/kitchen3.mp4';
 
 const media = [
-  { type: "image", id: 1, title: "Seasonal Symphony", category: "Multi Course", description: "Fresh Atlantic salmon with herbs", src: Food },
-  { type: "video", id: 2, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: "https://videos.pexels.com/video-files/2882090/2882090-uhd_2560_1440_24fps.mp4" },
-  { type: "image", id: 3, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food1 },
-  { type: "image", id: 4, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior },
-  { type: "video", id: 5, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen3 },
-  { type: "image", id: 6, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior2 },
-  { type: "image", id: 7, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior1 },
-  { type: "image", id: 8, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior3 },
-  { type: "video", id: 18, title: "Chef's Special", category: "Kitchen", description: "Where style meets comfort in every corner.", src: kitchen },
-  { type: "image", id: 9, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior4 },
-  { type: "image", id: 10, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food3 },
-  { type: "image", id: 11, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior5 },
-  { type: "image", id: 12, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior6 },
-  { type: "image", id: 13, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior7 },
-  { type: "video", id: 14, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen1 },
-  { type: "image", id: 15, title: "Moments of Joy", category: "Events", description: "A symphony of flavors in every bite.", src: guest },
-  { type: "video", id: 16, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: Foodvideo },
-  { type: "image", id: 17, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food2 },
+    { type: "image", id: 1, title: "Seasonal Symphony", category: "Multi Course", description: "Fresh Atlantic salmon with herbs", src: Food },
+    { type: "video", id: 2, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: "https://videos.pexels.com/video-files/2882090/2882090-uhd_2560_1440_24fps.mp4" },
+    { type: "image", id: 3, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food1 },
+    { type: "image", id: 4, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior },
+    { type: "video", id: 5, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen3 },
+    { type: "image", id: 6, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior2 },
+    { type: "image", id: 7, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior1 },
+    { type: "image", id: 8, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior3 },
+    { type: "video", id: 18, title: "Chef's Special", category: "Kitchen", description: "Where style meets comfort in every corner.", src: kitchen },
+    { type: "image", id: 9, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior4 },
+    { type: "image", id: 10, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food3 },
+    { type: "image", id: 11, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior5 },
+    { type: "image", id: 12, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior6 },
+    { type: "image", id: 13, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior7 },
+    { type: "video", id: 14, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen1 },
+    { type: "image", id: 15, title: "Moments of Joy", category: "Events", description: "A symphony of flavors in every bite.", src: guest },
+    { type: "video", id: 16, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: Foodvideo },
+    { type: "image", id: 17, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food2 },
 ];
 
 const RestaurantGallery = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [displayedMedia, setDisplayedMedia] = useState(media);
-    
+
     const categories = ['All', 'Multi Course', 'Kitchen', 'Interior', 'Events'];
 
     useEffect(() => {
@@ -51,10 +52,19 @@ const RestaurantGallery = () => {
         setDisplayedMedia(filtered);
     }, [activeCategory]);
 
+    const handleBack = () => {
+        window.history.back();
+    };
+
     return (
         <div className="gallery-container">
+
+            <button onClick={handleBack} className="back-button">
+                <ArrowLeft className="mr-2" size={20} />
+                Back
+            </button>
             <div className="gallery-header">
-                <h1 className="gallery-title" style={{marginTop:"5rem"}}>Culinary Excellence</h1>
+                <h1 className="gallery-title" style={{ marginTop: "5rem" }}>Culinary Excellence</h1>
                 <p className="gallery-subtitle">Experience the artistry of fine dining</p>
             </div>
 
@@ -116,6 +126,31 @@ const RestaurantGallery = () => {
                     background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
                     padding: 4rem 2rem;
                     color: #ffffff;
+                }
+
+                .back-button {
+                    position: fixed;
+                    top: 10rem;
+                    right: 4rem;
+                    display: flex;
+                    align-items: center;
+                    padding: 0.8rem 1.5rem;
+                    border: none;
+                    border-radius: 30px;
+                    background: rgba(245, 215, 66, 0.9);
+                    color: #1a1a1a;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    z-index: 100;
+                    box-shadow: 0 4px 20px rgba(245, 215, 66, 0.3);
+                }
+
+                .back-button:hover {
+                    transform: translateY(-2px);
+                    background: rgba(245, 215, 66, 1);
+                    box-shadow: 0 6px 25px rgba(245, 215, 66, 0.4);
                 }
 
                 .gallery-header {
@@ -246,6 +281,13 @@ const RestaurantGallery = () => {
                 @media (max-width: 768px) {
                     .gallery-title {
                         font-size: 3rem;
+                    }
+
+                    .back-button {
+                        top: 1rem;
+                        right: 1rem;
+                        padding: 0.6rem 1.2rem;
+                        font-size: 0.9rem;
                     }
                     
                     .gallery-subtitle {

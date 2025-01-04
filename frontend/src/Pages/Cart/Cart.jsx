@@ -9,14 +9,11 @@ import {
   Plus,
   Trash2,
   CheckCircle,
-  User,
   PlusCircle,
   ArrowRight,
   CreditCard,
   Clock,
-  X,
-  Loader,
-  AlertCircle
+  X
 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -97,31 +94,38 @@ const Cart = () => {
   } = useCart();
 
   const { userDetails } = useUser();
+  const { mobileNumber, selectedTable } = userDetails;
   const [isModalOpen, setModalOpen] = useState(false);
-  const [userName, setUserName] = useState('');
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const navigate = useNavigate();
 
-
-  // Redirect to home if not logged in
   useEffect(() => {
     if (!userDetails) {
       navigate('/');
     }
   }, [userDetails, navigate]);
 
-  // If not logged in, don't render the cart
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   if (!userDetails) {
     return null;
   }
-  console.log(userDetails)
 
+  console.log("suerdetails", userDetails);
 
   const handlePaymentOption = async (option) => {
     if (option === 'now') {
       try {
-        // Calculate final amount with discount if applicable
-        const finalPaymentAmount = (localStorage.getItem('mobileNumber') ? finalAmount * 0.9 : finalAmount) * 100;
+        const finalPaymentAmount = finalAmount * 100;
 
         const options = {
           key: "rzp_test_TPSxbkBGCLvVAq",
@@ -130,8 +134,7 @@ const Cart = () => {
           name: "wazwan",
           description: "Food Order Payment",
           prefill: {
-            name: userName || '',
-            contact: localStorage.getItem('mobileNumber') || ''
+            contact: mobileNumber || ''
           },
           handler: async function (response) {
             try {
@@ -167,7 +170,6 @@ const Cart = () => {
         });
 
         razorpayInstance.open();
-
       } catch (error) {
         toast.error('Failed to initialize payment. Please try again.');
         console.error('Payment initialization error:', error);
@@ -188,52 +190,38 @@ const Cart = () => {
     }
   };
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
-
-
   const processOrder = async (paymentDetails = {}) => {
-    const selectedTable = localStorage.getItem('selectedTable');
-    const mobileNumber = localStorage.getItem('mobileNumber');
-
-    if (!selectedTable) {
-      toast.error('Table number is missing!');
+    if (!selectedTable || !mobileNumber) {
+      toast.error('Table number or mobile number is missing!');
       return;
     }
-
+  
     const orderItems = cartItems.map((item) => ({
       id: item.id,
       name: item.name,
       price: item.price,
       quantity: item.quantity
     }));
-
+  
+    // Convert string amount to number
+    const numericAmount = parseFloat(finalAmount.toFixed(2));
+  
     try {
-      const response = await axios.post('http://localhost:5001/orders/checkout', {
+      const response = await axios.post(`http://localhost:5001/orders/checkout/${mobileNumber}`, {
         items: orderItems,
         selectedTable,
-        mobileNumber: mobileNumber || '',
-        totalAmount: finalAmount.toFixed(2),
+        mobileNumber,
+        totalAmount: numericAmount,
         paymentDetails: {
-          ...paymentDetails,
-          amount: finalAmount,
-          currency: 'ETH'
+          paymentMethod: paymentDetails.paymentMethod,
+          status: paymentDetails.status,
+          amount: paymentDetails.amount,
+          transactionId: paymentDetails.transactionId || null // Only present for Razorpay payments
         }
       });
-
+  
       if (response.data.success) {
         toast.success('Order placed successfully!');
-        localStorage.removeItem('selectedTable');
-        localStorage.removeItem('mobileNumber');
         navigate(`/order-success/${response.data.orderId}`);
         clearCart();
       } else {
@@ -247,7 +235,7 @@ const Cart = () => {
   };
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const finalAmount = cartTotal; // Removed GST and discount calculations
+  const finalAmount = cartTotal;
 
   if (cartItems.length === 0) {
     return (

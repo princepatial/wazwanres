@@ -7,23 +7,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import './OrderSuccess.css';
 
-
 const OrderSuccess = () => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userName, setUserName] = useState('');
   const { orderId } = useParams();
   const [socket, setSocket] = useState(null);
   const [showFeedbackPopup, setShowFeedbackPopup] = useState(true);
   const navigate = useNavigate();
 
-
   const handleFeedbackClick = () => {
     navigate('/feedback', { state: { orderId: orderDetails.orderId } });
   };
-
-
-
 
   const fetchOrderDetails = async () => {
     try {
@@ -34,22 +30,11 @@ const OrderSuccess = () => {
         },
         credentials: 'include'
       });
-
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Failed to fetch order details: ${errorText}`);
       }
-
       const data = await response.json();
-
-      if (data.orderStatus === 'accepted') {
-        localStorage.setItem('orderStatus', 'accepted');
-        localStorage.setItem('orderId', data.orderId);
-      } else {
-        localStorage.removeItem('orderStatus');
-        localStorage.removeItem('orderId');
-      }
-
       setOrderDetails(prevDetails => ({
         ...prevDetails,
         orderStatus: data.orderStatus
@@ -59,7 +44,33 @@ const OrderSuccess = () => {
       setError(err.message);
     }
   };
-
+  const fetchUserName = async (mobileNumber) => {
+    try {
+      const response = await fetch(`http://localhost:5001/customers/get-customer?mobileNumber=${mobileNumber}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch user details');
+      }
+      const data = await response.json();
+      console.log('API Response:', data);
+      
+      if (data && data.customer && data.customer.customerName) {
+        setUserName(data.customer.customerName);
+      } else {
+        setUserName('N/A');
+      }
+    } catch (err) {
+      console.error('Error fetching user name:', err);
+      setUserName('N/A');
+    }
+  };
+  
+  
   useEffect(() => {
     if (!orderId) {
       setError('No order ID provided');
@@ -85,15 +96,6 @@ const OrderSuccess = () => {
 
     newSocket.on('orderDetails', (order) => {
       console.log("Received initial order details:", order);
-
-      if (order.orderStatus === 'accepted') {
-        localStorage.setItem('orderStatus', 'accepted');
-        localStorage.setItem('orderId', order.orderId);
-      } else {
-        localStorage.removeItem('orderStatus');
-        localStorage.removeItem('orderId');
-      }
-
       updateOrderState(order);
       setIsLoading(false);
     });
@@ -101,14 +103,6 @@ const OrderSuccess = () => {
     newSocket.on('orderStatusUpdated', (updatedOrder) => {
       console.log('Real-time order status update:', updatedOrder);
       updateOrderState(updatedOrder);
-
-      if (updatedOrder.orderStatus !== 'accepted') {
-        localStorage.removeItem('orderStatus');
-        localStorage.removeItem('orderId');
-      } else {
-        localStorage.setItem('orderStatus', 'accepted');
-        localStorage.setItem('orderId', updatedOrder.orderId);
-      }
     });
 
     newSocket.on('connect_error', (error) => {
@@ -121,7 +115,6 @@ const OrderSuccess = () => {
 
     return () => {
       clearInterval(statusInterval);
-
       if (newSocket) {
         console.log('Cleaning up WebSocket connection');
         newSocket.off('connect');
@@ -140,9 +133,12 @@ const OrderSuccess = () => {
       items: order.items || prevDetails?.items,
       selectedTable: order.selectedTable || prevDetails?.selectedTable,
       mobileNumber: order.mobileNumber || prevDetails?.mobileNumber,
-      userName: order.userName || prevDetails?.userName,
       userAddress: order.userAddress || prevDetails?.userAddress,
     }));
+    
+    if (order.mobileNumber) {
+      fetchUserName(order.mobileNumber);
+    }
   };
 
   const getStatusStyle = (status) => {
@@ -166,12 +162,7 @@ const OrderSuccess = () => {
 
   if (isLoading) {
     return (
-      <motion.div
-        className="order-loading"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <motion.div className="order-loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
         <Loader2 size={64} className="animate-spin" />
         <p>Fetching your order details...</p>
       </motion.div>
@@ -180,12 +171,7 @@ const OrderSuccess = () => {
 
   if (error || !orderDetails) {
     return (
-      <motion.div
-        className="order-error"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-      >
+      <motion.div className="order-error" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}>
         <AlertCircle size={64} color="red" />
         <h2>Order Details Not Found</h2>
         <p>{error || 'Unable to retrieve order information.'}</p>
@@ -197,44 +183,15 @@ const OrderSuccess = () => {
   const { color, icon } = getStatusStyle(orderDetails.orderStatus);
 
   return (
-    <motion.div
-      className="elegant-order-success"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="order-success-content"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.div
-          className="success-icon"
-          style={{ color }}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
-        >
+    <motion.div className="elegant-order-success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <motion.div className="order-success-content" initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}>
+        <motion.div className="success-icon" style={{ color }} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}>
           {icon}
         </motion.div>
-
-        <motion.h1
-          className="success-title"
-          style={{ color }}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
+        <motion.h1 className="success-title" style={{ color }} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
           Order {orderDetails.orderStatus}
         </motion.h1>
-
-        <motion.div
-          className="order-details"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
+        <motion.div className="order-details" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
           <div className="detail-grid">
             <div className="detail-item">
               <span className="detail-label">Order Number</span>
@@ -249,11 +206,7 @@ const OrderSuccess = () => {
             <div className="detail-item">
               <span className="detail-label">Date</span>
               <span className="detail-value">
-                {new Date(orderDetails.createdAt).toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric'
-                })}
+                {new Date(orderDetails.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
             <div className="detail-item">
@@ -262,68 +215,41 @@ const OrderSuccess = () => {
             </div>
             <div className="detail-item">
               <span className="detail-label">Name</span>
-              <span className="detail-value">{orderDetails.userName}</span>
+              <span className="detail-value">{userName}</span>
             </div>
             <div className="detail-item">
               <span className="detail-label">Mobile</span>
               <span className="detail-value">{orderDetails.mobileNumber}</span>
             </div>
           </div>
-
-          <motion.div
-            className="order-items"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
+          <motion.div className="order-items" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5 }}>
             <h3>Order Items:</h3>
             <ul>
               {orderDetails.items.map((item, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                >
+                <motion.li key={index} initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.6 + index * 0.1 }}>
                   {item.name} - Quantity: {item.quantity} - Price: ₹{item.price}
                 </motion.li>
               ))}
             </ul>
           </motion.div>
         </motion.div>
-
-        <motion.div
-          className="order-actions"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.7 }}
-        >
+        <motion.div className="order-actions" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.7 }}>
           <Link to="/menu" className="action-button primary">Continue Browsing</Link>
-          <Link to={`/media`} className="action-button secondary">
-            Gallery
-          </Link>
+          <Link to="/media" className="action-button secondary">Gallery</Link>
         </motion.div>
       </motion.div>
-
       <AnimatePresence>
         {showFeedbackPopup && (
-          <motion.div
-            className="feedback-popup"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          >
+          <motion.div className="feedback-popup" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', stiffness: 300, damping: 30 }}>
             <div className="feedback-content" onClick={handleFeedbackClick}>
               <MessageSquare size={24} color="#4CAF50" />
               <h3>We Value Your Feedback!</h3>
               <p>Help us improve by sharing your experience.</p>
-              <button className="feedback-button">Give Feedback</button>
+              <button className="feedback-button1">Give Feedback</button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
       <ToastContainer />
     </motion.div>
   );

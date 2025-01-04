@@ -18,7 +18,7 @@ const NewCustomer = () => {
     const [showOtpModal, setShowOtpModal] = useState(false);
     const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
     const [customerName, setCustomerName] = useState('');
-    const [selectedRestaurant, setSelectedRestaurant] = useState('');
+    const [address, setAddress] = useState('');
     const [likeRestaurant, setLikeRestaurant] = useState(false);
     const navigate = useNavigate();
     const { setUserDetails } = useUser();
@@ -32,9 +32,10 @@ const NewCustomer = () => {
         setCustomerName(e.target.value);
     };
 
-    const handleRestaurantChange = (e) => {
-        setSelectedRestaurant(e.target.value);
+    const handleAddressChange = (e) => {
+        setAddress(e.target.value);
     };
+    
 
     const handleLikeChange = (e) => {
         setLikeRestaurant(e.target.checked);
@@ -95,15 +96,11 @@ const NewCustomer = () => {
             toast.error('Please enter a valid 10-digit mobile number!');
             return;
         }
-        if (!selectedRestaurant) {
-            toast.error('Please select a restaurant!');
-            return;
-        }
         await sendOtp();
     };
 
 
-    
+
     const sendOtp = async () => {
         try {
             const response = await axios.post('http://localhost:5001/api/sent-otp', { mobileNumber });
@@ -123,47 +120,47 @@ const NewCustomer = () => {
         }
     };
 
-   
+
 
     const handleVerifyOtp = async () => {
         if (!otp || otp.length !== 6) {
-          toast.error('Please enter a valid 6-digit OTP!');
-          return;
+            toast.error('Please enter a valid 6-digit OTP!');
+            return;
         }
         try {
-          setIsVerifyingOtp(true);
-          const otpResponse = await axios.post('http://localhost:5001/api/verify-otp', { mobileNumber, otp });
-          if (otpResponse.status === 200) {
-            const userDetails = {
-              selectedTable,
-              mobileNumber,
-              userName: customerName,
-              selectedRestaurant,
-              likeRestaurant,
-              orderStatus: 'pending',
-            };
-            const saveResponse = await axios.post('http://localhost:5001/orders/checkout', userDetails);
-            if (saveResponse.status === 201) {
-              const orderId = saveResponse.data.orderId;
-              setUserDetails(userDetails);
-              toast.success('Details saved successfully!');
-              navigate(`/menu`);
+            setIsVerifyingOtp(true);
+            const otpResponse = await axios.post('http://localhost:5001/api/verify-otp', { mobileNumber, otp });
+            if (otpResponse.status === 200) {
+                const userDetails = {
+                    mobileNumber,
+                    customerName,
+                    address,
+                    likeRestaurant,
+                };
+                
+                const saveResponse = await axios.post('http://localhost:5001/customers/add-customer', userDetails);
+                if (saveResponse.status === 201) {  
+                    const customerId = saveResponse.data.customerId;  
+                    setUserDetails(userDetails);
+                    toast.success('Details saved successfully!');
+                    navigate(`/menu`);
+                }
             }
-          }
         } catch (error) {
-          console.error('Error:', error);
-          if (error.response?.data?.message === 'User already exists') {
-            toast.error('User already exists, Please Login as Regular Customer..');
-          } else {
-            toast.error('Failed to process request. Please try again.');
-          }
+            console.error('Error:', error);
+            if (error.response?.data?.message === 'User already exists') {
+                toast.error('User already exists, Please Login as Regular Customer..');
+            } else {
+                toast.error('Failed to process request. Please try again.');
+            }
         } finally {
-          setIsVerifyingOtp(false);
-          setShowOtpModal(false);
+            setIsVerifyingOtp(false);
+            setShowOtpModal(false);
         }
-      };
-      
-      
+    };
+    
+
+
 
 
 
@@ -171,7 +168,7 @@ const NewCustomer = () => {
         <div className="booking-page">
             <div className="booking-container">
                 <header className="booking-header">
-                    <div className="restaurant-logo" style={{marginTop:"2rem"}}>
+                    <div className="restaurant-logo" style={{ marginTop: "2rem" }}>
                         <span className="logo-text">W</span>
                     </div>
                     <h1>Welcome to Wazwan</h1>
@@ -191,9 +188,8 @@ const NewCustomer = () => {
                                 {tables.map((table) => (
                                     <button
                                         key={table._id}
-                                        className={`modern-table-card ${
-                                            selectedTable === table.tableNumber ? 'selected' : ''
-                                        } ${table.status.toLowerCase()}`}
+                                        className={`modern-table-card ${selectedTable === table.tableNumber ? 'selected' : ''
+                                            } ${table.status.toLowerCase()}`}
                                         onClick={() => handleTableClick(table.tableNumber)}
                                         disabled={table.status !== 'Available'}
                                     >
@@ -209,55 +205,52 @@ const NewCustomer = () => {
                     </section>
 
                     <section className="contact-section">
-                <h2>Enter Your Details</h2>
-                <form onSubmit={handleSubmit} className="modern-form">
-                    <div className="input-container">
-                        <input
-                            type="text"
-                            value={customerName}
-                            onChange={handleNameChange}
-                            placeholder="Enter your name"
-                            className="modern-input"
-                        />
-                    </div>
-                    <div className="input-container">
-                        <input
-                            type="tel"
-                            value={mobileNumber}
-                            onChange={handleMobileChange}
-                            placeholder="Enter mobile number"
-                            className="modern-input"
-                        />
-                    </div>
-                    <div className="input-container">
-                        <select
-                            value={selectedRestaurant}
-                            onChange={handleRestaurantChange}
-                            className="modern-select"
-                        >
-                            <option value="">Select a restaurant</option>
-                            <option value="restaurant1">Wazwan Delights</option>
-                            <option value="restaurant2">Kashmiri Flavors</option>
-                            <option value="restaurant3">Himalayan Spice</option>
-                        </select>
-                    </div>
-                    <div className="checkbox-container">
-                        <input
-                            type="checkbox"
-                            id="likeRestaurant"
-                            checked={likeRestaurant}
-                            onChange={handleLikeChange}
-                            className="modern-checkbox"
-                        />
-                        <label htmlFor="likeRestaurant" className="checkbox-label">
-                            Do you like our restaurant service?
-                        </label>
-                    </div>
-                    <button type="submit" className="modern-submit-btn">
-                        Confirm Details
-                    </button>
-                </form>
-            </section>
+                        <h2>Enter Your Details</h2>
+                        <form onSubmit={handleSubmit} className="modern-form">
+                            <div className="input-container">
+                                <input
+                                    type="text"
+                                    value={customerName}
+                                    onChange={handleNameChange}
+                                    placeholder="Enter your name"
+                                    className="modern-input"
+                                />
+                            </div>
+                            <div className="input-container">
+                                <input
+                                    type="tel"
+                                    value={mobileNumber}
+                                    onChange={handleMobileChange}
+                                    placeholder="Enter mobile number"
+                                    className="modern-input"
+                                />
+                            </div>
+                            <div className="input-container">
+                                <textarea
+                                    value={address}
+                                    onChange={handleAddressChange}
+                                    placeholder="Enter your address"
+                                    className="modern-textarea"
+                                />
+                            </div>
+                            <div className="checkbox-container">
+                                <input
+                                    type="checkbox"
+                                    id="likeRestaurant"
+                                    checked={likeRestaurant}
+                                    onChange={handleLikeChange}
+                                    className="modern-checkbox"
+                                />
+                                <label htmlFor="likeRestaurant" className="checkbox-label">
+                                    Do you like our restaurant service?
+                                </label>
+                            </div>
+                            <button type="submit" className="modern-submit-btn">
+                                Confirm Details
+                            </button>
+                        </form>
+                    </section>
+
                 </div>
             </div>
 

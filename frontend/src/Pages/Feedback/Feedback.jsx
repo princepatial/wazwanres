@@ -119,7 +119,7 @@ const RestaurantFeedback = () => {
   };
 
   return (
-    <div className="rf-feedback-wrapper" style={{marginTop:"7rem"}}>
+    <div className="rf-feedback-wrapper">
       <div className="rf-feedback-container">
         {selectedLocation && (
           <div className="rf-navigation-buttons">

@@ -7,6 +7,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const errorHandler = require('./middleware/errorhandling');
 const otpRoutes = require('./routes/otpRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
+const customerRoutes = require('./routes/CustomerRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const Order = require('./models/order');
@@ -25,7 +26,7 @@ const io = new Server(server, {
 
 // Middleware
 app.use(cors({
-  origin: '*', 
+  origin: 'http://localhost:3001', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
@@ -35,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
-
+app.use('/customers', customerRoutes);
 app.use('/feedback', feedbackRoutes);
 app.use('/api', otpRoutes);
 app.use('/orders', orderRoutes);

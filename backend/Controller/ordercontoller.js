@@ -1,43 +1,53 @@
 const Order = require('../models/order');
 
-exports.checkout = async (req, res) => {
-  const { selectedTable, mobileNumber, userName, selectedRestaurant, likeRestaurant } = req.body;
+exports.createOrder = async (req, res) => {
+  const { mobileNumber } = req.params; 
+  const { selectedTable, items, totalAmount, paymentDetails } = req.body;
 
-  if (!selectedTable) {
-    return res.status(400).json({ success: false, message: 'Table number is missing' });
+
+  if (!mobileNumber) {
+    return res.status(400).json({ success: false, message: 'Mobile number is required.' });
   }
-  if (!mobileNumber || !userName) {
-    return res.status(400).json({ success: false, message: 'Mobile number and user name are required' });
+  if (!selectedTable) {
+    return res.status(400).json({ success: false, message: 'Table number is required.' });
+  }
+  if (!items || items.length === 0) {
+    return res.status(400).json({ success: false, message: 'Order items are required.' });
+  }
+  if (!totalAmount) {
+    return res.status(400).json({ success: false, message: 'Total amount is required.' });
+  }
+  if (!paymentDetails || !paymentDetails.paymentMethod || !paymentDetails.status || !paymentDetails.amount) {
+    return res.status(400).json({
+      success: false,
+      message: 'Payment details are incomplete or missing required fields.',
+    });
   }
 
   try {
-    // Check if the user already exists
-    const existingOrder = await Order.findOne({ mobileNumber });
-    if (existingOrder) {
-      return res.status(409).json({ success: false, message: 'User already exists' });
-    }
-
-    const order = await Order.create({
+    // Create the order
+    const newOrder = new Order({
       selectedTable,
       mobileNumber,
-      userName,
-      selectedRestaurant: selectedRestaurant || null,
-      likeRestaurant: likeRestaurant || false,
-      orderStatus: 'pending',
-      items: [], 
+      items,
+      totalAmount,
+      paymentDetails,  
     });
+
+    
+    const savedOrder = await newOrder.save();
 
     return res.status(201).json({
       success: true,
-      message: 'Order initialized successfully',
-      orderId: order.orderId,
-      order,
+      message: 'Order created successfully.',
+      orderId: savedOrder.orderId,  
+      order: savedOrder,
     });
   } catch (error) {
-    console.error('Checkout error:', error);
+    console.error('Error creating order:', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to initialize the order',
+      message: 'Failed to create order.',
       error: error.message,
     });
   }
@@ -46,31 +56,35 @@ exports.checkout = async (req, res) => {
 
 
 
-exports.getUserOrders = async (req, res) => {
+
+// Fetch orders by mobile number
+exports.getOrdersByMobile = async (req, res) => {
   const { mobileNumber } = req.params;
+
+  if (!mobileNumber) {
+    return res.status(400).json({ success: false, message: 'Mobile number is required.' });
+  }
 
   try {
     // Find orders by mobile number
     const orders = await Order.find({ mobileNumber }).sort({ createdAt: -1 });
 
-    // Check if no orders or user found for the given mobile number
     if (orders.length === 0) {
       return res.status(404).json({
         success: false,
-        message: 'Mobile number not found. Please register as a new customer.',
+        message: 'No orders found for this mobile number.',
       });
     }
 
-    // If user exists, return success and the orders
     return res.status(200).json({
       success: true,
       orders,
     });
   } catch (error) {
-    // Handle any other errors
+    console.error('Error fetching orders:', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to fetch user orders',
+      message: 'Failed to fetch orders.',
       error: error.message,
     });
   }
@@ -78,34 +92,33 @@ exports.getUserOrders = async (req, res) => {
 
 
 
-exports.updateUserDetails = async (req, res) => {
-  const { mobileNumber } = req.params; // Get mobile number from URL params
-  const updatedData = req.body; // Get updated data from the request body
 
+
+
+// Fetch all orders in the database
+exports.getAllOrders = async (req, res) => {
   try {
-    // Find the user by mobile number and update their details
-    const updatedUser = await Order.findOneAndUpdate(
-      { mobileNumber }, // Filter by mobile number
-      updatedData, // Update fields with the new data
-      { new: true } // Return the updated document
-    );
+    // Fetch all orders and sort by creation date (most recent first)
+    const orders = await Order.find().sort({ createdAt: -1 });
 
-    if (!updatedUser) {
+    // If no orders are found
+    if (orders.length === 0) {
       return res.status(404).json({
         success: false,
-        message: 'User with this mobile number not found.',
+        message: 'No orders found in the database.',
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: 'User details updated successfully.',
-      updatedUser,
+      message: 'Orders retrieved successfully.',
+      orders,
     });
   } catch (error) {
+    console.error('Error fetching all orders:', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to update user details.',
+      message: 'Failed to fetch orders.',
       error: error.message,
     });
   }
@@ -118,35 +131,81 @@ exports.updateUserDetails = async (req, res) => {
 
 
 
-exports.updateOrderItems = async (req, res) => {
-  const { orderId } = req.params;
-  const { items } = req.body;
 
-  if (!items || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ success: false, message: 'Invalid items data' });
+// Update the status of an order
+exports.updateOrderStatusByMobile = async (req, res) => {
+  const { orderId } = req.params;
+  const { orderStatus } = req.body;
+
+  if (!orderId) {
+    return res.status(400).json({ success: false, message: 'Order ID is required.' });
+  }
+
+  if (!['pending', 'accepted', 'rejected', 'cooking', 'ready'].includes(orderStatus)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Invalid order status.',
+    });
   }
 
   try {
+    // Find the order by ID and update the status
     const updatedOrder = await Order.findOneAndUpdate(
-      { orderId: orderId },
-      { $set: { items: items } },
+      { orderId },
+      { orderStatus },
       { new: true }
     );
 
     if (!updatedOrder) {
-      return res.status(404).json({ success: false, message: 'Order not found' });
+      return res.status(404).json({ success: false, message: 'Order not found.' });
     }
 
     return res.status(200).json({
       success: true,
-      message: 'Order updated successfully',
+      message: 'Order status updated successfully.',
       order: updatedOrder,
     });
   } catch (error) {
-    console.error('Update order error:', error);
+    console.error('Error updating order status:', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to update the order',
+      message: 'Failed to update order status.',
+      error: error.message,
+    });
+  }
+};
+
+
+// Fetch orders associated with a mobile number
+exports.getOrdersByMobile = async (req, res) => {
+  const { mobileNumber } = req.params; // Extract mobileNumber from the URL params
+
+  // Validate input
+  if (!mobileNumber) {
+    return res.status(400).json({ success: false, message: 'Mobile number is required.' });
+  }
+
+  try {
+    // Find all orders associated with the mobile number
+    const orders = await Order.find({ mobileNumber }).sort({ createdAt: -1 });
+
+    if (orders.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No orders found for this mobile number.',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Orders retrieved successfully.',
+      orders,
+    });
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to fetch orders.',
       error: error.message,
     });
   }
@@ -155,25 +214,41 @@ exports.updateOrderItems = async (req, res) => {
 
 
 
+// Delete all orders associated with a mobile number
+exports.deleteOrdersByMobile = async (req, res) => {
+  const { mobileNumber } = req.params; // Extract mobile number from the URL params
 
+  // Validate input
+  if (!mobileNumber) {
+    return res.status(400).json({ success: false, message: 'Mobile number is required.' });
+  }
 
-
-
-
-
-
-
-
-
-
-exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
-    return res.status(200).json({ success: true, orders });
+    // Find and delete orders associated with the mobile number
+    const result = await Order.deleteMany({ mobileNumber });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No orders found for this mobile number.',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Orders deleted successfully.',
+      deletedCount: result.deletedCount,
+    });
   } catch (error) {
-    return res.status(500).json({ success: false, message: 'Failed to fetch orders', error: error.message });
+    console.error('Error deleting orders:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to delete orders.',
+      error: error.message,
+    });
   }
 };
+
 
 
 
@@ -184,7 +259,7 @@ exports.updateOrderStatus = async (req, res) => {
   const { orderStatus } = req.body;
 
 
-  const validStatuses = ['pending', 'accepted', 'rejected'];
+  const validStatuses = ['pending', 'accepted', 'rejected', 'cooking', 'ready',];
   if (!validStatuses.includes(orderStatus)) {
     return res.status(400).json({ 
       success: false, 
@@ -216,6 +291,12 @@ exports.updateOrderStatus = async (req, res) => {
     });
   }
 };
+
+
+
+
+
+
 
 
 

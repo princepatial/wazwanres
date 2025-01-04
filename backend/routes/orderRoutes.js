@@ -1,33 +1,29 @@
 const express = require('express');
 const { 
-  checkout, 
-  getAllOrders, 
-  updateOrder, 
-  deleteOrder,
+  createOrder,
+  getAllOrders,
+  getOrdersByMobile,
+  updateOrderStatusByMobile,
+  deleteOrdersByMobile,
   updateOrderStatus,
   getOrderStatus,
-  getUserOrders,
-  updateOrderItems,
-  updateUserDetails
 } = require('../Controller/ordercontoller');
 const router = express.Router();
 
-// Existing routes
-router.post('/checkout', checkout);
+router.post('/checkout/:mobileNumber', createOrder);
 
-router.get('/user/:mobileNumber', getUserOrders);
+router.get('/orders', getAllOrders);
 
-router.put('/user/:mobileNumber', updateUserDetails);
+router.get('/:mobileNumber', getOrdersByMobile);
 
-router.put('/orders/:orderId', updateOrderItems);
 
-router.get('/', getAllOrders);
+router.patch('/:orderId/status', updateOrderStatusByMobile);
 
-router.put('/:id', updateOrder);
 
-router.delete('/:id', deleteOrder);
+router.delete('/:mobileNumber', deleteOrdersByMobile);
 
 router.put('/:id/status', updateOrderStatus);
+
 
 router.get('/status/:orderId', getOrderStatus);
 

@@ -11,13 +11,14 @@ const RegularCustomer = () => {
   const [mobileNumber, setMobileNumber] = useState('');
   const [tables, setTables] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { setUserDetails } = useUser();
+  const { setUserDetails } = useUser(); // Context hook for passing user data
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchTables();
   }, []);
 
+  // Fetch tables from the server
   const fetchTables = async () => {
     try {
       const response = await axios.get('http://13.239.200.245:5000/api/tables');
@@ -36,48 +37,50 @@ const RegularCustomer = () => {
     }
   };
 
+  // Handle mobile number input changes (only allows numbers)
   const handleMobileChange = (e) => {
-    const value = e.target.value.replace(/\D/g, '');
+    const value = e.target.value.replace(/\D/g, ''); // Allow only numbers
     if (value.length <= 10) {
-      setMobileNumber(value);
+      setMobileNumber(value); // Update mobile number state
     }
   };
 
+  // Handle table selection
   const handleTableClick = (tableNumber) => {
     setSelectedTable(tableNumber);
     toast.success(`Table ${tableNumber} selected!`);
   };
 
+  // Submit the form
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!selectedTable) {
       toast.error('Please select a table!');
       return;
     }
-  
+
     if (!mobileNumber || mobileNumber.length !== 10) {
       toast.error('Please enter a valid 10-digit mobile number!');
       return;
     }
-  
+
     try {
-      const response = await axios.get(`http://localhost:5001/orders/user/${mobileNumber}`);
-  
-      if (response.status === 200 && response.data.success) {
-        // If user found in the database
-        const userDetails = { selectedTable, mobileNumber };
-        setUserDetails(userDetails); 
+      // Updated API URL to check customer by mobile number
+      const response = await axios.get(`http://localhost:5001/customers/get-customer?mobileNumber=${mobileNumber}`);
+
+      if (response.status === 200 && response.data.customer) {
+        // User found, set the user details in context
+        const userDetails = { selectedTable, mobileNumber, customer: response.data.customer };
+        setUserDetails(userDetails);
         toast.success('Mobile number validated successfully!');
-        navigate('/menu'); 
+        navigate('/menu'); // Navigate to the menu page after success
       } else {
-        
         toast.error('Mobile number not found. Please register as a new customer.');
       }
     } catch (error) {
-      
+      // Handle errors based on the status code
       if (error.response) {
-       
         if (error.response.status === 404) {
           toast.error('Mobile number not found in our system. Please register.');
         } else if (error.response.status === 500) {
@@ -86,15 +89,12 @@ const RegularCustomer = () => {
           toast.error('Something went wrong. Please try again.');
         }
       } else if (error.request) {
-        
         toast.error('No response from the server. Please check your connection or try again later.');
       } else {
-      
         toast.error('Failed to validate user. Please try again.');
       }
     }
   };
-  
 
   return (
     <div className="prefixed-regular-booking-page">
@@ -120,9 +120,7 @@ const RegularCustomer = () => {
                 {tables.map((table) => (
                   <button
                     key={table._id}
-                    className={`prefixed-modern-table-card ${
-                      selectedTable === table.tableNumber ? 'selected' : ''
-                    } ${table.status.toLowerCase()}`}
+                    className={`prefixed-modern-table-card ${selectedTable === table.tableNumber ? 'selected' : ''} ${table.status.toLowerCase()}`}
                     onClick={() => handleTableClick(table.tableNumber)}
                     disabled={table.status !== 'Available'}
                   >

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useCart } from '../../Pages/Cart/CartContext';
 import { useUser } from '../Profile/UserContext';
+import axios from 'axios';
 import './Navbar.css';
 import logoImage from '../../assets/wazwan.png';
 
@@ -35,6 +36,24 @@ const CloseIcon = () => (
   </svg>
 );
 
+
+const LoggedInUserIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5s-5-2.24-5-5a5 5 0 0 1 5-5z" />
+    <path d="M15 14a7 7 0 0 1 7 7H2a7 7 0 0 1 7-7h6z" />
+    <circle cx="12" cy="6" r="2" fill="currentColor" />
+    <path d="M16 9a4 4 0 0 0-8 0" stroke="currentColor" />
+  </svg>
+);
+
+const LogoutIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+    <polyline points="16 17 21 12 16 7" />
+    <line x1="21" y1="12" x2="9" y2="12" />
+  </svg>
+);
+
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,11 +82,10 @@ const Navbar = () => {
       if (userDetails?.mobileNumber) {
         setLoadingProfile(true);
         try {
-          const response = await fetch(`http://localhost:5001/orders/user/${userDetails.mobileNumber}`);
-          const data = await response.json();
-          if (data.success && data.orders && data.orders.length > 0) {
-            const { userName, mobileNumber } = data.orders[0];
-            setUserProfile({ name: userName, mobileNumber });
+          const response = await axios.get(`http://localhost:5001/customers/get-customer?mobileNumber=${userDetails.mobileNumber}`);
+          if (response.status === 200 && response.data.customer) {
+            const { customer } = response.data;
+            setUserProfile({ name: customer.customerName, mobileNumber: customer.mobileNumber });
           } else {
             setUserProfile(null);
           }
@@ -153,11 +171,9 @@ const Navbar = () => {
           </NavLink>
           <div className="nav-actions">
             <div className="nav-link user-link" onClick={toggleProfilePopup}>
-              {userDetails && userDetails.userName ? (
-                <div className="logged-in-user">
-                  <span className="user-initial">
-                    {userDetails.userName.charAt(0).toUpperCase()}
-                  </span>
+              {userDetails ? (
+                <div className="logged-in-user" title="Profile">
+                  <LoggedInUserIcon />
                 </div>
               ) : (
                 <UserIcon />
@@ -234,10 +250,19 @@ const Navbar = () => {
               )}
             </div>
             {userDetails && (
-              <NavLink to="/checkout" className="nav-link cart-link" onClick={handleLinkClick}>
-                <CartIcon />
-                {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
-              </NavLink>
+              <>
+                <NavLink to="/checkout" className="nav-link cart-link" onClick={handleLinkClick} title="Cart">
+                  <CartIcon />
+                  {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+                </NavLink>
+                <button
+                  className="nav-link logout-nav-button"
+                  onClick={handleLogout}
+                  title="Logout"
+                >
+                  <LogoutIcon />
+                </button>
+              </>
             )}
           </div>
         </div>

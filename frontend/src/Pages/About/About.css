@@ -1,105 +1,140 @@
 .swiggy-about-us {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 20px;
-    font-family: 'Arial', sans-serif;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 60px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.swiggy-about-us__title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.swiggy-about-us__description {
+  font-size: 18px;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto 60px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.swiggy-about-us__content {
+  position: relative;
+  background-image: url('https://www.swiggy.com/corporate/wp-content/uploads/2024/10/about-banner-image-scaled.webp');
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  border-radius: 0;
+  width: 100%;
+}
+
+.swiggy-about-us__services {
+  position: relative;
+  max-width: 1000px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.swiggy-about-us__service {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.5) translateY(20px);
+}
+
+.swiggy-about-us__service.animate {
+  animation: popIn 0.6s ease-out forwards;
+}
+
+.swiggy-about-us__icon-container {
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.swiggy-about-us__icon {
+  width: 50px;
+  height: 50px;
+}
+
+.swiggy-about-us__service-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.swiggy-about-us__logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+.swiggy-about-us__logo-container.animate {
+  animation: logoReveal 0.8s ease-out 1s forwards;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
   }
-  
-  .swiggy-about-us__title {
-    font-size: 36px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
+  70% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-5px);
   }
-  
-  .swiggy-about-us__description {
-    font-size: 18px;
-    color: #666;
-    max-width: 800px;
-    margin: 0 auto 60px;
-    line-height: 1.6;
-    text-align: center;
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
-  
-  .swiggy-about-us__content {
-    position: relative;
-    background-image: url('https://www.swiggy.com/corporate/wp-content/uploads/2024/10/about-banner-image-scaled.webp');
-    background-size: cover;
-    background-position: center;
-    padding: 80px 0;
-    border-radius: 20px;
+}
+
+@keyframes logoReveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
   }
-  
-  .swiggy-about-us__services {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    max-width: 900px;
-    margin: 0 auto;
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
   }
-  
-  .swiggy-about-us__service {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
-  
-  .swiggy-about-us__icon-container {
-    width: 80px;
-    height: 80px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .swiggy-about-us__icon {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .swiggy-about-us__service-name {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .swiggy-about-us__logo-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .swiggy-about-us__logo {
-    width: 60px;
-    height: 60px;
-    background-color: #fc8019;
-    color: white;
-    font-size: 36px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0 50% 50% 50%;
-    transform: rotate(-45deg);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .swiggy-about-us__logo::after {
-    content: 'S';
-    transform: rotate(45deg);
-  }
-  
-  .swiggy-about-us__service--food { transform: translate(-80px, -40px); }
-  .swiggy-about-us__service--instamart { transform: translateY(-80px); }
-  .swiggy-about-us__service--dineout { transform: translate(80px, -40px); }
-  .swiggy-about-us__service--genie { transform: translate(-120px, 40px); }
-  .swiggy-about-us__service--minis { transform: translate(120px, 40px); }
-  
+}
+
+
+.swiggy-about-us__logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+
+.swiggy-about-us__service--food { 
+  top: 0; 
+  left: 50%; 
+  transform: translateX(-50%) scale(0.5);
+}
+.swiggy-about-us__service--food.animate {
+  transform: translateX(-50%) scale(1);
+}
+
+.swiggy-about-us__service--instamart { top: 25%; right: 0; }
+.swiggy-about-us__service--dineout { bottom: 0; right: 20%; }
+.swiggy-about-us__service--genie { bottom: 0; left: 20%; }
+.swiggy-about-us__service--minis { top: 25%; left: 0; }
