@@ -97,13 +97,37 @@ const Cart = () => {
   const { mobileNumber, selectedTable } = userDetails;
   const [isModalOpen, setModalOpen] = useState(false);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+  const [discount, setDiscount] = useState(0);
+  const [hasExistingOrder, setHasExistingOrder] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!userDetails) {
       navigate('/');
+    } else {
+      checkExistingOrder();
     }
   }, [userDetails, navigate]);
+
+  const checkExistingOrder = async () => {
+    try {
+      const orderResponse = await axios.get(`http://localhost:5001/orders/${mobileNumber}`);
+      if (orderResponse.data.success && orderResponse.data.orders.length > 0) {
+        setHasExistingOrder(true);
+        setDiscount(0); // No discount for existing customers
+      } else {
+        setHasExistingOrder(false);
+        setDiscount(0.1); // 10% discount for new customers
+        toast.success('You have a 10% discount on your first order!');
+      }
+    } catch (error) {
+      console.error('Error checking existing order:', error);
+      setHasExistingOrder(false);
+      setDiscount(0.1); // Assume 10% discount if there's an error
+    }
+  };
+
+
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -195,17 +219,16 @@ const Cart = () => {
       toast.error('Table number or mobile number is missing!');
       return;
     }
-  
+
     const orderItems = cartItems.map((item) => ({
       id: item.id,
       name: item.name,
       price: item.price,
       quantity: item.quantity
     }));
-  
-    // Convert string amount to number
+
     const numericAmount = parseFloat(finalAmount.toFixed(2));
-  
+
     try {
       const response = await axios.post(`http://localhost:5001/orders/checkout/${mobileNumber}`, {
         items: orderItems,
@@ -219,7 +242,7 @@ const Cart = () => {
           transactionId: paymentDetails.transactionId || null // Only present for Razorpay payments
         }
       });
-  
+
       if (response.data.success) {
         toast.success('Order placed successfully!');
         navigate(`/order-success/${response.data.orderId}`);
@@ -235,7 +258,9 @@ const Cart = () => {
   };
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  const finalAmount = cartTotal;
+  const discountAmount = hasExistingOrder ? 0 : cartTotal * discount;
+  const gstAmount = cartTotal * 0.05;
+  const finalAmount = cartTotal - discountAmount + gstAmount;
 
   if (cartItems.length === 0) {
     return (
@@ -309,6 +334,22 @@ const Cart = () => {
           <div className="cart-summary-modern">
             <div className="summary-details">
               <div className="summary-row">
+                <span>Subtotal</span>
+                <span>₹{cartTotal.toFixed(2)}</span>
+              </div>
+              <div className="summary-row">
+                <span>GST (5%)</span>
+                <span>₹{gstAmount.toFixed(2)}</span>
+              </div>
+
+              {!hasExistingOrder && discount > 0 && (
+                <div className="summary-row discount">
+                  <span>Discount (10%)</span>
+                  <span>-₹{discountAmount.toFixed(2)}</span>
+                </div>
+              )}
+
+              <div className="summary-row total">
                 <span>Total Amount</span>
                 <h3 className="total-with-gst">₹{finalAmount.toFixed(2)}</h3>
               </div>
@@ -365,10 +406,28 @@ const Cart = () => {
 
             <div className="modal-total-section">
               <div className="summary-row">
+                <span>Subtotal</span>
+                <span>₹{cartTotal.toFixed(2)}</span>
+              </div>
+
+              <div className="summary-row">
+                <span>GST (5%)</span>
+                <span>₹{gstAmount.toFixed(2)}</span>
+              </div>
+
+              {!hasExistingOrder && discount > 0 && (
+                <div className="summary-row discount">
+                  <span>Discount (10%)</span>
+                  <span>-₹{discountAmount.toFixed(2)}</span>
+                </div>
+              )}
+
+              <div className="summary-row total">
                 <span>Total Amount</span>
                 <h3 className="total-with-gst">₹{finalAmount.toFixed(2)}</h3>
               </div>
             </div>
+
 
             {!showPaymentOptions ? (
               <button

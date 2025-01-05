@@ -37,7 +37,8 @@ const OrderSuccess = () => {
       const data = await response.json();
       setOrderDetails(prevDetails => ({
         ...prevDetails,
-        orderStatus: data.orderStatus
+        orderStatus: data.orderStatus,
+        totalAmount: data.totalAmount !== undefined ? data.totalAmount : prevDetails?.totalAmount || 0,
       }));
     } catch (err) {
       console.error('Error fetching order status:', err);
@@ -58,7 +59,7 @@ const OrderSuccess = () => {
       }
       const data = await response.json();
       console.log('API Response:', data);
-      
+
       if (data && data.customer && data.customer.customerName) {
         setUserName(data.customer.customerName);
       } else {
@@ -69,8 +70,8 @@ const OrderSuccess = () => {
       setUserName('N/A');
     }
   };
-  
-  
+
+
   useEffect(() => {
     if (!orderId) {
       setError('No order ID provided');
@@ -134,8 +135,9 @@ const OrderSuccess = () => {
       selectedTable: order.selectedTable || prevDetails?.selectedTable,
       mobileNumber: order.mobileNumber || prevDetails?.mobileNumber,
       userAddress: order.userAddress || prevDetails?.userAddress,
+      totalAmount: order.totalAmount !== undefined ? order.totalAmount : prevDetails?.totalAmount || 0,
     }));
-    
+
     if (order.mobileNumber) {
       fetchUserName(order.mobileNumber);
     }
@@ -220,6 +222,10 @@ const OrderSuccess = () => {
             <div className="detail-item">
               <span className="detail-label">Mobile</span>
               <span className="detail-value">{orderDetails.mobileNumber}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Total Amount</span>
+              <span className="detail-value">₹{orderDetails.totalAmount.toFixed(2)}</span>
             </div>
           </div>
           <motion.div className="order-items" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5 }}>

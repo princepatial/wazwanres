@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUser } from './UserContext';
+import { FiEdit2, FiUser, FiPhone, FiMapPin, FiShoppingBag, FiClock } from 'react-icons/fi';
 import './Profile.css';
 
 const Profile = () => {
@@ -8,15 +9,18 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [orders, setOrders] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [isProfileLoading, setIsProfileLoading] = useState(false);
-  const [isOrdersLoading, setIsOrdersLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    customerName: '',
+    mobileNumber: '',
+    address: '',
+    likeRestaurant: ''
+  });
+  const [isProfileLoading, setIsProfileLoading] = useState(true);
+  const [isOrdersLoading, setIsOrdersLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('profile');
 
   useEffect(() => {
-    if (userDetails) {
-      sessionStorage.removeItem('userData');
-      sessionStorage.removeItem('formData');
-
+    if (userDetails?.mobileNumber) {
       const fetchUserData = async () => {
         setIsProfileLoading(true);
         try {
@@ -28,10 +32,6 @@ const Profile = () => {
             const userCustomer = response.data.customer;
             setUserData(userCustomer);
             setFormData(userCustomer);
-            sessionStorage.setItem('userData', JSON.stringify(userCustomer));
-            sessionStorage.setItem('formData', JSON.stringify(userCustomer));
-          } else {
-            console.error('No customer found or unexpected API response:', response.data);
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -62,6 +62,9 @@ const Profile = () => {
 
       fetchUserData();
       fetchOrders();
+    } else {
+      setIsProfileLoading(false);
+      setIsOrdersLoading(false);
     }
   }, [userDetails]);
 
@@ -71,11 +74,12 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     };
     setFormData(updatedFormData);
-    sessionStorage.setItem('formData', JSON.stringify(updatedFormData));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!userDetails?.mobileNumber) return;
+
     try {
       await axios.put(
         `http://localhost:5001/customers/update-customer?mobileNumber=${userDetails.mobileNumber}`,
@@ -84,7 +88,6 @@ const Profile = () => {
       setUserData(formData);
       setIsEditing(false);
       alert('Profile updated successfully!');
-      sessionStorage.setItem('userData', JSON.stringify(formData));
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update profile.');
@@ -93,143 +96,201 @@ const Profile = () => {
 
   if (!userDetails) {
     return (
-      <div className="profile-container">
-        <h1 className="profile-header">Profile</h1>
-        <p>Please log in to view your profile.</p>
+      <div className="restaurant-profile">
+        <div className="auth-message">
+          <FiUser className="auth-icon" />
+          <h2>Welcome to Your Profile</h2>
+          <p>Please log in to view your profile.</p>
+        </div>
       </div>
     );
   }
 
   if (isProfileLoading) {
     return (
-      <div className="profile-container">
-        <h1 className="profile-header">Profile</h1>
-        <p>Loading user data...</p>
-      </div>
-    );
-  }
-
-  if (!userData) {
-    return (
-      <div className="profile-container">
-        <h1 className="profile-header">Profile</h1>
-        <p>Unable to load profile data. Please try again later.</p>
+      <div className="restaurant-profile">
+        <div className="loading-spinner">
+          <div className="spinner"></div>
+          <p>Loading your profile...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="profile-container">
-      <h1 className="profile-header">Profile</h1>
-      <div className="profile-card">
-        {isEditing ? (
-          <form className="profile-form" onSubmit={handleSubmit}>
-            <div className="profile-form-group">
-              <label className="profile-form-label">Name:</label>
-              <input
-                type="text"
-                name="customerName"
-                value={formData.customerName}
-                onChange={handleInputChange}
-                className="profile-input"
-              />
-            </div>
-            <div className="profile-form-group">
-              <label className="profile-form-label">Mobile Number:</label>
-              <input
-                type="text"
-                name="mobileNumber"
-                value={formData.mobileNumber}
-                readOnly
-                className="profile-input"
-              />
-            </div>
-            <div className="profile-form-group">
-              <label className="profile-form-label">Address:</label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address || ''}
-                onChange={handleInputChange}
-                className="profile-input"
-              />
-            </div>
-            <div className="profile-form-group">
-              <label className="profile-form-label">Restaurant:</label>
-              <input
-                type="text"
-                name="likeRestaurant"
-                value={formData.likeRestaurant || ''}
-                onChange={handleInputChange}
-                className="profile-input"
-              />
-            </div>
-            <div className="profile-form-buttons">
-              <button type="submit" className="profile-button">
-                Save
-              </button>
-              <button
-                type="button"
-                className="profile-button profile-button-cancel"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        ) : (
-          <>
-            <p className="profile-text">
-              <span className="profile-label">Name:</span> {userData.customerName}
-            </p>
-            <p className="profile-text">
-              <span className="profile-label">Mobile Number:</span> {userData.mobileNumber}
-            </p>
-            <p className="profile-text">
-              <span className="profile-label">Address:</span> {userData.address}
-            </p>
-            <p className="profile-text">
-              <span className="profile-label">Restaurant:</span> {userData.likeRestaurant}
-            </p>
-            <button
-              onClick={() => setIsEditing(true)}
-              className="profile-button"
-            >
-              Edit Profile
-            </button>
-          </>
-        )}
+    <div className="restaurant-profile">
+      <div className="profile-header-section">
+        <div className="profile-cover"></div>
+        <div className="profile-avatar">
+          <FiUser className="avatar-icon" />
+        </div>
+        <h1>{userData?.customerName || 'Welcome'}</h1>
       </div>
 
-      <div className="orders-section">
-        <h2>Order History</h2>
-        {isOrdersLoading ? (
-          <p>Loading orders...</p>
-        ) : orders.length > 0 ? (
-          <ul>
-            {orders.map((order) => (
-              <li key={order.orderId}>
-                <p>Order ID: {order.orderId}</p>
-                <p>Table: {order.selectedTable}</p>
-                <p>Status: {order.orderStatus}</p>
-                <p>Total Amount: ₹{order.totalAmount}</p>
-                <p>Payment Method: {order.paymentDetails ? order.paymentDetails.paymentMethod : 'N/A'}</p>
-                <p>Payment Status: {order.paymentDetails ? order.paymentDetails.status : 'N/A'}</p>
-                <p>Items:</p>
-                <ul>
-                  {order.items && order.items.length > 0 ? (
-                    order.items.map((item, index) => (
-                      <li key={index}>{item.name} - {item.quantity} x ₹{item.price}</li>
-                    ))
-                  ) : (
-                    <li>No items found</li>
-                  )}
-                </ul>
-              </li>
-            ))}
-          </ul>
+      <div className="profile-navigation">
+        <button 
+          className={`nav-button ${activeTab === 'profile' ? 'active' : ''}`}
+          onClick={() => setActiveTab('profile')}
+        >
+          Profile Details
+        </button>
+        <button 
+          className={`nav-button ${activeTab === 'orders' ? 'active' : ''}`}
+          onClick={() => setActiveTab('orders')}
+        >
+          Order History
+        </button>
+      </div>
+
+      <div className="profile-content">
+        {activeTab === 'profile' ? (
+          <div className="profile-details">
+            {isEditing ? (
+              <form className="edit-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <FiUser className="field-icon" />
+                  <input
+                    type="text"
+                    name="customerName"
+                    value={formData.customerName || ''}
+                    onChange={handleInputChange}
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div className="form-group">
+                  <FiPhone className="field-icon" />
+                  <input
+                    type="text"
+                    name="mobileNumber"
+                    value={formData.mobileNumber || ''}
+                    readOnly
+                    className="readonly"
+                  />
+                </div>
+                <div className="form-group">
+                  <FiMapPin className="field-icon" />
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address || ''}
+                    onChange={handleInputChange}
+                    placeholder="Your Address"
+                  />
+                </div>
+                <div className="form-group">
+                  <FiShoppingBag className="field-icon" />
+                  <input
+                    type="text"
+                    name="likeRestaurant"
+                    value={formData.likeRestaurant || ''}
+                    onChange={handleInputChange}
+                    placeholder="Liked Resturant Service"
+                  />
+                </div>
+                <div className="form-actions">
+                  <button type="submit" className="save-button">
+                    Save Changes
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="profile-info">
+                {userData && (
+                  <>
+                    <div className="info-card">
+                      <FiUser className="info-icon" />
+                      <div className="info-content">
+                        <label>Name</label>
+                        <p>{userData.customerName || 'Not specified'}</p>
+                      </div>
+                    </div>
+                    <div className="info-card">
+                      <FiPhone className="info-icon" />
+                      <div className="info-content">
+                        <label>Mobile Number</label>
+                        <p>{userData.mobileNumber || 'Not specified'}</p>
+                      </div>
+                    </div>
+                    <div className="info-card">
+                      <FiMapPin className="info-icon" />
+                      <div className="info-content">
+                        <label>Address</label>
+                        <p>{userData.address || 'Not specified'}</p>
+                      </div>
+                    </div>
+                    <div className="info-card">
+                      <FiShoppingBag className="info-icon" />
+                      <div className="info-content">
+                        <label>Liked Resturant</label>
+                        <p>{userData.likeRestaurant || 'Not specified'}</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="edit-button"
+                    >
+                      <FiEdit2 /> Edit Profile
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         ) : (
-          <p>No orders found.</p>
+          <div className="order-history">
+            <h2>Your Order History</h2>
+            {isOrdersLoading ? (
+              <div className="loading-spinner">
+                <div className="spinner"></div>
+                <p>Loading orders...</p>
+              </div>
+            ) : orders.length > 0 ? (
+              <div className="orders-list">
+                {orders.map((order) => (
+                  <div key={order.orderId} className="order-card">
+                    <div className="order-header">
+                      <span className="order-id">Order #{order.orderId}</span>
+                      <span className={`order-status ${order.orderStatus?.toLowerCase()}`}>
+                        {order.orderStatus}
+                      </span>
+                    </div>
+                    <div className="order-details">
+                      <div className="order-info">
+                        <p><strong>Table:</strong> {order.selectedTable}</p>
+                        <p><strong>Total:</strong> ₹{order.totalAmount}</p>
+                        <p><strong>Payment:</strong> {order.paymentDetails?.paymentMethod || 'N/A'}</p>
+                        <p><strong>Status:</strong> {order.paymentDetails?.status || 'N/A'}</p>
+                      </div>
+                      <div className="order-items">
+                        <h4>Ordered Items</h4>
+                        <ul>
+                          {order.items?.map((item, index) => (
+                            <li key={index}>
+                              <span className="item-name">{item.name}</span>
+                              <span className="item-quantity">x{item.quantity}</span>
+                              <span className="item-price">₹{item.price}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="no-orders">
+                <FiClock className="no-orders-icon" />
+                <p>No orders found in your history.</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

@@ -198,7 +198,7 @@ const Navbar = () => {
                       {userProfile ? (
                         <>
                           <div className="profile-header">
-                            <div className="profile-avatar">
+                            <div className="profile-avatar1">
                               {userProfile.name ? userProfile.name.charAt(0).toUpperCase() : '?'}
                             </div>
                             <h2>Profile</h2>

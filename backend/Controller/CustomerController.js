@@ -20,6 +20,7 @@ exports.addCustomer = async (req, res) => {
 };
 
 
+
 exports.getCustomerByMobile = async (req, res) => {
     const { mobileNumber } = req.query; // Get mobile number from the query parameter
 
