@@ -254,7 +254,7 @@ const Profile = () => {
             ) : orders.length > 0 ? (
               <div className="orders-list">
                 {orders.map((order) => (
-                  <div key={order.orderId} className="order-card">
+                  <div key={order.orderId} className="order-card1">
                     <div className="order-header">
                       <span className="order-id">Order #{order.orderId}</span>
                       <span className={`order-status ${order.orderStatus?.toLowerCase()}`}>
@@ -268,7 +268,7 @@ const Profile = () => {
                         <p><strong>Payment:</strong> {order.paymentDetails?.paymentMethod || 'N/A'}</p>
                         <p><strong>Status:</strong> {order.paymentDetails?.status || 'N/A'}</p>
                       </div>
-                      <div className="order-items">
+                      <div className="order-items1">
                         <h4>Ordered Items</h4>
                         <ul>
                           {order.items?.map((item, index) => (

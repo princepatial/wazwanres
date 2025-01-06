@@ -161,6 +161,179 @@
 }
 
 
+/* Add these new styles to your existing OrderPopup.css */
+
+.control-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .control-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+  
+  .control-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+  }
+  
+  .control-btn.temporary {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .control-btn.permanent {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .control-btn.close {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Update existing styles */
+  .popup-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .view-order-btn {
+    min-width: 100px;
+  }
+
+
+  .status-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+  }
+  
+  .timer-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    animation: pulse 2s infinite;
+  }
+  
+  .pending-animation {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  
+  .pending-dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    animation: bounce 1.4s infinite;
+  }
+  
+  .pending-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .pending-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .animation-accepted {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .animation-cooking {
+    animation: rotate 2s infinite;
+  }
+  
+  .animation-pending {
+    animation: fadeInOut 2s infinite;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  
+  /* Update existing control button styles */
+  .control-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .control-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+  }
+  
+  .control-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+  }
+  
+ 
 
 
 /* Styles for screens between 769px and 1024px */
@@ -286,4 +459,19 @@
         width: 100%;
         margin-top: 10px;
     }
+    .popup-actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .control-buttons {
+        margin-left: 0;
+      }
+      
+      .view-order-btn {
+        min-width: auto;
+      }
 }
+
+   

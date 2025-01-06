@@ -35,7 +35,7 @@ const NewCustomer = () => {
     const handleAddressChange = (e) => {
         setAddress(e.target.value);
     };
-    
+
 
     const handleLikeChange = (e) => {
         setLikeRestaurant(e.target.checked);
@@ -84,6 +84,8 @@ const NewCustomer = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+
         if (!selectedTable) {
             toast.error('Please select a table!');
             return;
@@ -96,9 +98,9 @@ const NewCustomer = () => {
             toast.error('Please enter a valid 10-digit mobile number!');
             return;
         }
+
         await sendOtp();
     };
-
 
 
     const sendOtp = async () => {
@@ -137,10 +139,10 @@ const NewCustomer = () => {
                     address,
                     likeRestaurant,
                 };
-                
+
                 const saveResponse = await axios.post('http://localhost:5001/customers/add-customer', userDetails);
-                if (saveResponse.status === 201) {  
-                    const customerId = saveResponse.data.customerId;  
+                if (saveResponse.status === 201) {
+                    const customerId = saveResponse.data.customerId;
                     setUserDetails(userDetails);
                     toast.success('Details saved successfully!');
                     navigate(`/menu`);
@@ -158,7 +160,7 @@ const NewCustomer = () => {
             setShowOtpModal(false);
         }
     };
-    
+
 
 
 
@@ -291,7 +293,8 @@ const NewCustomer = () => {
                 </div>
             </Modal>
 
-            <ToastContainer position="bottom-right" autoClose={3000} />
+            <ToastContainer position="top-center" autoClose={3000} />
+
         </div>
     );
 };

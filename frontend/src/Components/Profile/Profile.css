@@ -259,7 +259,7 @@
   gap: 30px;
 }
 
-.order-card {
+.order-card1 {
   background: #ffffff;
   border-radius: 15px;
   padding: 25px;
@@ -326,23 +326,23 @@
   color: #2d3436;
 }
 
-.order-items {
+.order-items1 {
   margin-top: 20px;
 }
 
-.order-items h4 {
+.order-items1 h4 {
   font-size: 1.1rem;
   color: #2d3436;
   margin-bottom: 15px;
 }
 
-.order-items ul {
+.order-items1 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.order-items li {
+.order-items1 li {
   display: flex;
   justify-content: space-between;
   align-items: center;

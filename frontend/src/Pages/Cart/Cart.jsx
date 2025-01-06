@@ -264,15 +264,18 @@ const Cart = () => {
 
   if (cartItems.length === 0) {
     return (
-      <div className="cart-container-empty" style={{ marginTop: "6rem" }}>
-        <ShoppingCart size={64} className="empty-cart-icon" />
-        <h2>Your Cart is Empty</h2>
-        <p>Looks like you haven't added anything to your cart yet.</p>
-        <Link to="/menu" className="explore-menu-btn">
-          Explore Menu
-        </Link>
-        <ToastContainer />
+      <div className="wrapper">
+        <div className="cart-container-empty">
+          <ShoppingCart size={64} className="empty-cart-icon" />
+          <h2>Your Cart is Empty</h2>
+          <p>Looks like you haven't added anything to your cart yet.</p>
+          <Link to="/menu" className="explore-menu-btn">
+            Explore Menu
+          </Link>
+          <ToastContainer />
+        </div>
       </div>
+
     );
   }
 

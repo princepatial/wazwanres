@@ -1,99 +1,111 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import aboutVideo from '../../assets/aboutvideo.mp4';
+import { useNavigate } from 'react-router-dom';
 import './About.css';
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const navigate = useNavigate();
+
+  const togglePlayPause = () => {
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+    setIsPlaying(!isPlaying);
+    setShowControls(true);
+  };
+  const handleLearnMore = () => {
+    // Redirect to the current page
+    navigate(0);
+  };
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    const hideControls = () => {
+      if (isPlaying) {
+        setShowControls(false);
+      }
+    };
+
+    const showControlsOnPause = () => {
+      setShowControls(true);
+    };
+
+    video.addEventListener('play', () => {
+      setIsPlaying(true);
+      setTimeout(hideControls, 3000);
+    });
+
+    video.addEventListener('pause', showControlsOnPause);
+
+    return () => {
+      video.removeEventListener('play', hideControls);
+      video.removeEventListener('pause', showControlsOnPause);
+    };
+  }, [isPlaying]);
+
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <div className="swiggy-about-us">
-      <h2 className="swiggy-about-us__title">ABOUT US</h2>
-      <p className="swiggy-about-us__description">
-        S is a new-age consumer-first organization offering an easy-to-use convenience platform, accessible through a unified app.
-      </p>
-      <div className="swiggy-about-us__content">
-        <div className="swiggy-about-us__services">
-          <div className={`swiggy-about-us__service swiggy-about-us__service--food ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0s' }}>
-            <div className="swiggy-about-us__icon-container">
-              <img src="/path-to-food-icon.png" alt="Food" className="swiggy-about-us__icon" />
+    <div className="wazwan-about-us">
+      <h2 className="wazwan-about-us__title">ABOUT US</h2>
+      <p className="wazwan-about-us__description">
+  Welcome to Wazwan — the ultimate destination for lovers of rich, flavorful, and authentic non-veg cuisine. From sizzling grills to hearty curries, we bring the best of tradition straight to your plate, delivered with a touch of modern convenience. Dive into a feast that’s as bold as your cravings!
+</p>
+
+      <div className="wazwan-about-us__content">
+        <div className="wazwan-about-us__services">
+          <div className={`wazwan-about-us__service wazwan-about-us__service--food ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0s' }}>
+            <div className="wazwan-about-us__icon-container">
+              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Food" className="wazwan-about-us__icon" />
             </div>
-            <span className="swiggy-about-us__service-name">Food</span>
+            <span className="wazwan-about-us__service-name">Res 1</span>
           </div>
-          <div className={`swiggy-about-us__service swiggy-about-us__service--instamart ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
-            <div className="swiggy-about-us__icon-container">
-              <img src="/path-to-instamart-icon.png" alt="Instamart" className="swiggy-about-us__icon" />
+          <div className={`wazwan-about-us__service wazwan-about-us__service--instamart ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
+            <div className="wazwan-about-us__icon-container">
+              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Instamart" className="wazwan-about-us__icon" />
             </div>
-            <span className="swiggy-about-us__service-name">Instamart</span>
+            <span className="wazwan-about-us__service-name">Res 2</span>
           </div>
-          <div className={`swiggy-about-us__service swiggy-about-us__service--dineout ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
-            <div className="swiggy-about-us__icon-container">
-              <img src="/path-to-dineout-icon.png" alt="Dineout" className="swiggy-about-us__icon" />
+          <div className={`wazwan-about-us__service wazwan-about-us__service--dineout ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
+            <div className="wazwan-about-us__icon-container">
+              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Dineout" className="wazwan-about-us__icon" />
             </div>
-            <span className="swiggy-about-us__service-name">Dineout</span>
+            <span className="wazwan-about-us__service-name">Res 3</span>
           </div>
-          <div className={`swiggy-about-us__service swiggy-about-us__service--genie ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
-            <div className="swiggy-about-us__icon-container">
-              <img src="/path-to-genie-icon.png" alt="Genie" className="swiggy-about-us__icon" />
+          <div className={`wazwan-about-us__service wazwan-about-us__service--genie ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
+            <div className="wazwan-about-us__icon-container">
+              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Genie" className="wazwan-about-us__icon" />
             </div>
-            <span className="swiggy-about-us__service-name">Genie</span>
+            <span className="wazwan-about-us__service-name">Res 4</span>
           </div>
-          <div className={`swiggy-about-us__service swiggy-about-us__service--minis ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
-            <div className="swiggy-about-us__icon-container">
-              <img src="/path-to-minis-icon.png" alt="Minis" className="swiggy-about-us__icon" />
+          <div className={`wazwan-about-us__service wazwan-about-us__service--minis ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
+            <div className="wazwan-about-us__icon-container">
+              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Minis" className="wazwan-about-us__icon" />
             </div>
-            <span className="swiggy-about-us__service-name">Minis</span>
+            <span className="wazwan-about-us__service-name">Res 5</span>
           </div>
         </div>
-        <div className={`swiggy-about-us__logo-container ${isVisible ? 'animate' : ''}`}>
-          <img src="/path-to-central-logo.png" alt=" Logo" className="swiggy-about-us__logo" />
+        <div className={`wazwan-about-us__logo-container ${isVisible ? 'animate' : ''}`}>
+          <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt=" Logo" className="wazwan-about-us__logo" />
         </div>
       </div>
-      <div className="swiggy-stats-section">
-        <div className="swiggy-stats-grid">
-          <div className="stats-card" style={{ animationDelay: '0.1s' }}>
-            <div className="stats-icon">🏪</div>
-            <div className="stats-number">150K+</div>
-            <div className="stats-label">Restaurant Partners</div>
-            <div className="stats-progress">
-              <div className="progress-bar" style={{ width: '85%' }}></div>
-            </div>
-          </div>
+      <div className="wazwan-stats-section">
 
-          <div className="stats-card" style={{ animationDelay: '0.2s' }}>
-            <div className="stats-icon">🌆</div>
-            <div className="stats-number">500+</div>
-            <div className="stats-label">Cities Covered</div>
-            <div className="stats-progress">
-              <div className="progress-bar" style={{ width: '75%' }}></div>
-            </div>
-          </div>
 
-          <div className="stats-card" style={{ animationDelay: '0.3s' }}>
-            <div className="stats-icon">📦</div>
-            <div className="stats-number">2M+</div>
-            <div className="stats-label">Daily Orders</div>
-            <div className="stats-progress">
-              <div className="progress-bar" style={{ width: '90%' }}></div>
-            </div>
-          </div>
-
-          <div className="stats-card" style={{ animationDelay: '0.4s' }}>
-            <div className="stats-icon">🛵</div>
-            <div className="stats-number">250K+</div>
-            <div className="stats-label">Delivery Partners</div>
-            <div className="stats-progress">
-              <div className="progress-bar" style={{ width: '80%' }}></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="swiggy-mission">
+        <div className="wazwan-mission">
           <div className="mission-content">
             <h3>Our Mission</h3>
-            <p>Delivering happiness at your doorstep. We strive to provide the best food delivery experience to our customers while empowering local businesses and delivery partners.</p>
+            <p>Bringing happiness right to your table. We aim to deliver the best dining experience by seamlessly connecting you with exceptional in-restaurant service and local culinary delights.</p>
           </div>
           <div className="mission-values">
             <div className="value-item">
@@ -113,18 +125,18 @@ const About = () => {
       </div>
 
 
-      {/* Add this after the swiggy-mission div */}
+      {/* Add this after the wazwan-mission div */}
       <div className="video-section">
         <div className="video-section__container">
           <div className="video-section__content">
-            <h3 className="video-section__title">Delivering Happiness</h3>
+            <h3 className="video-section__title">Spreading Happiness</h3>
             <p className="video-section__text">
-              Experience the journey of how we connect millions of customers with their favorite food, groceries, and more. Our platform empowers local businesses and delivery partners while making convenience accessible to everyone.
+              Experience the journey of how we connect millions of customers with their favorite food, delicious taste, and more. Our platform empowers local businesses and delivery partners while making convenience accessible to everyone.
             </p>
             <div className="video-section__features">
               <div className="feature-item">
                 <span className="feature-icon">🚀</span>
-                <span className="feature-text">Lightning Fast Delivery</span>
+                <span className="feature-text">Lightning Fast Order</span>
               </div>
               <div className="feature-item">
                 <span className="feature-icon">💝</span>
@@ -135,24 +147,26 @@ const About = () => {
                 <span className="feature-text">Quality Assurance</span>
               </div>
             </div>
-            <button className="video-section__cta">Learn More</button>
+            <button className="video-section__cta" onClick={handleLearnMore}>Learn More</button>
           </div>
 
           <div className="video-section__video-container">
             <div className="video-wrapper">
               <video
                 className="featured-video"
-                autoPlay
                 muted
                 loop
                 playsInline
+                onClick={togglePlayPause}
+                ref={videoRef}
               >
-                <source src="/path-to-your-video.mp4" type="video/mp4" />
+                <source src={aboutVideo} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <div className="video-overlay">
-                <div className="play-button">
-                  <span>▶</span>
+              <div className="video-overlay" style={{ opacity: showControls ? 1 : 0 }}>
+                <div className="control-button" onClick={togglePlayPause}>
+                  <span className="play-icon" style={{ display: isPlaying ? 'none' : 'block' }}>▶</span>
+                  <span className="pause-icon" style={{ display: isPlaying ? 'block' : 'none' }}>❚❚</span>
                 </div>
               </div>
             </div>

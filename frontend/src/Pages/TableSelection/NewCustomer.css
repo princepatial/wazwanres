@@ -422,6 +422,29 @@
   cursor: not-allowed;
 }
 
+/* Style for Toast Notifications */
+.Toastify__toast--success {
+  background-color: #4CAF50; /* Success green */
+  color: #fff;
+}
+
+.Toastify__toast--error {
+  background-color: #F44336; /* Error red */
+  color: #fff;
+}
+
+.Toastify__toast--info {
+  background-color: #2196F3; /* Info blue */
+  color: #fff;
+}
+
+.Toastify__toast-container {
+  top: 10px !important; /* Position to the top */
+  left: 50% !important;
+  transform: translateX(-50%);
+}
+
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .booking-content {

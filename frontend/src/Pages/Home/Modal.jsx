@@ -46,7 +46,7 @@ const Modal = ({ onClose }) => {
               <div className="card-description">
                 <p>"Step into a world of exquisite flavors and unforgettable dining experiences. Your journey starts here."</p>
               </div>
-              <button className="action-button register" onClick={() => navigate('/new-customer')}>
+              <button className="action-button1 register" onClick={() => navigate('/new-customer')}>
                 Create Account
                 <span className="button-accent">→</span>
               </button>
@@ -67,7 +67,7 @@ const Modal = ({ onClose }) => {
     <div className="card-description">
       <p>"Return to your favorite flavors and discover new culinary masterpieces crafted just for you."</p>
     </div>
-    <button className="action-button login" onClick={() => navigate('/regular-customer')}>
+    <button className="action-button1 login" onClick={() => navigate('/regular-customer')}>
       Sign In
       <span className="button-accent">→</span>
     </button>
