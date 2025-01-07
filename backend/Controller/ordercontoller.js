@@ -57,44 +57,6 @@ exports.createOrder = async (req, res) => {
 
 
 
-// Fetch orders by mobile number
-exports.getOrdersByMobile = async (req, res) => {
-  const { mobileNumber } = req.params;
-
-  if (!mobileNumber) {
-    return res.status(400).json({ success: false, message: 'Mobile number is required.' });
-  }
-
-  try {
-    // Find orders by mobile number
-    const orders = await Order.find({ mobileNumber }).sort({ createdAt: -1 });
-
-    if (orders.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'No orders found for this mobile number.',
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      orders,
-    });
-  } catch (error) {
-    console.error('Error fetching orders:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to fetch orders.',
-      error: error.message,
-    });
-  }
-};
-
-
-
-
-
-
 // Fetch all orders in the database
 exports.getAllOrders = async (req, res) => {
   try {
@@ -176,29 +138,29 @@ exports.updateOrderStatusByMobile = async (req, res) => {
 };
 
 
-// Fetch orders associated with a mobile number
-exports.getOrdersByMobile = async (req, res) => {
-  const { mobileNumber } = req.params; // Extract mobileNumber from the URL params
 
-  // Validate input
+exports.getOrdersByMobile = async (req, res) => {
+  const { mobileNumber } = req.params;
+
   if (!mobileNumber) {
     return res.status(400).json({ success: false, message: 'Mobile number is required.' });
   }
 
   try {
-    // Find all orders associated with the mobile number
     const orders = await Order.find({ mobileNumber }).sort({ createdAt: -1 });
 
+    // Return success: true with an empty orders array for no orders
     if (orders.length === 0) {
-      return res.status(404).json({
-        success: false,
+      return res.status(200).json({
+        success: true,
+        orders: [], // Empty array
         message: 'No orders found for this mobile number.',
       });
     }
 
+    // Return success: true with the orders if found
     return res.status(200).json({
       success: true,
-      message: 'Orders retrieved successfully.',
       orders,
     });
   } catch (error) {
@@ -210,6 +172,7 @@ exports.getOrdersByMobile = async (req, res) => {
     });
   }
 };
+
 
 
 

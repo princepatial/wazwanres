@@ -138,6 +138,7 @@ const NewCustomer = () => {
                     customerName,
                     address,
                     likeRestaurant,
+                    selectedTable,
                 };
 
                 const saveResponse = await axios.post('http://localhost:5001/customers/add-customer', userDetails);
@@ -179,7 +180,9 @@ const NewCustomer = () => {
 
                 <div className="booking-content">
                     <section className="tables-section">
-                        <h2>Select Your Table</h2>
+                        <h2>Select Your Table
+                            <span className="required-marker">*</span>
+                        </h2>
                         {loading ? (
                             <div className="modern-loader">
                                 <div className="loader-spinner"></div>
@@ -210,24 +213,33 @@ const NewCustomer = () => {
                         <h2>Enter Your Details</h2>
                         <form onSubmit={handleSubmit} className="modern-form">
                             <div className="input-container">
+                                <label className="input-label">
+                                    Name <span className="required-marker">*</span>
+                                </label>
                                 <input
                                     type="text"
                                     value={customerName}
                                     onChange={handleNameChange}
                                     placeholder="Enter your name"
                                     className="modern-input"
+                                    required
                                 />
                             </div>
                             <div className="input-container">
+                                <label className="input-label">
+                                    Mobile Number <span className="required-marker">*</span>
+                                </label>
                                 <input
                                     type="tel"
                                     value={mobileNumber}
                                     onChange={handleMobileChange}
                                     placeholder="Enter mobile number"
                                     className="modern-input"
+                                    required
                                 />
                             </div>
                             <div className="input-container">
+                                <label className="input-label">Address</label>
                                 <textarea
                                     value={address}
                                     onChange={handleAddressChange}

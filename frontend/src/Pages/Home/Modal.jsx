@@ -4,6 +4,7 @@ import './Modal.css';
 
 const Modal = ({ onClose }) => {
   const [currentQuote, setCurrentQuote] = useState('');
+  const [isClosing, setIsClosing] = useState(false);
   const navigate = useNavigate();
   
   const elegantQuotes = [
@@ -19,10 +20,26 @@ const Modal = ({ onClose }) => {
     setCurrentQuote(randomQuote);
   }, []);
 
+  const handleRegisterClick = () => {
+    setIsClosing(true); // Start closing animation
+    setTimeout(() => {
+      navigate('/new-customer'); // Redirect to registration page
+      onClose(); // Close the modal after the animation duration
+    }, 300); // Match this duration with the CSS transition duration
+  };
+
+  const handleLoginClick = () => {
+    setIsClosing(true); // Start closing animation
+    setTimeout(() => {
+      navigate('/regular-customer'); // Redirect to login page
+      onClose(); // Close the modal after the animation duration
+    }, 300); // Match this duration with the CSS transition duration
+  };
+
   return (
-    <div className="modal-overlay">
-      <div className="modal-wrapper">
-        <button className="close-button" onClick={onClose} aria-label="Close">
+    <div className={`modal-overlay ${isClosing ? 'fade-out' : ''}`} onClick={onClose}>
+    <div className={`modal-wrapper ${isClosing ? 'fade-out' : ''}`} onClick={(e) => e.stopPropagation()}>
+      <button className="close-button" onClick={onClose} aria-label="Close">
           <span className="close-icon">×</span>
         </button>
 
@@ -46,7 +63,7 @@ const Modal = ({ onClose }) => {
               <div className="card-description">
                 <p>"Step into a world of exquisite flavors and unforgettable dining experiences. Your journey starts here."</p>
               </div>
-              <button className="action-button1 register" onClick={() => navigate('/new-customer')}>
+              <button className="action-button1 register"onClick={handleRegisterClick}>
                 Create Account
                 <span className="button-accent">→</span>
               </button>
@@ -67,7 +84,7 @@ const Modal = ({ onClose }) => {
     <div className="card-description">
       <p>"Return to your favorite flavors and discover new culinary masterpieces crafted just for you."</p>
     </div>
-    <button className="action-button1 login" onClick={() => navigate('/regular-customer')}>
+    <button className="action-button1 login" onClick={handleLoginClick}>
       Sign In
       <span className="button-accent">→</span>
     </button>

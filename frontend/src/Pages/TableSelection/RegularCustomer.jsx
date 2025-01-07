@@ -109,7 +109,9 @@ const RegularCustomer = () => {
 
         <div className="prefixed-regular-booking-content">
           <section className="prefixed-tables-section">
-            <h2>Select Your Table</h2>
+            <h2>Select Your Table
+              <span className="prefixed-required-marker">*</span>
+            </h2>
             {loading ? (
               <div className="prefixed-modern-loader">
                 <div className="prefixed-loader-spinner"></div>
@@ -139,12 +141,16 @@ const RegularCustomer = () => {
             <h2>Enter Your Mobile Number</h2>
             <form onSubmit={handleSubmit} className="prefixed-modern-form">
               <div className="prefixed-input-container">
+                <label className="prefixed-input-label">
+                  Mobile Number <span className="prefixed-required-marker">*</span>
+                </label>
                 <input
                   type="tel"
                   value={mobileNumber}
                   onChange={handleMobileChange}
                   placeholder="Enter mobile number"
                   className="prefixed-modern-input"
+                  required
                 />
               </div>
               <button type="submit" className="prefixed-modern-submit-btn">

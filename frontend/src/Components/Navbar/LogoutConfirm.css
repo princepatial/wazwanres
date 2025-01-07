@@ -1,0 +1,88 @@
+.logout-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.logout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+}
+
+.logout-modal {
+  position: relative;
+  width: 90%;
+  max-width: 320px;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
+  z-index: 100000;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.logout-modal-content {
+  text-align: center;
+}
+
+.logout-modal h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.logout-modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.logout-modal-buttons button {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background-color: #dc2626;
+}
+
+.cancel-btn {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.cancel-btn:hover {
+  background-color: #d1d5db;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

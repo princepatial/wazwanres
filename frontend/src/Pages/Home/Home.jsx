@@ -99,10 +99,11 @@ const Home = () => {
 
 
   const foodCards = [
-    { id: 1, title: '', img: '/tiles.jpg' },
+    
+    { id: 1, title: '', img: '/home-img.jpg' },
     { id: 2, title: '', img: '/tiles.jpg' },
-    { id: 3, title: '', img: '/tiles.jpg' },
-    { id: 4, title: '', img: '/tiles.jpg' }
+    { id: 3, title: '', img: '/home-img1.jpg' },
+    { id: 4, title: '', img: '/home-img2.jpg' }
   ];
 
   return (
@@ -191,7 +192,7 @@ const Home = () => {
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
                       >
-                        <div className="overlay-content">
+                        <div className="overlay-content" onClick={() => navigate('/menu')}>
                           <span className="view-details">Explore Dish</span>
                           <span className="arrow">↗</span>
                         </div>
@@ -340,7 +341,7 @@ const Home = () => {
               <motion.button
                 className="control-btn prev-btn"
                 onClick={prevSlide}
-                whileHover={{ scale: 1.1, backgroundColor: 'var(--primary-color)' }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <FaChevronLeft />
@@ -348,7 +349,7 @@ const Home = () => {
               <motion.button
                 className="control-btn next-btn"
                 onClick={nextSlide}
-                whileHover={{ scale: 1.1, backgroundColor: 'var(--primary-color)' }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <FaChevronRight />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { EyeOff, Clock } from 'lucide-react';
+import { X, Clock } from 'lucide-react';
 import './OrderPopup.css';
 
 const OrderPopup = () => {
@@ -91,7 +91,8 @@ const OrderPopup = () => {
   const handleTemporaryClose = () => {
     setTempHidden(true);
     setIsPopupVisible(false);
-
+  
+    
     setTimeout(() => {
       if (!isPermanentlyClosed) {
         setTempHidden(false);
@@ -99,6 +100,7 @@ const OrderPopup = () => {
       }
     }, 20000);
   };
+  
 
   const handlePermanentClose = () => {
     setIsPopupVisible(false);
@@ -164,9 +166,10 @@ const OrderPopup = () => {
     return () => clearInterval(timerInterval);
   }, [isTimerActive]);
 
-  if (!isPopupVisible || isExcludedPath || isPermanentlyClosed) {
-    return null;
+  if (!isPopupVisible || isExcludedPath || isPermanentlyClosed || tempHidden) {
+    return null; 
   }
+  
 
   return (
     <div className="order-popup-container animated-slide-up">
@@ -219,7 +222,7 @@ const OrderPopup = () => {
               onClick={handlePermanentClose}
               title="Don't show again"
             >
-              <EyeOff size={18} />
+              <X size={18} />
             </button>
           </div>
         </div>

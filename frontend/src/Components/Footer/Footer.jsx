@@ -26,15 +26,15 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-info">
-        <div className="info-item">
+        <div className="info-item2">
           <FontAwesomeIcon icon={faMapMarkerAlt} />
           <span>Mohali</span>
         </div>
-        <div className="info-item">
+        <div className="info-item2">
           <FontAwesomeIcon icon={faPhone} />
           <span>+91 88470-26594</span>
         </div>
-        <div className="info-item">
+        <div className="info-item2">
           <FontAwesomeIcon icon={faEnvelope} />
           <span>contact.wazwan@gmail.com</span>
         </div>

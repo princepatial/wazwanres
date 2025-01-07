@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet');
+
 /* RegularCustomer.css */
+
 .prefixed-regular-booking-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: linear-gradient(135deg, #1a1f35 0%, #2d3250 100%);
   padding: 2rem;
-  color: #e2e8f0;
-  font-family: 'Inter', sans-serif;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .prefixed-regular-booking-container {
@@ -16,38 +19,43 @@
 .prefixed-regular-booking-header {
   text-align: center;
   margin-bottom: 4rem;
+  padding-top: 2rem;
 }
 
 .prefixed-restaurant-logo {
   width: 80px;
   height: 80px;
   margin: 0 auto 1rem;
-  background: linear-gradient(135deg, #d97706, #f59e0b);
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
 }
 
 .prefixed-logo-text {
   font-size: 2.5rem;
   font-weight: bold;
   color: #fff;
+  font-family: 'Playfair Display', serif;
 }
 
 .prefixed-regular-booking-header h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin: 1rem 0;
-  background: linear-gradient(to right, #d97706, #f59e0b);
+  background: linear-gradient(to right, #ff6b6b, #ffd93d);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  font-family: 'Playfair Display', serif;
 }
 
 .prefixed-header-subtitle {
-  color: #64748b;
-  font-size: 1.1rem;
+  color: #a5b4fc;
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
 /* Content Layout */
@@ -64,47 +72,45 @@
   padding: 2rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
 }
 
 .prefixed-tables-section h2 {
-  color: #d97706;
+  color: #ff6b6b;
   margin-bottom: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-family: 'Playfair Display', serif;
 }
 
 .prefixed-modern-tables-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .prefixed-modern-table-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border-radius: 15px;
   padding: 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: hidden;
   text-align: left;
-  color: #e2e8f0;
+  color: #fff;
 }
 
 .prefixed-modern-table-card:not(:disabled):hover {
   transform: translateY(-3px);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-color: #ff6b6b;
 }
 
 .prefixed-modern-table-card.selected {
-  background: linear-gradient(135deg, #d97706, #f59e0b);
-  border-color: transparent;
-  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.3);
-}
-
-.prefixed-modern-table-card.selected .prefixed-table-number {
-  color: #fff;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 142, 83, 0.2));
+  border-color: #ff6b6b;
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
 }
 
 .prefixed-table-content {
@@ -114,20 +120,21 @@
 }
 
 .prefixed-table-number {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
+  color: #fff;
 }
 
 .prefixed-table-status {
   font-size: 0.9rem;
-  opacity: 0.8;
+  color: #a5b4fc;
 }
 
 .prefixed-modern-table-card.occupied {
   opacity: 0.5;
   cursor: not-allowed;
-  background: rgba(220, 38, 38, 0.1);
-  border-color: rgba(220, 38, 38, 0.2);
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
 }
 
 /* Loading Spinner */
@@ -142,14 +149,14 @@
 .prefixed-loader-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(217, 119, 6, 0.3);
+  border: 3px solid rgba(255, 107, 107, 0.3);
   border-radius: 50%;
-  border-top-color: #d97706;
-  animation: prefixed-spin 1s linear infinite;
+  border-top-color: #ff6b6b;
+  animation: spin 1s linear infinite;
   margin-bottom: 1rem;
 }
 
-@keyframes prefixed-spin {
+@keyframes spin {
   to {
     transform: rotate(360deg);
   }
@@ -162,12 +169,14 @@
   padding: 2rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
 }
 
 .prefixed-contact-section h2 {
-  color: #d97706;
+  color: #ff6b6b;
   margin-bottom: 2rem;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-family: 'Playfair Display', serif;
 }
 
 .prefixed-modern-form {
@@ -181,21 +190,59 @@
   margin-bottom: 1rem;
 }
 
+.prefixed-required-marker {
+  color: #ff6b6b;
+  margin-left: 0.2rem;
+}
+
+.prefixed-tables-section h2 {
+  color: #ff6b6b;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  align-items: center;
+}
+
+.prefixed-tables-section h2 .prefixed-required-marker {
+  font-size: 1.2rem;
+  vertical-align: top;
+}
+
+
+.prefixed-input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #a5b4fc;
+}
+
+.prefixed-required-marker {
+  color: #ff6b6b;
+  margin-left: 0.2rem;
+}
+
+.prefixed-input-container {
+  margin-bottom: 1.5rem;
+}
+
+
 .prefixed-modern-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1rem;
-  border-radius: 8px;
-  color: #e2e8f0;
+  border-radius: 12px;
+  color: #fff;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .prefixed-modern-input:focus {
   outline: none;
-  border-color: #d97706;
+  border-color: #ff6b6b;
   background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
 }
 
 .prefixed-modern-input::placeholder {
@@ -203,17 +250,41 @@
 }
 
 .prefixed-modern-submit-btn {
-  background: linear-gradient(135deg, #d97706, #f59e0b);
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
   color: #fff;
-  padding: 1rem;
+  padding: 1.2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
 }
 
 .prefixed-modern-submit-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Toast Notifications */
+.Toastify__toast--success {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.Toastify__toast--error {
+  background-color: #F44336;
+  color: #fff;
+}
+
+.Toastify__toast--info {
+  background-color: #2196F3;
+  color: #fff;
+}
+
+.Toastify__toast-container {
+  top: 10px !important;
+  left: 50% !important;
+  transform: translateX(-50%);
 }

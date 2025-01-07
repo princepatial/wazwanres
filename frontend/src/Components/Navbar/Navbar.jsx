@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useCart } from '../../Pages/Cart/CartContext';
 import { useUser } from '../Profile/UserContext';
+import Modal from '../../Pages/Home/Modal';
+import LogoutConfirm from './LogoutConfirm';
 import axios from 'axios';
 import './Navbar.css';
 import logoImage from '../../assets/wazwan.png';
@@ -62,6 +64,8 @@ const Navbar = () => {
   const { userDetails, setUserDetails } = useUser();
   const [loadingProfile, setLoadingProfile] = useState(false);
   const { cartItemCount, clearCart } = useCart();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLogoutConfirmVisible, setIsLogoutConfirmVisible] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -76,6 +80,25 @@ const Navbar = () => {
       setUserDetails(JSON.parse(savedUserDetails));
     }
   }, []);
+
+
+
+  const handleLogoutClick = () => {
+    setIsLogoutConfirmVisible(true);
+  };
+
+  const cancelLogout = () => {
+    setIsLogoutConfirmVisible(false);
+  };
+
+  useEffect(() => {
+    if (isLogoutConfirmVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isLogoutConfirmVisible]);
+
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -102,14 +125,17 @@ const Navbar = () => {
     fetchUserDetails();
   }, [userDetails]);
 
+
   const handleLogout = () => {
     setUserDetails(null);
     setUserProfile(null);
     clearCart();
     sessionStorage.removeItem('userDetails');
     setIsProfilePopupOpen(false);
+    setIsLogoutConfirmVisible(false);
     navigate('/');
   };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -223,7 +249,7 @@ const Navbar = () => {
                             >
                               Edit Profile
                             </button>
-                            <button className="logout-button" onClick={handleLogout}>
+                            <button className="logout-button" onClick={handleLogoutClick}>
                               Logout
                             </button>
                           </div>
@@ -235,7 +261,7 @@ const Navbar = () => {
                             <button
                               className="login-button"
                               onClick={() => {
-                                navigate('/');
+                                setIsModalVisible(true);
                                 setIsProfilePopupOpen(false);
                               }}
                             >
@@ -257,7 +283,7 @@ const Navbar = () => {
                 </NavLink>
                 <button
                   className="nav-link logout-nav-button"
-                  onClick={handleLogout}
+                  onClick={handleLogoutClick}
                   title="Logout"
                 >
                   <LogoutIcon />
@@ -267,6 +293,13 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {isModalVisible && <Modal onClose={() => setIsModalVisible(false)} />}
+      {isLogoutConfirmVisible && (
+        <LogoutConfirm
+          onConfirm={handleLogout}
+          onCancel={cancelLogout}
+        />
+      )}
     </nav>
   );
 };

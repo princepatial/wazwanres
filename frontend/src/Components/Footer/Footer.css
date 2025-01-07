@@ -71,10 +71,11 @@
   color: #a9a9a9;
 }
 
-.info-item {
+.info-item2 {
   display: flex;
   align-items: center;
   gap: 10px;
+  
 }
 
 .footer-bottom {

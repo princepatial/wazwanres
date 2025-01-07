@@ -35,7 +35,7 @@ const RestaurantFeedback = () => {
   // Updated SVG paths using src/assets
   const locationQRs = {
     Kharar: '/src/assets/kharar.svg',
-    Mohali: '/src/assets/kharar.svg',
+    Mohali: '/src/assets/Mohali.svg',
     Chandigarh: '/src/assets/Chandigrah.svg'
   };
 

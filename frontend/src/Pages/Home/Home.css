@@ -240,6 +240,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  cursor: pointer;
 }
 
 .view-details {
@@ -474,6 +475,7 @@ p {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
+  padding: 60px 80px;
 }
 
 .quote-container {
@@ -574,28 +576,46 @@ p {
 .slider-controls {
   position: absolute;
   top: 50%;
-  left: -30px;
-  right: -30px;
+  left: 0;
+  right: 0;
   transform: translateY(-50%);
   display: flex;
   justify-content: space-between;
   pointer-events: none;
+  width: 100%;
+  padding: 0 20px;
 }
 
-.control-btn {
+
+.testimonial-section .slider-controls .control-btn {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: white;
+  background: var(--primary-color); 
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color);
+  color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   pointer-events: auto;
   transition: all 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.testimonial-section .slider-controls .prev-btn {
+  left: 20px;
+}
+
+.testimonial-section .slider-controls .next-btn {
+  right: 20px;
+}
+
+.testimonial-section .slider-controls .control-btn:hover {
+  background-color: #721b1b; 
 }
 
 

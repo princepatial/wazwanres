@@ -1,37 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;800&family=Lora:wght@400;500&family=Montserrat:wght@600&family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet');
+
 .wazwan-about-us {
   max-width: 100%;
   margin: 0 auto;
-  padding: 80px 20px;
-  font-family: 'Inter', sans-serif;
+  padding: 100px 20px;
+  font-family: 'Playfair Display', serif;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-}
-
-.wazwan-about-us__title {
-  font-size: 42px;
-  font-weight: 800;
-  color: #1a1a1a;
-  margin-bottom: 24px;
-  text-align: center;
-  letter-spacing: -0.5px;
-  position: relative;
-  margin-top: 3rem;
-}
-
-
-.wazwan-about-us__description {
-  font-size: 20px;
-  color: #4a4a4a;
-  max-width: 700px;
-  margin: 0 auto 80px;
-  line-height: 1.8;
-  text-align: center;
-  font-weight: 400;
 }
 
 .wazwan-about-us__content {
   position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('../../assets//aboutus.webp');
+  background-image: url('../../assets/aboutus.webp'); /* Background image preserved */
   background-size: cover;
   background-position: center;
   padding: 180px 0;
@@ -47,6 +26,56 @@
   margin: 0 auto;
 }
 
+
+
+/* Rest of the enhanced styles */
+.wazwan-about-us__title {
+  font-size: 52px;
+  font-weight: 800;
+  color: #1c1c1c;
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: -0.5px;
+  position: relative;
+  margin-top: 3rem;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-logo1 {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-text1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.wazwan-about-us__description {
+  font-size: 22px;
+  color: #2c2c2c;
+  max-width: 800px;
+  margin: 0 auto 100px;
+  line-height: 1.9;
+  text-align: center;
+  font-weight: 400;
+  font-family: 'Lora', serif;
+  letter-spacing: 0.3px;
+}
+
 .wazwan-about-us__service {
   position: absolute;
   display: flex;
@@ -54,46 +83,59 @@
   align-items: center;
   opacity: 0;
   transform: scale(0.5) translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.wazwan-about-us__service.animate {
-  animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .wazwan-about-us__icon-container {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.wazwan-about-us__icon-container:hover {
-  transform: translateY(-5px);
+  transition: all 0.4s ease;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .wazwan-about-us__icon {
-  width: 60px;
-  height: 60px;
-  transition: transform 0.3s ease;
-  border-radius: 10px;
-}
-
-.wazwan-about-us__icon-container:hover .wazwan-about-us__icon {
-  transform: scale(1.1);
+  width: 70px;
+  height: 70px;
+  transition: transform 0.4s ease;
+  border-radius: 15px;
 }
 
 .wazwan-about-us__service-name {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  letter-spacing: 0.5px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.8px;
+  font-family: 'Montserrat', sans-serif;
 }
 
+/* Animations */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(40px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.wazwan-about-us__service.animate {
+  animation: popIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Logo container animations */
 .wazwan-about-us__logo-container {
   position: absolute;
   top: 50%;
@@ -105,29 +147,6 @@
 
 .wazwan-about-us__logo-container.animate {
   animation: logoReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards;
-}
-
-.wazwan-about-us__logo {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-  border-radius: 20px;
-}
-
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) translateY(30px);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.1) translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
 }
 
 @keyframes logoReveal {

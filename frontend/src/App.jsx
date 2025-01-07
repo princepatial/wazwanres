@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Navbar from './Components/Navbar/Navbar';
 import Home from './Pages/Home/Home';
 import Menu from './Pages/Menu/Menu';
@@ -13,14 +13,28 @@ import Feedback from './Pages/Feedback/Feedback';
 import Media from './Pages/Media/Media';
 import About from './Pages/About/About';
 import Profile from './Components/Profile/Profile';
+import LogoutConfirm from './Components/Navbar/LogoutConfirm';
 import { UserProvider } from './Components/Profile/UserContext';
+import { useUser } from './Components/Profile/UserContext';
+import { useCart } from './Pages/Cart/CartContext';
+
 
 
 function App() {
+  const [isLogoutConfirmVisible, setIsLogoutConfirmVisible] = useState(false);
+  const { setUserDetails } = useUser();
+  const { clearCart } = useCart();
+
+  const handleLogout = () => {
+    setUserDetails(null);
+    clearCart();
+    sessionStorage.removeItem('userDetails');
+    setIsLogoutConfirmVisible(false);
+  };
   return (
     <UserProvider>
     <div className="app">
-      <Navbar />
+    <Navbar onLogoutClick={() => setIsLogoutConfirmVisible(true)} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new-customer" element={<NewCustomer />} />
@@ -36,6 +50,12 @@ function App() {
       </Routes>
       <OrderPopup />
       <Footer />
+      {isLogoutConfirmVisible && (
+        <LogoutConfirm
+          onConfirm={handleLogout}
+          onCancel={() => setIsLogoutConfirmVisible(false)}
+        />
+      )}
     </div>
     </UserProvider>
   );

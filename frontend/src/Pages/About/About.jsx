@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import aboutVideo from '../../assets/aboutvideo.mp4';
+import wazlogo from '../../assets/wazwan.png';
 import { useNavigate } from 'react-router-dom';
 import './About.css';
 
@@ -59,49 +60,52 @@ const About = () => {
     <div className="wazwan-about-us">
       <h2 className="wazwan-about-us__title">ABOUT US</h2>
       <p className="wazwan-about-us__description">
-  Welcome to Wazwan — the ultimate destination for lovers of rich, flavorful, and authentic non-veg cuisine. From sizzling grills to hearty curries, we bring the best of tradition straight to your plate, delivered with a touch of modern convenience. Dive into a feast that’s as bold as your cravings!
-</p>
+        Welcome to Wazwan — the ultimate destination for lovers of rich, flavorful, and authentic non-veg cuisine. From sizzling grills to hearty curries, we bring the best of tradition straight to your plate, delivered with a touch of modern convenience. Dive into a feast that’s as bold as your cravings!
+      </p>
 
       <div className="wazwan-about-us__content">
         <div className="wazwan-about-us__services">
           <div className={`wazwan-about-us__service wazwan-about-us__service--food ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0s' }}>
             <div className="wazwan-about-us__icon-container">
-              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Food" className="wazwan-about-us__icon" />
+              <img src={wazlogo} alt="Food" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Res 1</span>
+            <span className="wazwan-about-us__service-name">Wazwan Legacy kharar</span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--instamart ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             <div className="wazwan-about-us__icon-container">
-              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Instamart" className="wazwan-about-us__icon" />
+              {/* <img src={wazlogo} alt="Instamart" className="wazwan-about-us__icon" /> */}
             </div>
-            <span className="wazwan-about-us__service-name">Res 2</span>
+            <span className="wazwan-about-us__service-name"></span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--dineout ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.4s' }}>
             <div className="wazwan-about-us__icon-container">
-              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Dineout" className="wazwan-about-us__icon" />
+              <img src={wazlogo} alt="Dineout" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Res 3</span>
+            <span className="wazwan-about-us__service-name">Wazwan Luxe TDI</span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--genie ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
             <div className="wazwan-about-us__icon-container">
-              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Genie" className="wazwan-about-us__icon" />
+              <img src={wazlogo} alt="Genie" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Res 4</span>
+            <span className="wazwan-about-us__service-name">Wazwan Luxe  3b2</span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--minis ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
             <div className="wazwan-about-us__icon-container">
-              <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt="Minis" className="wazwan-about-us__icon" />
+              <img src={wazlogo} alt="Minis" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Res 5</span>
+            <span className="wazwan-about-us__service-name">Wazwan Legacy Chandigarh</span>
           </div>
         </div>
         <div className={`wazwan-about-us__logo-container ${isVisible ? 'animate' : ''}`}>
-          <img src="https://marketplace.canva.com/EAFaFUz4aKo/2/0/800w/canva-yellow-abstract-cooking-fire-free-logo-iY2pBFWGLgU.jpg" alt=" Logo" className="wazwan-about-us__logo" />
+          <div className="restaurant-logo1" >
+            <span className="logo-text1">W</span>
+          </div>
         </div>
       </div>
+
+
+
       <div className="wazwan-stats-section">
-
-
         <div className="wazwan-mission">
           <div className="mission-content">
             <h3>Our Mission</h3>

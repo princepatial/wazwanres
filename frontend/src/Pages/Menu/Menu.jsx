@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useCart } from '../Cart/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { ShoppingBag, Plus, Minus, Search,  Lock  } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, Search, Lock } from 'lucide-react';
+import Modal from '../Home/Modal';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import './Menu.css';
-import { useUser } from '../../Components/Profile/UserContext'; // Assuming this provides login status
+import { useUser } from '../../Components/Profile/UserContext';
 
 const Menu = () => {
-  const { userDetails } = useUser(); // Access userDetails to check login status
+  const { userDetails } = useUser();
   const [menuItems, setMenuItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [activeFilter, setActiveFilter] = useState('all');
@@ -19,6 +20,8 @@ const Menu = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -37,6 +40,10 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
+    console.log("isModalVisible:", isModalVisible);
+  }, [isModalVisible]);
+
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsHeaderVisible(false);
@@ -52,8 +59,11 @@ const Menu = () => {
   }, []);
 
   const handleAddToCart = (item) => {
+    console.log("User details:", userDetails); // Add this line
     if (!userDetails) {
       toast.error('Please log in to add items to the cart');
+      console.log("handleAddToCart called"); 
+      setIsModalVisible(true);
       return;
     }
 
@@ -90,6 +100,8 @@ const Menu = () => {
       handleAddToCart(item);
     }
   };
+
+  console.log(userDetails);
 
   const handleFilter = (filter) => {
     setActiveFilter(filter);
@@ -200,14 +212,14 @@ const Menu = () => {
                     </div>
                   ) : (
                     <button
-                    className={`add-to-cart ${addedItems[item._id] ? 'added' : ''}`}
-                    onClick={() => handleAddToCart(item)}
-                    disabled={!userDetails}
-                    title={!userDetails ? "Log in to add items to the cart" : ""}
-                  >
-                    {userDetails ? <Plus size={16} /> : <Lock size={16} />}
-                    <span>Add</span>
-                  </button>
+                      className={`add-to-cart ${addedItems[item._id] ? 'added' : ''}`}
+                      onClick={() => handleAddToCart(item)}
+                      // disabled={!userDetails}
+                      title={!userDetails ? "Log in to add items to the cart" : ""}
+                    >
+                      {userDetails ? <Plus size={16} /> : <Lock size={16} />}
+                      <span>Add</span>
+                    </button>
 
                   )}
                 </div>
@@ -232,6 +244,8 @@ const Menu = () => {
         closeOnClick
         pauseOnHover
       />
+
+      {isModalVisible && <Modal onClose={() => setIsModalVisible(false)} />}
     </div>
   );
 };

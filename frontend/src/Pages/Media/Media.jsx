@@ -17,19 +17,21 @@ import interior7 from '../../assets/gallery/interior7.jpg';
 import kitchen from '../../assets/gallery/kitchen.mp4';
 import kitchen1 from '../../assets/gallery/kitchen1.mp4';
 import kitchen3 from '../../assets/gallery/kitchen3.mp4';
+import kitchennew from '../../assets/gallery/kitechennew.mp4';
 
 const media = [
     { type: "image", id: 1, title: "Seasonal Symphony", category: "Multi Course", description: "Fresh Atlantic salmon with herbs", src: Food },
     { type: "video", id: 2, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: "https://videos.pexels.com/video-files/2882090/2882090-uhd_2560_1440_24fps.mp4" },
     { type: "image", id: 3, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food1 },
     { type: "image", id: 4, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior },
-    { type: "video", id: 5, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen3 },
+    { type: "video", id: 18, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchennew },
     { type: "image", id: 6, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior2 },
     { type: "image", id: 7, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior1 },
     { type: "image", id: 8, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior3 },
     { type: "video", id: 18, title: "Chef's Special", category: "Kitchen", description: "Where style meets comfort in every corner.", src: kitchen },
     { type: "image", id: 9, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior4 },
     { type: "image", id: 10, title: "Seasonal Symphony", category: "Multi Course", description: "A symphony of flavors in every bite.", src: Food3 },
+    { type: "video", id: 5, title: "Chef's Special", category: "Kitchen", description: "Watch our chef in action", src: kitchen3 },
     { type: "image", id: 11, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior5 },
     { type: "image", id: 12, title: "Moments of Joy", category: "Events", description: "Where style meets comfort in every corner.", src: interior6 },
     { type: "image", id: 13, title: "Flavors of Passion", category: "Interior", description: "Where style meets comfort in every corner.", src: interior7 },
