@@ -288,3 +288,228 @@
   left: 50% !important;
   transform: translateX(-50%);
 }
+
+
+/* Media Queries for Responsive Design */
+@media (min-width: 767px) and (max-width: 1024px) {
+  .prefixed-regular-booking-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Single column layout */
+    gap: 1.5rem;
+    /* Space between sections */
+  }
+
+  .prefixed-tables-section {
+    padding: 1.5rem;
+    /* Adjust padding for tables section */
+  }
+
+  .prefixed-modern-table-card {
+    padding: 1rem;
+    /* Adjust padding for table cards */
+    font-size: 1rem;
+    /* Adjust font size for better readability */
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: column;
+    /* Stack contents vertically */
+    align-items: center;
+    /* Center items horizontally */
+    text-align: center;
+    /* Center text */
+  }
+
+  .prefixed-table-number {
+    font-size: 1.1rem;
+    /* Slightly increase table number font size */
+    margin-top: 0.5rem;
+    /* Add margin for spacing */
+  }
+
+  .prefixed-table-status {
+    font-size: 0.8rem;
+    /* Adjust status font size */
+    margin-top: 0.2rem;
+    /* Add margin for spacing */
+  }
+
+  .prefixed-contact-section {
+    padding: 1.5rem;
+    /* Adjust padding for contact section */
+  }
+
+  .prefixed-modern-input {
+    padding: 0.8rem;
+    /* Adjust input padding */
+    font-size: 1rem;
+    /* Keep font size consistent */
+  }
+
+  .prefixed-modern-submit-btn {
+    padding: 1rem;
+    /* Adjust button padding */
+    font-size: 1rem;
+    /* Keep font size consistent */
+  }
+
+  .prefixed-header-subtitle {
+    font-size: 1rem;
+    /* Adjust subtitle font size */
+  }
+}
+
+
+/* Media Queries for Responsive Design */
+@media (min-width: 481px) and (max-width: 767px) {
+  .prefixed-regular-booking-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Single column layout for content */
+    gap: 1.5rem;
+    /* Space between sections */
+  }
+
+  .prefixed-tables-section {
+    padding: 1.5rem;
+    /* Adjust padding for tables section */
+  }
+
+  .prefixed-modern-tables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Two tables per row */
+    gap: 1rem;
+    /* Space between tables */
+  }
+
+  .prefixed-modern-table-card {
+    padding: 1rem;
+    /* Adjust padding for table cards */
+    font-size: 1rem;
+    /* Adjust font size for better readability */
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: column;
+    /* Stack contents vertically */
+    align-items: center;
+    /* Center items horizontally */
+    text-align: center;
+    /* Center text */
+  }
+
+  .prefixed-table-number {
+    font-size: 1.1rem;
+    /* Slightly increase table number font size */
+    margin-top: 0.5rem;
+    /* Add margin for spacing */
+  }
+
+  .prefixed-table-status {
+    font-size: 0.8rem;
+    /* Adjust status font size */
+    margin-top: 0.2rem;
+    /* Add margin for spacing */
+  }
+
+  .prefixed-contact-section {
+    padding: 1.5rem;
+    /* Adjust padding for contact section */
+  }
+
+  .prefixed-modern-input {
+    padding: 0.8rem;
+    /* Adjust input padding */
+    font-size: 1rem;
+    /* Keep font size consistent */
+  }
+
+  .prefixed-modern-submit-btn {
+    padding: 1rem;
+    /* Adjust button padding */
+    font-size: 1rem;
+    /* Keep font size consistent */
+  }
+
+  .prefixed-header-subtitle {
+    font-size: 1rem;
+    /* Adjust subtitle font size */
+  }
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 480px) {
+  .prefixed-regular-booking-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Single column layout for content */
+    gap: 1rem;
+    /* Space between sections */
+  }
+
+  .prefixed-tables-section {
+    padding: 1rem;
+    /* Adjust padding for tables section */
+  }
+
+  .prefixed-modern-tables-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* One table per row */
+    gap: 0.8rem;
+    /* Space between tables */
+  }
+
+  .prefixed-modern-table-card {
+    padding: 0.8rem;
+    /* Adjust padding for table cards */
+    font-size: 0.9rem;
+    /* Adjust font size for readability */
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: column;
+    /* Stack contents vertically */
+    align-items: center;
+    /* Center items horizontally */
+    text-align: center;
+    /* Center text */
+  }
+
+  .prefixed-table-number {
+    font-size: 1rem;
+    /* Adjust table number font size */
+    margin-top: 0.5rem;
+    /* Add margin for spacing */
+  }
+
+  .prefixed-table-status {
+    font-size: 0.7rem;
+    /* Adjust status font size */
+    margin-top: 0.2rem;
+    /* Add margin for spacing */
+  }
+
+  .prefixed-contact-section {
+    padding: 1rem;
+    /* Adjust padding for contact section */
+  }
+
+  .prefixed-modern-input {
+    padding: 0.6rem;
+    /* Adjust input padding */
+    font-size: 0.9rem;
+    /* Adjust font size for inputs */
+  }
+
+  .prefixed-modern-submit-btn {
+    padding: 0.8rem;
+    /* Adjust button padding */
+    font-size: 0.9rem;
+    /* Adjust button font size */
+  }
+
+  .prefixed-header-subtitle {
+    font-size: 0.9rem;
+    /* Adjust subtitle font size */
+  }
+}

@@ -133,9 +133,10 @@ const Navbar = () => {
     sessionStorage.removeItem('userDetails');
     setIsProfilePopupOpen(false);
     setIsLogoutConfirmVisible(false);
+    setIsMobileMenuOpen(false); // Close mobile menu
+    document.body.classList.remove('menu-open'); // Remove menu-open class
     navigate('/');
   };
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -245,11 +246,20 @@ const Navbar = () => {
                               onClick={() => {
                                 navigate('/profile');
                                 setIsProfilePopupOpen(false);
+                                setIsMobileMenuOpen(false); // Close mobile menu
+                                document.body.classList.remove('menu-open'); // Remove menu-open class
                               }}
                             >
                               Edit Profile
                             </button>
-                            <button className="logout-button" onClick={handleLogoutClick}>
+                            <button
+                              className="logout-button"
+                              onClick={() => {
+                                handleLogoutClick();
+                                setIsMobileMenuOpen(false); // Close mobile menu
+                                document.body.classList.remove('menu-open'); // Remove menu-open class
+                              }}
+                            >
                               Logout
                             </button>
                           </div>
@@ -263,6 +273,8 @@ const Navbar = () => {
                               onClick={() => {
                                 setIsModalVisible(true);
                                 setIsProfilePopupOpen(false);
+                                setIsMobileMenuOpen(false);  // Add this line
+                                document.body.classList.remove('menu-open'); // Add this line
                               }}
                             >
                               Login

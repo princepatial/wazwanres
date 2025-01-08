@@ -69,7 +69,7 @@ const About = () => {
             <div className="wazwan-about-us__icon-container">
               <img src={wazlogo} alt="Food" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Wazwan Legacy kharar</span>
+            <span className="wazwan-about-us__service-name">Wazwan Legacy, kharar</span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--instamart ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.2s' }}>
             <div className="wazwan-about-us__icon-container">
@@ -81,19 +81,19 @@ const About = () => {
             <div className="wazwan-about-us__icon-container">
               <img src={wazlogo} alt="Dineout" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Wazwan Luxe TDI</span>
+            <span className="wazwan-about-us__service-name">Wazwan Luxe, TDI</span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--genie ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.6s' }}>
             <div className="wazwan-about-us__icon-container">
               <img src={wazlogo} alt="Genie" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Wazwan Luxe  3b2</span>
+            <span className="wazwan-about-us__service-name">Wazwan Luxe,  3b2</span>
           </div>
           <div className={`wazwan-about-us__service wazwan-about-us__service--minis ${isVisible ? 'animate' : ''}`} style={{ animationDelay: '0.8s' }}>
             <div className="wazwan-about-us__icon-container">
               <img src={wazlogo} alt="Minis" className="wazwan-about-us__icon" />
             </div>
-            <span className="wazwan-about-us__service-name">Wazwan Legacy Chandigarh</span>
+            <span className="wazwan-about-us__service-name">Wazwan Legacy, Chandigarh</span>
           </div>
         </div>
         <div className={`wazwan-about-us__logo-container ${isVisible ? 'animate' : ''}`}>

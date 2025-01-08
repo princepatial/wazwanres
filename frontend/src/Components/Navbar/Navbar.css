@@ -380,15 +380,94 @@
 
 
 
-@media (min-width: 767px) and (max-width: 1026px) {
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbar {
+    height: 70px; /* Adjusted height for medium screens */
+  }
+
+  .logo-image {
+    height: 80px; /* Adjusted logo height */
+    width: 90px; /* Adjusted logo width */
+    margin-top: 1.25rem; /* Adjusted margin */
+  }
+
+  .scrolled .logo-image {
+    height: 70px; /* Adjusted height when scrolled */
+    margin-top: 1rem; /* Adjusted margin when scrolled */
+  }
+
+  .nav-links {
+    gap: 1.5rem; /* Reduced gap between nav links */
+  }
+
+  .nav-actions {
+    gap: 1rem; /* Reduced gap between action items */
+    margin-left: 1rem; /* Adjusted margin */
+    padding-left: 1rem; /* Adjusted padding */
+  }
+
+  .nav-link {
+    font-size: 0.9rem; /* Slightly smaller font size for nav links */
+    padding: 0.5rem 1rem; /* Adjusted padding for nav links */
+  }
+
+  .user-link, .cart-link {
+    padding: 0.5rem; /* Adjusted padding for user and cart links */
+  }
+
+  .cart-badge {
+    width: 18px; /* Adjusted badge size */
+    height: 18px; /* Adjusted badge size */
+    font-size: 0.65rem; /* Adjusted font size */
+    top: -6px; /* Adjusted position */
+    right: -6px; /* Adjusted position */
+  }
+
+  .mobile-menu-button {
+    display: none /* Ensure mobile menu button is visible */
+  }
+
+  .profile-popup {
+    min-width: 250px; /* Adjusted minimum width for profile popup */
+  }
+
+  .profile-popup-content {
+    padding: 16px; /* Adjusted padding for profile popup content */
+  }
+
+  .profile-info {
+    padding: 12px; /* Adjusted padding for profile info */
+  }
+
+  .edit-profile-button, .logout-button, .login-button {
+    padding: 8px 14px; /* Adjusted padding for buttons */
+  }
+
+  .logout-nav-button {
+    padding: 6px; /* Adjusted padding for logout button */
+  }
+
+  .close-popup-button {
+    padding: 4px; /* Adjusted padding for close button */
+  }
+}
+
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
   .navbar {
     height: 70px;
+  }
+
+  .container {
+    padding: 0 1rem;
   }
 
   .logo-image {
     height: 80px;
     width: 90px;
-    margin-top: 1.25rem;
+    margin-top: 1.2rem;
   }
 
   .scrolled .logo-image {
@@ -396,24 +475,264 @@
     margin-top: 1rem;
   }
 
+  .mobile-menu-button {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+
+  /* Enable scrolling when menu is open */
+  body.menu-open {
+    overflow-y: auto;
+    position: fixed;
+    width: 100%;
+  }
+
   .nav-links {
-    gap: 2rem;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #800000 0%, #4A0000 100%);
+    flex-direction: column;
+    align-items: center; /* Center align all items */
+    padding: 1rem;
+    gap: 1rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .nav-links.mobile-open {
+    transform: translateX(0);
   }
 
   .nav-actions {
-    gap: 1rem;
-    margin-left: 1rem;
-    padding-left: 1rem;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0 0 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center; /* Center the nav actions */
+    gap: 2rem; /* Increased gap between items */
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    text-align: center; /* Center the text */
+    width: auto; /* Remove full width */
+  }
+
+  .user-link,
+  .cart-link {
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+ /* Updated profile popup styling */
+ .profile-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 90%;
+  max-width: 320px;
+  max-height: 85vh;
+  overflow-y: auto;
+  margin: 0;
+  z-index: 1100;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add backdrop with smooth transition */
+.profile-popup::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(3px);
+}
+/* Smooth entrance animation for profile popup */
+@keyframes popupEnter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
-@media (max-width: 767px) {
+.profile-popup {
+  animation: popupEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-popup-content {
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+  .profile-header {
+    margin-bottom: 20px;
+    justify-content: center; /* Center the header content */
+  }
+
+  .profile-info {
+    padding: 12px;
+  }
+
+  .info-item1 {
+    padding: 8px 0;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+ /* Add touch ripple effect for buttons */
+ .edit-profile-button,
+ .logout-button,
+ .login-button {
+   width: 100%;
+   padding: 14px;
+   position: relative;
+   overflow: hidden;
+   transform: translateZ(0);
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+ }
+
+ .edit-profile-button:active,
+ .logout-button:active,
+ .login-button:active {
+   transform: scale(0.98);
+ }
+  /* Logout confirmation popup styling */
+  .logout-confirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 90%;
+    max-width: 300px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1200;
+    animation: popupEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .logout-confirmation::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+  }
+
+  .confirmation-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .confirmation-buttons button {
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .confirmation-buttons button:active {
+    transform: scale(0.98);
+  }
+
+  /* Improve scroll behavior */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Adjust the cart badge position */
+  .cart-badge {
+    top: -5px;
+    right: -5px;
+  }
+
+  /* Fix scrolling when profile popup is open */
+  body:has(.profile-popup) {
+    overflow: hidden;
+  }
+
+
+   /* Improve touch areas */
+   .nav-link,
+   .user-link,
+   .cart-link {
+     min-height: 44px;
+     min-width: 44px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     -webkit-tap-highlight-color: transparent;
+   }
+ 
+   /* Add smooth transition for menu items */
+   .nav-links.mobile-open .nav-link {
+     opacity: 1;
+     transform: translateX(0);
+     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   }
+ 
+   .nav-links .nav-link {
+     opacity: 0;
+     transform: translateX(-20px);
+   }
+ 
+   /* Fix z-index stacking for all popups */
+   .profile-popup,
+   .logout-confirmation {
+     isolation: isolate;
+   }
+ }
+
+
+
+ @media screen and (max-width: 480px) {
   .navbar {
-    height: 60px;
+    height: 60px; /* Slightly smaller height for mobile */
   }
 
   .container {
-    padding: 0 1rem;
+    padding: 0 0.75rem;
   }
 
   .logo-image {
@@ -424,7 +743,7 @@
 
   .scrolled .logo-image {
     height: 60px;
-    margin-top: 0.75rem;
+    margin-top: 0.8rem;
   }
 
   .mobile-menu-button {
@@ -434,44 +753,481 @@
     color: white;
     padding: 0.5rem;
     cursor: pointer;
-    z-index: 1002;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #800000 0%, #4A0000 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 1001;
-    padding: 1rem;
-    visibility: hidden;
-  }
-
-  .nav-links.mobile-open {
-    transform: translateX(0);
-    visibility: visible;
-  }
-
-  .nav-actions {
-    flex-direction: row;
-    margin: 1rem 0 0;
-    padding: 1rem 0 0;
-    border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: auto;
   }
 
   body.menu-open {
     overflow: hidden;
     position: fixed;
     width: 100%;
+    height: 100%;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px; /* Match navbar height */
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #800000 0%, #4A0000 100%);
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.75rem;
+    gap: 0.75rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .nav-links.mobile-open {
+    transform: translateX(0);
+  }
+
+  .nav-actions {
+    width: 100%;
+    margin: 0;
+    padding: 0.75rem 0 0 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.75rem;
+    text-align: center;
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .user-link,
+  .cart-link {
+    padding: 0.5rem;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Profile popup styling */
+  .profile-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 95%; /* Wider for mobile */
+    max-width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 0;
+    z-index: 1100;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .profile-popup::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+  }
+
+  .profile-popup-content {
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .profile-header {
+    margin-bottom: 16px;
+    justify-content: center;
+  }
+
+  .profile-avatar1 {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .profile-info {
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+
+  .info-item1 {
+    padding: 6px 0;
+    font-size: 0.95rem;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .edit-profile-button,
+  .logout-button,
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+
+  /* Logout confirmation popup */
+  .logout-confirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 280px;
+    padding: 16px;
+    z-index: 1200;
+  }
+
+  .confirmation-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .confirmation-buttons button {
+    width: 100%;
+    padding: 12px;
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+
+  /* Animation for popups */
+  @keyframes mobilePopupEnter {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -40%) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .profile-popup,
+  .logout-confirmation {
+    animation: mobilePopupEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Cart badge adjustments */
+  .cart-badge {
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+
+  /* Menu item animations */
+  .nav-links.mobile-open .nav-link {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-links .nav-link {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  /* Close button in profile popup */
+  .close-popup-button {
+    padding: 6px;
+    top: 12px;
+    right: 12px;
+  }
+
+  /* Improve touch targets */
+  .nav-link,
+  button,
+  .close-popup-button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Add active state feedback */
+  .edit-profile-button:active,
+  .logout-button:active,
+  .login-button:active,
+  .confirmation-buttons button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}@media screen and (max-width: 480px) {
+  .navbar {
+    height: 60px; /* Slightly smaller height for mobile */
+  }
+
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .logo-image {
+    height: 70px;
+    width: 80px;
+    margin-top: 1rem;
+  }
+
+  .scrolled .logo-image {
+    height: 60px;
+    margin-top: 0.8rem;
+  }
+
+  .mobile-menu-button {
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px; /* Match navbar height */
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #800000 0%, #4A0000 100%);
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.75rem;
+    gap: 0.75rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .nav-links.mobile-open {
+    transform: translateX(0);
+  }
+
+  .nav-actions {
+    width: 100%;
+    margin: 0;
+    padding: 0.75rem 0 0 0;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.75rem;
+    text-align: center;
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .user-link,
+  .cart-link {
+    padding: 0.5rem;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none; /* Remove background */
+  }
+
+  /* Profile popup styling */
+  .profile-popup {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    width: 95%;
+    max-width: 300px;
+    transform: none; /* Remove transform */
+    z-index: 1100;
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .profile-popup::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+    backdrop-filter: blur(2px);
+  }
+
+  .profile-popup-content {
+    width: 100%;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    animation: mobilePopupEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+    /* Update popup animation */
+    @keyframes mobilePopupEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+  .profile-header {
+    margin-bottom: 16px;
+    justify-content: center;
+  }
+
+  .profile-avatar1 {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .profile-info {
+    padding: 10px;
+    margin-bottom: 16px;
+  }
+
+  .info-item1 {
+    padding: 6px 0;
+    font-size: 0.95rem;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .edit-profile-button,
+  .logout-button,
+  .login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+
+  /* Logout confirmation popup */
+  .logout-confirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 280px;
+    padding: 16px;
+    z-index: 1200;
+  }
+
+  .confirmation-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .confirmation-buttons button {
+    width: 100%;
+    padding: 12px;
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+
+  /* Animation for popups */
+  @keyframes mobilePopupEnter {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -40%) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .profile-popup,
+  .logout-confirmation {
+    animation: mobilePopupEnter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Cart badge adjustments */
+  .cart-badge {
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+
+  /* Menu item animations */
+  .nav-links.mobile-open .nav-link {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-links .nav-link {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  /* Close button in profile popup */
+  .close-popup-button {
+    padding: 6px;
+    top: 12px;
+    right: 12px;
+  }
+
+  /* Improve touch targets */
+  .nav-link,
+  button,
+  .close-popup-button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Add active state feedback */
+  .edit-profile-button:active,
+  .logout-button:active,
+  .login-button:active,
+  .confirmation-buttons button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
   }
 }

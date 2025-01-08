@@ -103,7 +103,7 @@ const Home = () => {
     { id: 1, title: '', img: '/home-img.jpg' },
     { id: 2, title: '', img: '/tiles.jpg' },
     { id: 3, title: '', img: '/home-img1.jpg' },
-    { id: 4, title: '', img: '/home-img2.jpg' }
+    { id: 4, title: '', img: '/img-veg.webp' }
   ];
 
   return (

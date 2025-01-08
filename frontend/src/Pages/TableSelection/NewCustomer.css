@@ -459,3 +459,234 @@
   transform: translateX(-50%);
 }
 
+
+/* Media Queries for Responsive Design */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .booking-content {
+      grid-template-columns: 1fr; /* Stack the content in a single column */
+  }
+
+  .tables-section,
+  .contact-section {
+      padding: 1.5rem; /* Reduce padding for smaller screens */
+  }
+
+  .modern-table-card {
+      padding: 1rem; /* Adjust padding for table cards */
+      font-size: 0.9rem; /* Slightly reduce font size */
+  }
+
+  .modern-input,
+  .modern-textarea {
+      padding: 0.8rem; /* Adjust padding for input fields */
+      font-size: 0.9rem; /* Slightly reduce font size */
+  }
+
+  .modal-header h2 {
+      font-size: 1.5rem; /* Adjust modal header font size */
+  }
+
+  .modal-header p {
+      font-size: 0.85rem; /* Adjust modal paragraph font size */
+  }
+
+  .modern-otp-input {
+      font-size: 1.2rem; /* Adjust OTP input font size */
+  }
+
+  .modal-actions {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 0.5rem; /* Adjust gap between buttons */
+  }
+
+  .modal-cancel-btn,
+  .modal-verify-btn {
+      width: 100%; /* Make buttons full width */
+  }
+
+  .modern-submit-btn {
+      padding: 1rem; /* Adjust button padding */
+      font-size: 1rem; /* Adjust button font size */
+  }
+
+  .header-subtitle {
+      font-size: 1rem; /* Adjust subtitle font size */
+  }
+
+  .table-number {
+      font-size: 1rem; /* Adjust table number font size */
+  }
+
+  .table-status {
+      font-size: 0.8rem; /* Adjust table status font size */
+  }
+}
+
+/* Media Queries for Responsive Design */
+@media (min-width: 481px) and (max-width: 767px) {
+  .booking-content {
+      grid-template-columns: 1fr; /* Stack the content in a single column */
+  }
+
+  .tables-section {
+      margin-bottom: 2rem; /* Add some space below the tables section */
+  }
+
+  .modern-tables-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Two tables per row */
+      gap: 1rem; /* Space between tables */
+  }
+
+  .tables-section h2 {
+      font-size: 1.5rem; /* Adjust heading size */
+  }
+
+  .modern-table-card {
+      padding: 0.8rem; /* Adjust padding for table cards */
+      font-size: 0.85rem; /* Reduce font size */
+  }
+
+  .contact-section {
+      padding: 1rem; /* Reduce padding for the contact section */
+  }
+
+  .modern-input,
+  .modern-textarea {
+      padding: 0.7rem; /* Adjust padding for input fields */
+      font-size: 0.85rem; /* Reduce font size */
+  }
+
+  .modal-header h2 {
+      font-size: 1.4rem; /* Adjust modal header font size */
+  }
+
+  .modal-header p {
+      font-size: 0.8rem; /* Adjust modal paragraph font size */
+  }
+
+  .modern-otp-input {
+      font-size: 1.1rem; /* Adjust OTP input font size */
+  }
+
+  .modal-actions {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 0.5rem; /* Adjust gap between buttons */
+  }
+
+  .modal-cancel-btn,
+  .modal-verify-btn {
+      width: 100%; /* Make buttons full width */
+  }
+
+  .modern-submit-btn {
+      padding: 0.8rem; /* Adjust button padding */
+      font-size: 0.9rem; /* Adjust button font size */
+  }
+
+  .header-subtitle {
+      font-size: 0.9rem; /* Adjust subtitle font size */
+  }
+
+  .table-number {
+      font-size: 0.9rem; /* Adjust table number font size */
+  }
+
+  .table-status {
+      font-size: 0.7rem; /* Adjust table status font size */
+  }
+}
+
+
+/* Media Queries for Responsive Design */
+@media (max-width: 480px) {
+  .booking-content {
+      grid-template-columns: 1fr; /* Stack the content in a single column */
+  }
+
+  .tables-section {
+      margin-bottom: 1.5rem; /* Add some space below the tables section */
+  }
+
+  .modern-tables-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr); /* One table per row */
+      gap: 0.8rem; /* Space between tables */
+  }
+
+  .table-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text within the container */
+}
+
+.table-number {
+    font-size: 0.8rem; /* Keep the font size */
+    margin: 0; /* Remove any default margin */
+}
+
+.table-status {
+    font-size: 0.6rem; /* Adjust table status font size */
+    margin-top: 0.2rem; /* Add some space above the status */
+}
+
+  .tables-section h2 {
+      font-size: 1.4rem; /* Adjust heading size */
+  }
+
+  .modern-table-card {
+      padding: 0.6rem; /* Adjust padding for table cards */
+      font-size: 0.8rem; /* Further reduce font size */
+  }
+
+  .contact-section {
+      padding: 0.8rem; /* Reduce padding for the contact section */
+  }
+
+  .modern-input,
+  .modern-textarea {
+      padding: 0.6rem; /* Adjust padding for input fields */
+      font-size: 0.8rem; /* Reduce font size */
+  }
+
+  .modal-header h2 {
+      font-size: 1.3rem; /* Adjust modal header font size */
+  }
+
+  .modal-header p {
+      font-size: 0.75rem; /* Adjust modal paragraph font size */
+  }
+
+  .modern-otp-input {
+      font-size: 1rem; /* Adjust OTP input font size */
+  }
+
+  .modal-actions {
+      flex-direction: column; /* Stack buttons vertically */
+      gap: 0.5rem; /* Adjust gap between buttons */
+  }
+
+  .modal-cancel-btn,
+  .modal-verify-btn {
+      width: 100%; /* Make buttons full width */
+  }
+
+  .modern-submit-btn {
+      padding: 0.6rem; /* Adjust button padding */
+      font-size: 0.8rem; /* Adjust button font size */
+  }
+
+  .header-subtitle {
+      font-size: 0.8rem; /* Adjust subtitle font size */
+  }
+
+  .table-number {
+      font-size: 0.8rem; /* Adjust table number font size */
+  }
+
+  .table-status {
+      font-size: 0.6rem; /* Adjust table status font size */
+  }
+}
+

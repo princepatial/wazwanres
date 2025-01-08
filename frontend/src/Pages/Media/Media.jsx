@@ -280,36 +280,133 @@ const RestaurantGallery = () => {
                     font-weight: 500;
                 }
 
-                @media (max-width: 768px) {
-                    .gallery-title {
-                        font-size: 3rem;
-                    }
+                /* For screens between 768px and 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .gallery-container {
+    padding: 3rem 1.5rem;
+  }
 
-                    .back-button {
-                        top: 1rem;
-                        right: 1rem;
-                        padding: 0.6rem 1.2rem;
-                        font-size: 0.9rem;
-                    }
-                    
-                    .gallery-subtitle {
-                        font-size: 1.2rem;
-                    }
-                    
-                    .media-grid {
-                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                        gap: 1rem;
-                    }
-                    
-                    .category-filters {
-                        gap: 0.5rem;
-                    }
-                    
-                    .category-button {
-                        padding: 0.6rem 1.2rem;
-                        font-size: 0.9rem;
-                    }
-                }
+  .back-button {
+    top: 8rem;
+    right: 3rem;
+  }
+
+  .gallery-title {
+    font-size: 3.5rem;
+  }
+
+  .gallery-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .media-title {
+    font-size: 1.3rem;
+  }
+
+  .media-description {
+    font-size: 0.9rem;
+  }
+}
+
+/* For screens between 481px and 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+  .gallery-container {
+    padding: 2rem 1rem;
+  }
+
+  .back-button {
+    top: 6rem;
+    right: 2rem;
+    padding: 0.7rem 1.3rem;
+    font-size: 0.9rem;
+  }
+
+  .gallery-title {
+    font-size: 3rem;
+  }
+
+  .gallery-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .category-filters {
+    gap: 0.5rem;
+  }
+
+  .category-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .media-title {
+    font-size: 1.2rem;
+  }
+
+  .media-description {
+    font-size: 0.8rem;
+  }
+}
+
+/* For screens 480px and below */
+@media (max-width: 480px) {
+  .gallery-container {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .back-button {
+    top: 5rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .gallery-title {
+    font-size: 2.5rem;
+  }
+
+  .gallery-subtitle {
+    font-size: 1rem;
+  }
+
+  .category-filters {
+    gap: 0.3rem;
+  }
+
+  .category-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .media-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .media-title {
+    font-size: 1.1rem;
+  }
+
+  .media-description {
+    font-size: 0.8rem;
+  }
+
+  .media-category {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+
+               
             `}</style>
         </div>
     );

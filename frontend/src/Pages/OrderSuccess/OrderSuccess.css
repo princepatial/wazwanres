@@ -98,9 +98,12 @@
 
 .order-items {
   margin-bottom: 32px;
-  max-height: 200px; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding-right: 10px; /* Add some space for scrollbars */
+  max-height: 200px;
+  /* Set a maximum height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  padding-right: 10px;
+  /* Add some space for scrollbars */
 }
 
 .order-items h3 {
@@ -203,69 +206,191 @@
 
 /* Animations */
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-20px); }
-  60% { transform: translateY(-10px); }
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-20px);
+  }
+
+  60% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 @keyframes tada {
-  0% { transform: scale(1); }
-  10%, 20% { transform: scale(0.9) rotate(-3deg); }
-  30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
-  40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
-  100% { transform: scale(1) rotate(0); }
+  0% {
+    transform: scale(1);
+  }
+
+  10%,
+  20% {
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+  }
 }
 
 @keyframes fade {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes spin {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
+
+
+/* Media Queries for Responsive Design */
+
+
+
+/* For screen sizes between 481px and 767px */
+@media (min-width: 481px) and (max-width: 767px) {
   .order-card {
-    padding: 20px;
-    margin: 16px;
+    padding: 24px;
+    /* Adjust padding for medium screens */
+    border-radius: 20px;
+    /* Slightly smaller border radius */
+  }
+
+  .status-message {
+    font-size: 1.4rem;
+    /* Adjust font size for status message */
   }
 
   .info-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    /* Two columns */
   }
 
-  .status-icon {
-    width: 48px;
-    height: 48px;
+  .order-items h3 {
+    font-size: 1.2rem;
+    /* Adjust heading size */
+  }
+
+  .item {
+    padding: 10px;
+    /* Adjust padding for items */
+  }
+
+  .item-name,
+  .item-quantity,
+  .item-price {
+    font-size: 1rem;
+    /* Adjust font size for item details */
+  }
+
+  .action-button {
+    padding: 12px 28px;
+    /* Adjust button padding */
+  }
+}
+
+/* For screen sizes up to 480px */
+@media (max-width: 480px) {
+  .order-card {
+    padding: 16px;
+    /* Reduced padding */
+    border-radius: 16px;
+    /* Smaller border radius */
   }
 
   .status-message {
     font-size: 1.25rem;
+    /* Smaller font size for status message */
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    /* Stack items in one column */
+  }
+
+  .order-items h3 {
+    font-size: 1.125rem;
+    /* Smaller heading size */
   }
 
   .item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    padding: 8px;
+    /* Smaller padding for items */
   }
 
-  .item-details {
-    width: 100%;
-    justify-content: space-between;
+  .item-name,
+  .item-quantity,
+  .item-price {
+    font-size: 0.875rem;
+    /* Smaller font size for item details */
+  }
+
+  .action-button {
+    padding: 10px 20px;
+    /* Smaller button padding */
   }
 }

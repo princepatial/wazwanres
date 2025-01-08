@@ -558,9 +558,12 @@ body {
   }
 
   .floating-cart {
-    bottom: var(--spacing-md);
+    bottom: auto; /* Remove the bottom positioning */
+    top: 120px; /* Position from the top instead */
     right: var(--spacing-md);
     padding: 0.75rem 1.25rem;
+    position: fixed; /* Ensure it stays fixed on the screen */
+    z-index: 1000; /* Make sure it's above other elements */
   }
 
   .cart-items {
@@ -670,9 +673,12 @@ body {
   }
 
   .floating-cart {
-    bottom: var(--spacing-sm);
-    right: var(--spacing-sm);
-    padding: 0.6rem 1rem;
+    bottom: auto; /* Remove the bottom positioning */
+    top: 120px; /* Position from the top instead */
+    right: var(--spacing-md);
+    padding: 0.75rem 1.25rem;
+    position: fixed; /* Ensure it stays fixed on the screen */
+    z-index: 1000; /* Make sure it's above other elements */
   }
 
   .cart-items {
@@ -804,9 +810,12 @@ body {
   }
 
   .floating-cart {
-    bottom: var(--spacing-xs);
-    right: var(--spacing-xs);
-    padding: 0.5rem 0.8rem;
+    bottom: auto; /* Remove the bottom positioning */
+    top: 120px; /* Position from the top instead */
+    right: var(--spacing-md);
+    padding: 0.75rem 1.25rem;
+    position: fixed; /* Ensure it stays fixed on the screen */
+    z-index: 1000; /* Make sure it's above other elements */
   }
 
   .cart-items {

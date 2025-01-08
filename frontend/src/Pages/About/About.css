@@ -109,7 +109,7 @@
 .wazwan-about-us__service-name {
   font-size: 20px;
   font-weight: 600;
-  color: #ffffff;
+  color: #5e2323;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.8px;
   font-family: 'Montserrat', sans-serif;
@@ -280,34 +280,6 @@
     transform: translateY(0);
   }
 }
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .wazwan-stats-section {
-    padding: 60px 16px;
-  }
-
-  .stats-card {
-    padding: 20px;
-  }
-
-  .stats-number {
-    font-size: 30px;
-  }
-
-  .mission-content h3 {
-    font-size: 28px;
-  }
-
-  .mission-content p {
-    font-size: 16px;
-  }
-
-  .value-item {
-    padding: 12px 20px;
-  }
-}
-
 
 .video-section {
   padding: 100px 20px;
@@ -492,65 +464,604 @@
   transform: scale(1.1);
 }
 
-/* Responsive Styles */
-@media (max-width: 1024px) {
-  .video-section__container {
-    grid-template-columns: 1fr;
-    gap: 40px;
+
+
+
+
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .wazwan-about-us {
+    padding: 80px 15px; /* Adjusted padding for the main container */
   }
 
-  .video-section__content {
-    padding-right: 0;
+  .wazwan-about-us__title {
+    font-size: 40px; /* Reduced font size for title */
+    margin-bottom: 20px; /* Adjusted bottom margin */
+  }
+
+  .wazwan-about-us__description {
+    font-size: 18px; /* Reduced font size for description */
+    max-width: 90%; /* Ensured description does not stretch too wide */
+    margin: 0 auto 50px; /* Adjusted margin */
+  }
+
+  .wazwan-about-us__services {
+    position: relative;
+    height: auto; /* Allow height to adjust automatically */
+    display: flex; /* Use flexbox for positioning */
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    justify-content: center; /* Center align services */
+    gap: 20px; /* Space between service items */
+  }
+
+  .wazwan-about-us__service {
+    position: absolute; /* Use absolute positioning for flexibility */
+    width: 45%; /* Set width to allow two items per row */
+    max-width: 300px; /* Limit max width for better control */
+    margin-bottom: 20px; /* Space between services */
+    opacity: 0; /* Initially hidden for animation */
+    transform: scale(0.5) translateY(20px); /* Initial scale and position for animation */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Transition for animation */
+  }
+  .wazwan-about-us__service--food {
+
+    top: 10%; /* Adjust top position */
+
+    left: 55%; /* Adjust left position */
+
+  }
+
+  .wazwan-about-us__service--instamart {
+
+    top: 20%; /* Adjust top position */
+
+    right: 5%; /* Adjust right position */
+
+  }
+
+  .wazwan-about-us__service--dineout {
+
+    bottom: 10%; /* Adjust bottom position */
+
+    left: 5%; /* Adjust left position */
+
+  }
+
+  .wazwan-about-us__service--genie {
+
+    bottom: 50%; /* Adjust bottom position */
+
+    left: 55%; /* Adjust right position */
+
+  }
+  .wazwan-about-us__service.animate {
+    opacity: 1; /* Fade in */
+    transform: scale(1) translateY(0); /* Scale to normal and move to original position */
+  }
+
+  .wazwan-about-us__logo-container {
+    transform: translate(-50%, -50%) scale(0.8); /* Adjust logo scale for smaller screens */
+    margin-top: 20px; /* Add margin for spacing */
+  }
+
+  .wazwan-stats-section {
+    padding: 60px 15px; /* Adjusted padding */
+  }
+
+  .mission-content h3 {
+    font-size: 28px; /* Reduced font size for mission heading */
+  }
+
+  .mission-content p {
+    font-size: 16px; /* Reduced font size for mission paragraph */
+  }
+
+  .wazwan-about-us__service-name{
+    font-size: 1rem;
+  }
+
+  .mission-values {
+    flex-direction: column; /* Stack values vertically */
+    align-items: center; /* Center align values */
+    gap: 20px; /* Space between values */
+  }
+
+  .value-item {
+    padding: 10px 15px; /* Adjusted padding for value items */
+  }
+
+  .video-section {
+    padding: 80px 15px; /* Adjusted padding */
+  }
+
+
+
+  .video-section__container {
+    grid-template-columns: 1fr; /* Stack video content vertically */
+    gap: 40px; /* Adjusted gap */
+  }
+
+  .video-section__title {
+    font-size: 32px; /* Reduced font size for video title */
     text-align: center;
   }
 
   .video-section__title::after {
-    margin-left: auto;
-    margin-right: auto;
+    content: '';
+    display: block;
+    width: 80px; /* Width of the underline */
+    height: 4px; /* Height of the underline */
+    background: linear-gradient(90deg, #fc6d3f, #ff9b5e); /* Gradient background */
+    margin: 16px auto 0; /* Center the underline and add top margin */
+    border-radius: 2px; /* Rounded corners */
+  }
+
+  .video-section__text {
+    font-size: 16px; /* Reduced font size for video text */
+  }
+
+  .video-section__features {
+    flex-direction: column; /* Stack features vertically */
+    align-items: center; /* Center align features */
   }
 
   .feature-item {
-    justify-content: center;
+    width: 100%; /* Full width for feature items */
+    justify-content: center; /* Center align feature items */
   }
 
-  .feature-item:hover {
-    transform: translateY(-5px);
+  .video-section__cta {
+    width: 100%; /* Full width for CTA button */
+    padding: 12px 0; /* Adjusted padding */
+  }
+
+  .video-wrapper {
+    padding-top: 56.25%; /* Maintain aspect ratio */
+  }
+
+  .featured-video {
+    object-fit: cover; /* Ensure video covers the area */
+  }
+
+  .video-overlay {
+    display: flex; /* Ensure overlay is flex */
+    justify-content: center; /* Center align overlay content */
+    align-items: center; /* Center align overlay content */
+  }
+
+  .control-button {
+    width: 60px; /* Adjusted control button size */
+    height: 60px; /* Adjusted control button size */
+  }
+
+  .control-button span {
+    font-size: 24px; /* Adjusted icon size */
   }
 }
 
-@media (max-width: 768px) {
+/* Animation on page load */
+.wazwan-about-us__service.animate {
+  animation: fadeInUp 0.5s forwards; /* Trigger animation */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly below */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* End at original position */
+  }
+}
+
+
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  /* General container styles */
   .wazwan-about-us {
-    padding: 60px 16px;
+    padding: 30px 15px;
+    overflow-x: hidden;
   }
 
+  /* Typography consistency */
   .wazwan-about-us__title {
     font-size: 32px;
+    margin-bottom: 25px;
+    text-align: center;
   }
 
-  .wazwan-about-us__description {
-    font-size: 18px;
-    margin-bottom: 60px;
+  /* Make all paragraph text consistent */
+  .wazwan-about-us__description,
+  .mission-content p,
+  .video-section__text,
+  .wazwan-about-us__service-name {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
-  .wazwan-about-us__content {
-    padding: 120px 0;
-  }
-
+  /* Services layout and positioning */
   .wazwan-about-us__services {
-    height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    margin: 30px auto;
+    position: relative;
   }
 
+  /* Individual service items */
+  .wazwan-about-us__service {
+    width: calc(50% - 20px);
+    margin: 10px;
+    padding: 15px;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 0.6s forwards;
+  }
+
+  /* Specific positioning for each service */
+  .wazwan-about-us__service--food {
+    animation-delay: 0.1s;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+  }
+
+  .wazwan-about-us__service--instamart {
+    animation-delay: 0.2s;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+  }
+
+  .wazwan-about-us__service--dineout {
+    animation-delay: 0.3s;
+    position: absolute;
+    bottom: 5%;
+    right: 2%;
+  }
+
+  .restaurant-logo1 {
+    margin-top: 3rem;
+  }
+
+  .wazwan-about-us__service--genie {
+    animation-delay: 0.4s;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+  }
+
+  .wazwan-about-us__service--minis {
+    animation-delay: 0.5s;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Service icons */
   .wazwan-about-us__icon-container {
     width: 80px;
     height: 80px;
+    position: relative;
+    transition: transform 0.3s ease;
   }
 
   .wazwan-about-us__icon {
-    width: 45px;
-    height: 45px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  /* Mission section */
+  .wazwan-mission {
+    padding: 30px 15px;
+    margin-top: 40px;
+  }
+  .video-section__title::after {
+    content: '';
+    display: block;
+    width: 80px; /* Width of the underline */
+    height: 4px; /* Height of the underline */
+    background: linear-gradient(90deg, #fc6d3f, #ff9b5e); /* Gradient background */
+    margin: 16px auto 0; /* Center the underline and add top margin */
+    border-radius: 2px; /* Rounded corners */
+  }
+
+
+  .mission-content h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .mission-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  /* Video section styles */
+  .video-section {
+    margin-top: 40px;
+    padding: 30px 15px;
+  }
+
+  .video-section__container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .video-section__content {
+    width: 100%;
+    text-align: center;
+  }
+  .video-section__title {
+    font-size: 28px;
+  }
+
+  .video-section__video-container {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+  }
+
+  .featured-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease;
+  }
+
+  .control-button {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .play-icon,
+  .pause-icon {
+    font-size: 24px;
+    color: #333;
+  }
+
+  /* Animation keyframes */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hover effects */
+  .wazwan-about-us__icon-container:hover {
+    transform: scale(1.1);
+  }
+
+  .wazwan-about-us__service:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  /* General container */
+  .wazwan-about-us {
+    padding: 15px;
+    overflow-x: hidden;
+    margin-top: 2rem;
+  }
+
+  /* Title and description */
+  .wazwan-about-us__title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .wazwan-about-us__description {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+
+  /* Services/Images section - keeping original positioning */
+  .wazwan-about-us__services {
+    position: relative;
+    height: 400px;
+    margin: 20px 0;
+  }
+
+  .wazwan-about-us__service {
+    position: absolute;
+  }
+
+  /* Keep original image positions */
+  .wazwan-about-us__service--food {
+    top: 5%;
+    left: 5%;
+  }
+  .restaurant-logo1 {
+    margin-top: 3rem;
+  }
+
+  .wazwan-about-us__service--instamart {
+    top: 15%;
+    right: 5%;
+  }
+
+  .wazwan-about-us__service--dineout {
+    bottom: 15%;
+    right: 5%;
+  }
+
+  .wazwan-about-us__service--genie {
+    bottom: 5%;
+    left: 5%;
+  }
+
+  .wazwan-about-us__service--minis {
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .wazwan-about-us__icon-container {
+    width: 50px;
+    height: 50px;
   }
 
   .wazwan-about-us__service-name {
-    font-size: 16px;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  /* Mission section - Stacking vertically */
+  .wazwan-stats-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .wazwan-mission {
+    width: 100%;
+    padding: 20px 15px;
+    margin-top: 20px;
+  }
+
+  .mission-content {
+    text-align: center;
+  }
+
+  .mission-content h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .mission-content p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .mission-values {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .value-item {
+    text-align: center;
+  }
+
+  /* Video section - Stacking vertically */
+  .video-section {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .video-section__container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .video-section__title::after {
+    content: '';
+    display: block;
+    width: 80px; /* Width of the underline */
+    height: 4px; /* Height of the underline */
+    background: linear-gradient(90deg, #fc6d3f, #ff9b5e); /* Gradient background */
+    margin: 16px auto 0; /* Center the underline and add top margin */
+    border-radius: 2px; /* Rounded corners */
+  }
+
+
+  .video-section__content {
+    width: 100%;
+  }
+
+  .video-section__title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .video-section__text {
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .video-section__features {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .feature-item {
+    text-align: center;
+  }
+
+  .video-section__video-container {
+    width: 100%;
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+  }
+
+  .featured-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
