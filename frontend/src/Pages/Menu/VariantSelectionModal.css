@@ -1,0 +1,141 @@
+.variant-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.variant-modal {
+  background-color: white;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 20px;
+}
+
+.variant-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.variant-modal-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.variant-modal-close {
+  background: #f5f5f5;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.variant-modal-close:hover {
+  background-color: #e8e8e8;
+  color: #333;
+  transform: rotate(90deg);
+}
+
+.variant-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.variant-option {
+  width: 100%;
+  padding: 16px 20px;
+  text-align: left;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.variant-option:hover {
+  background-color: #f8f8f8;
+  border-color: #2196F3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.1);
+}
+
+.variant-option:active {
+  transform: translateY(0);
+}
+
+.variant-price {
+  font-weight: 700;
+  color: #2196F3;
+  background: rgba(33, 150, 243, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+  .variant-modal {
+    margin: 16px;
+    padding: 20px;
+  }
+  
+  .variant-modal-title {
+    font-size: 1.2rem;
+  }
+  
+  .variant-option {
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+}

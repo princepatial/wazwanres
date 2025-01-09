@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../../Components/Profile/UserContext';
+import VariantSelectionModal from '../Menu/VariantSelectionModal';
 import { useCart } from './CartContext';
 import {
   ShoppingCart,
@@ -22,6 +23,8 @@ import './Cart.css';
 const SuggestedItems = ({ onAddToCart }) => {
   const [suggestedItems, setSuggestedItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const fetchSuggestedItems = async () => {
@@ -41,10 +44,39 @@ const SuggestedItems = ({ onAddToCart }) => {
     fetchSuggestedItems();
   }, []);
 
+  const handleAddToCart = (item) => {
+    if (item.variants && item.variants.length > 0) {
+      setSelectedProduct(item);
+      setIsVariantModalOpen(true);
+      return;
+    }
+
+    onAddToCart({
+      id: item._id,
+      name: item.itemName,
+      price: item.basePrice,
+      imageUrl: item.imageUrl || '/default-image.jpg'
+    });
+  };
+
+  const handleVariantSelect = (variant) => {
+    if (selectedProduct) {
+      onAddToCart({
+        id: selectedProduct._id,
+        name: selectedProduct.itemName,
+        price: variant.price,
+        imageUrl: selectedProduct.imageUrl || '/default-image.jpg',
+        variant: variant.name,
+        variantName: `(${variant.name})`
+      });
+    }
+    setIsVariantModalOpen(false);
+    setSelectedProduct(null);
+  };
+
   if (loading) {
     return <div className="suggested-items-loading">Loading suggestions...</div>;
   }
-
   return (
     <div className="suggested-items-section">
       <div className="suggested-items-header">
@@ -63,14 +95,14 @@ const SuggestedItems = ({ onAddToCart }) => {
             </div>
             <div className="suggested-item-details">
               <h4>{item.itemName}</h4>
-              <p className="suggested-item-price">₹{item.sellPrice}</p>
+              <p className="suggested-item-price">
+                ₹{item.variants && item.variants.length > 0 ?
+                  Math.min(...item.variants.map(v => v.price)) :
+                  item.basePrice}
+                {item.variants && item.variants.length > 0 && ' onwards'}
+              </p>
               <button
-                onClick={() => onAddToCart({
-                  id: item._id,
-                  name: item.itemName,
-                  price: item.sellPrice,
-                  imageUrl: item.imageUrl || '/default-image.jpg'
-                })}
+                onClick={() => handleAddToCart(item)}
                 className="suggested-item-add-btn"
               >
                 <PlusCircle size={16} />
@@ -80,6 +112,17 @@ const SuggestedItems = ({ onAddToCart }) => {
           </div>
         ))}
       </div>
+
+      <VariantSelectionModal
+        isOpen={isVariantModalOpen}
+        onClose={() => {
+          setIsVariantModalOpen(false);
+          setSelectedProduct(null);
+        }}
+        variants={selectedProduct?.variants || []}
+        onVariantSelect={handleVariantSelect}
+        itemName={selectedProduct?.itemName}
+      />
     </div>
   );
 };
@@ -299,7 +342,12 @@ const Cart = () => {
                   />
                 </div>
                 <div className="cart-item-details">
-                  <h3>{item.name}</h3>
+                  <h3>
+                    {item.name}
+                    {item.variantName && (
+                      <span className="variant-name">{item.variantName}</span>
+                    )}
+                  </h3>
                   <p className="item-price">₹{item.price}</p>
                   <div className="quantity-control-modern">
                     <button

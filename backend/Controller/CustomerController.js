@@ -22,7 +22,7 @@ exports.addCustomer = async (req, res) => {
 
 
 exports.getCustomerByMobile = async (req, res) => {
-    const { mobileNumber } = req.query; // Get mobile number from the query parameter
+    const { mobileNumber } = req.query; 
 
     if (!mobileNumber) {
         return res.status(400).json({ message: 'Mobile number is required' });
@@ -73,5 +73,18 @@ exports.updateCustomer = async (req, res) => {
     } catch (error) {
         console.error('Error updating customer details:', error.message);
         res.status(500).json({ message: 'Failed to update customer details' });
+    }
+};
+
+
+
+// Fetch all customers
+exports.getAllCustomers = async (req, res) => {
+    try {
+        const customers = await Customer.find(); // Fetch all customer documents
+        res.status(200).json(customers); // Send the customers as a JSON response
+    } catch (error) {
+        console.error('Error fetching customers:', error);
+        res.status(500).json({ message: 'Server error' }); // Handle any errors
     }
 };

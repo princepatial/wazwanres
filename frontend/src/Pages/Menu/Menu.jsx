@@ -8,6 +8,7 @@ import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import './Menu.css';
 import { useUser } from '../../Components/Profile/UserContext';
+import VariantSelectionModal from './VariantSelectionModal';
 
 const Menu = () => {
   const { userDetails } = useUser();
@@ -21,6 +22,8 @@ const Menu = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isVariantModalOpen, setIsVariantModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -58,27 +61,56 @@ const Menu = () => {
     };
   }, []);
 
-  const handleAddToCart = (item) => {
-    console.log("User details:", userDetails); // Add this line
+  const handleAddToCart = (item, selectedVariant = null) => {
     if (!userDetails) {
       toast.error('Please log in to add items to the cart');
-      console.log("handleAddToCart called"); 
       setIsModalVisible(true);
       return;
     }
 
-    addToCart({
+    if (item.variants && item.variants.length > 0 && !selectedVariant) {
+      setSelectedProduct(item);
+      setIsVariantModalOpen(true);
+      return;
+    }
+
+
+    const itemToAdd = {
       id: item._id,
       name: item.itemName,
-      price: item.sellPrice,
+      price: selectedVariant ? selectedVariant.price : item.basePrice,
       image: item.imageUrl || '/default-image.jpg',
       imageUrl: item.imageUrl || '/default-image.jpg',
-    });
+      variant: selectedVariant ? selectedVariant.name : null,
+      variantName: selectedVariant ? `(${selectedVariant.name})` : '',
+    };
+
+    addToCart(itemToAdd);
     setAddedItems((prev) => ({ ...prev, [item._id]: true }));
-    toast.success(`Added ${item.itemName}`);
+    toast.success(`Added ${item.itemName} ${itemToAdd.variantName}`);
     setTimeout(() => {
       setAddedItems((prev) => ({ ...prev, [item._id]: false }));
     }, 1000);
+  };
+
+
+
+  const getBasePrice = (item) => {
+    if (!item.variants || item.variants.length === 0) {
+      return item.basePrice;
+    }
+
+    const lowestPrice = Math.min(...item.variants.map(v => v.price));
+    return lowestPrice;
+  };
+
+
+  const handleVariantSelect = (variant) => {
+    if (selectedProduct) {
+      handleAddToCart(selectedProduct, variant);
+    }
+    setIsVariantModalOpen(false);
+    setSelectedProduct(null);
   };
 
   const handleQuantityChange = (item, change) => {
@@ -101,15 +133,20 @@ const Menu = () => {
     }
   };
 
-  console.log(userDetails);
 
+
+  console.log(userDetails);
   const handleFilter = (filter) => {
     setActiveFilter(filter);
     setSearchTerm('');
     if (filter === 'all') {
       setFilteredItems(menuItems);
     } else {
-      setFilteredItems(menuItems.filter((item) => item.type.toLowerCase() === filter));
+      setFilteredItems(menuItems.filter((item) => 
+        // Case-insensitive comparison and handle variations in naming
+        item.type.toLowerCase() === filter.toLowerCase() ||
+        item.type.toLowerCase().replace('-', ' ') === filter.toLowerCase().replace('-', ' ')
+      ));
     }
   };
 
@@ -153,31 +190,32 @@ const Menu = () => {
       </div>
 
       <nav className="category-nav">
-        {['all', 'veg', 'non-veg', 'beverage', 'starters', 'bread'].map((filter) => (
-          <button
-            key={filter}
-            onClick={() => handleFilter(filter)}
-            className={`category-btn ${activeFilter === filter ? 'active' : ''}`}
-            style={{
-              backgroundColor:
-                activeFilter === filter
-                  ? filter === 'veg' ? '#008000'
-                    : filter === 'non-veg' ? 'red'
-                      : filter === 'beverage' ? 'blue'
-                        : filter === 'starters' ? 'orange'
-                          : filter === 'bread' ? 'brown'
-                            : '#273746 '
-                  : '',
-              color: activeFilter === filter ? '#fff' : '',
-            }}
-          >
-            {filter
-              .split('-')
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(' ')}
-          </button>
-        ))}
-      </nav>
+  {['all', 'Beverage', 'Starter', 'Dessert', 'Breads', 'Main Course', 'Combo', 'Sweets', 'Snacks'].map((filter) => (
+    <button
+      key={filter}
+      onClick={() => handleFilter(filter)}
+      className={`category-btn ${activeFilter === filter ? 'active' : ''}`}
+      style={{
+        backgroundColor:
+          activeFilter === filter
+            ? filter === 'all' ? '#273746'
+            : filter === 'Beverage' ? '#20B2AA'    // Light Sea Green
+            : filter === 'Starter' ? '#FF6B6B'     // Coral Red
+            : filter === 'Dessert' ? '#9370DB'     // Medium Purple
+            : filter === 'Breads' ? '#F4A460'      // Sandy Brown
+            : filter === 'Main Course' ? '#4682B4'  // Steel Blue
+            : filter === 'Combo' ? '#2E8B57'       // Sea Green
+            : filter === 'Sweets' ? '#FF69B4'      // Hot Pink
+            : filter === 'Snacks' ? '#FFA500'      // Orange
+            : '#273746'
+            : '',
+        color: activeFilter === filter ? '#fff' : '',
+      }}
+    >
+      {filter === 'all' ? 'All Items' : filter}
+    </button>
+  ))}
+</nav>
 
       <div className="menu-grid">
         {filteredItems.map((item) => {
@@ -197,7 +235,13 @@ const Menu = () => {
 
               <div className="card-content">
                 <h3>{item.itemName}</h3>
-                <div className="price-tag">₹{item.sellPrice}</div>
+
+                <div className="price-tag">
+                  <span className="base-price">₹{getBasePrice(item)}</span>
+                  {item.variants && item.variants.length > 0 && (
+                    <span className="onwards-text">onwards</span>
+                  )}
+                </div>
 
                 <div className="card-actions">
                   {quantity > 0 ? (
@@ -246,6 +290,17 @@ const Menu = () => {
       />
 
       {isModalVisible && <Modal onClose={() => setIsModalVisible(false)} />}
+      <VariantSelectionModal
+        isOpen={isVariantModalOpen}
+        onClose={() => {
+          -
+            setIsVariantModalOpen(false);
+          setSelectedProduct(null);
+        }}
+        variants={selectedProduct?.variants || []}
+        onVariantSelect={handleVariantSelect}
+        itemName={selectedProduct?.itemName}
+      />
     </div>
   );
 };

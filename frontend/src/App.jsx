@@ -19,7 +19,6 @@ import { useUser } from './Components/Profile/UserContext';
 import { useCart } from './Pages/Cart/CartContext';
 
 
-
 function App() {
   const [isLogoutConfirmVisible, setIsLogoutConfirmVisible] = useState(false);
   const { setUserDetails } = useUser();
